@@ -1,4 +1,7 @@
 1. Múltiplos erros:
+      Malloc dentro do loop na linha 9: allocando memória várias vezes desnecessáriamente  e perdendo os possíveis valores assinalados das variáveis.
+      Possível desperdício de memória ao possivelmente alocar mais memória que seria usada no loop.
+      O código não faz nada (além de alocar e desalocar memória).
     
 
 2.
