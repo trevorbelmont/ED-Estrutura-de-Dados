@@ -1,0 +1,29 @@
+Usar SCRIPT para salvar histórico de terminal (iniciar e fechar):
+	script
+	exit
+
+
+Usar GDB  de forma silenciosa - sem verbosidades na inicialização:
+	gdb <program> -q
+	gdb <program> --quiet
+    
+    run     //roda o programa
+    quit    //sai do gdb
+
+Usar Valgrind (em modo silencioso)  para checar vazamentos de memória:
+	valgrind -q --leak-check=full ./<program>
+
+    valgrind -q ./<program>
+    
+	// "-q" ou "--quiet" dever vir logo depois de "valgrind" e antes das outras flags (tipo de depuração ("--leak-check=full") e <nome do programa>).
+
+
+Salvar e fechar Vim (caso um dia seja necessário ou louco o suficiente pra tentar a sorte) - NÃO RECOMENDADO.
+	Use "Esc" para mudar do "Insert Mode" (modo de escrita) para o "Command Mode".
+	Todo comando começa com ":" (dois pontos".
+		:w - Salva
+		:q - Quita
+		:wq - Em tese salva as alterações e fecha o Vim  (EM TESE)
+		:w! ou q! (não sei) - fecha o vim sem salvar as alterações de alguam forma
+
+	// se tiver opção use qualquer outro editor de texto com interface gráfica ou pelo menos o "nano" pq "vi" e "vim" são muito confusos.
