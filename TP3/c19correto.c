@@ -4,6 +4,7 @@
 
 char * buf;
 
+//realiza o somatório de 1 a "num" com incrementos simples (incremento de 1)
 int sum_to_n(int num)
 {
     int i,sum=0;
@@ -24,6 +25,7 @@ void printSum()
         strtok(line, "\n"); 
     sprintf(buf,"sum=%d",sum_to_n(atoi(line)));
     printf("%s\n",buf);
+    free(buf);
 }
 
 int main(void)

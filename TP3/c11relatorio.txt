@@ -1,3 +1,14 @@
+1. Malloc insuficiente (de apenas 8 bites) na oitava linha e não havia desalocação dessa memória.
+
+
+2.
+Log de compilação do gcc:
+c11.c:9:9: warning: ‘__builtin_memcpy’ writing 10 bytes into a region of size 8 overflows the destination [-Wstringop-overflow=]
+    9 |         strcpy(msg, "Holberton");
+      |         ^~~~~~~~~~~~~~~~~~~~~~~~
+13429, Rolberton
+
+valgrind:
 ==13429== Memcheck, a memory error detector
 ==13429== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
 ==13429== Using Valgrind-3.16.1 and LibVEX; rerun with -h for copyright info
@@ -58,3 +69,49 @@
 ==13429== 
 ==13429== For lists of detected and suppressed errors, rerun with: -s
 ==13429== ERROR SUMMARY: 7 errors from 5 contexts (suppressed: 0 from 0)
+
+valgrind: 
+==13436== Memcheck, a memory error detector
+==13436== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==13436== Using Valgrind-3.16.1 and LibVEX; rerun with -h for copyright info
+==13436== Command: ./bin/c11correto.exe
+==13436== Parent PID: 13420
+==13436== 
+==13436== 
+==13436== HEAP SUMMARY:
+==13436==     in use at exit: 10 bytes in 1 blocks
+==13436==   total heap usage: 2 allocs, 1 frees, 1,034 bytes allocated
+==13436== 
+==13436== 10 bytes in 1 blocks are definitely lost in loss record 1 of 1
+==13436==    at 0x483877F: malloc (vg_replace_malloc.c:307)
+==13436==    by 0x109166: main (c11correto.c:9)
+==13436== 
+==13436== LEAK SUMMARY:
+==13436==    definitely lost: 10 bytes in 1 blocks
+==13436==    indirectly lost: 0 bytes in 0 blocks
+==13436==      possibly lost: 0 bytes in 0 blocks
+==13436==    still reachable: 0 bytes in 0 blocks
+==13436==         suppressed: 0 bytes in 0 blocks
+==13436== 
+==13436== For lists of detected and suppressed errors, rerun with: -s
+==13436== ERROR SUMMARY: 1 errors from 1 contexts (suppressed: 0 from 0)
+
+
+
+4.
+valgrind:
+==13567== Memcheck, a memory error detector
+==13567== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==13567== Using Valgrind-3.16.1 and LibVEX; rerun with -h for copyright info
+==13567== Command: ./bin/c11correto.exe
+==13567== Parent PID: 13561
+==13567== 
+==13567== 
+==13567== HEAP SUMMARY:
+==13567==     in use at exit: 0 bytes in 0 blocks
+==13567==   total heap usage: 2 allocs, 2 frees, 1,034 bytes allocated
+==13567== 
+==13567== All heap blocks were freed -- no leaks are possible
+==13567== 
+==13567== For lists of detected and suppressed errors, rerun with: -s
+==13567== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)

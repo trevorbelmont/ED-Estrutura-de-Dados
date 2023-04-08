@@ -1,3 +1,36 @@
+1. O código foi feito para imprimir lixo de memória - e a correção manterá isso.
+Há um loop infinito, "while(1)", e alocação repetitiva de memória nesse loop.
+O programa printa inteiros do formato long it. Considerei mais seguro allocar com o sizeof long que com valores absolutos - que podem depender da arquitetura.
+
+
+2.
+devdias93@penguin:~/ED/TP3$ gdb bin/c10errado.exe -q
+Reading symbols from bin/c10errado.exe...
+(gdb) run
+Starting program: /home/devdias93/ED/TP3/bin/c10errado.exe 
+93824992252576
+93824992253760
+93824992253904
+93824992254048
+93824992254192
+93824992254336
+93824992254480
+...   ...  ...  (loop infinito)
+
+
+Program received signal SIGINT, Interrupt.
+0x00007ffff7ed8833 in __GI___libc_write (fd=1, buf=0x555555559330, nbytes=15) at ../sysdeps/unix/sysv/linux/write.c:26
+26      ../sysdeps/unix/sysv/linux/write.c: No such file or directory.
+(gdb) quit
+A debugging session is active.
+
+        Inferior 1 [process 10416] will be killed.
+
+Quit anyway? (y or n) y
+
+valgrind --log-file=logs/10_log_ruim  --leak-check=full ./bin/c10errado.exe
+cat logs/10_log_ruim >> c10relatorio.txt
+
 ==10977== Memcheck, a memory error detector
 ==10977== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
 ==10977== Using Valgrind-3.16.1 and LibVEX; rerun with -h for copyright info
@@ -36,3 +69,22 @@
 ==10977== 
 ==10977== For lists of detected and suppressed errors, rerun with: -s
 ==10977== ERROR SUMMARY: 1 errors from 1 contexts (suppressed: 0 from 0)
+
+
+
+4.
+==12225== Memcheck, a memory error detector
+==12225== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==12225== Using Valgrind-3.16.1 and LibVEX; rerun with -h for copyright info
+==12225== Command: ./bin/c10correto.exe
+==12225== Parent PID: 12219
+==12225== 
+==12225== 
+==12225== HEAP SUMMARY:
+==12225==     in use at exit: 0 bytes in 0 blocks
+==12225==   total heap usage: 2 allocs, 2 frees, 1,104 bytes allocated
+==12225== 
+==12225== All heap blocks were freed -- no leaks are possible
+==12225== 
+==12225== For lists of detected and suppressed errors, rerun with: -s
+==12225== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)

@@ -1,0 +1,63 @@
+1. 
+
+
+2.
+devdias93@penguin:~/ED/TP3$ gcc c16.c -o bin/c16errado.exe -g && gdb bin/c16errado.exe -q
+Reading symbols from bin/c16errado.exe...
+(gdb) run
+Starting program: /home/devdias93/ED/TP3/bin/c16errado.exe 
+
+Program received signal SIGFPE, Arithmetic exception.
+0x0000555555555133 in actual_calc (a=13, b=0) at c16.c:6
+6         c=a/b;
+(gdb) continue
+Continuing.
+
+Program terminated with signal SIGFPE, Arithmetic exception.
+The program no longer exists.
+(gdb) quit
+devdias93@penguin:~/ED/TP3$ gcc c16.c -o bin/c16errado.exe -g && valgrind ./bin/c16errado.exe 55 5
+==21708== Memcheck, a memory error detector
+==21708== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==21708== Using Valgrind-3.16.1 and LibVEX; rerun with -h for copyright info
+==21708== Command: ./bin/c16errado.exe 55 5
+==21708== 
+==21708== 
+==21708== Process terminating with default action of signal 8 (SIGFPE)
+==21708==  Integer divide by zero at address 0x10040E3B0E
+==21708==    at 0x109133: actual_calc (c16.c:6)
+==21708==    by 0x109164: calc (c16.c:15)
+==21708==    by 0x109179: main (c16.c:20)
+==21708== 
+==21708== HEAP SUMMARY:
+==21708==     in use at exit: 0 bytes in 0 blocks
+==21708==   total heap usage: 0 allocs, 0 frees, 0 bytes allocated
+==21708== 
+==21708== All heap blocks were freed -- no leaks are possible
+==21708== 
+==21708== For lists of detected and suppressed errors, rerun with: -s
+==21708== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+Floating point exception (core dumped)
+devdias93@penguin:~/ED/TP3$ 
+
+
+4.
+devdias93@penguin:~/ED/TP3$ gcc c16correto.c -o bin/c16correto.exe -g && valgrind -q bin/c16correto.exe 8 3
+ a razão inteira dá: 2
+devdias93@penguin:~/ED/TP3$ gcc c16correto.c -o bin/c16correto.exe -g && valgrind  bin/c16correto.exe 8 3
+==21856== Memcheck, a memory error detector
+==21856== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==21856== Using Valgrind-3.16.1 and LibVEX; rerun with -h for copyright info
+==21856== Command: bin/c16correto.exe 8 3
+==21856== 
+ a razão inteira dá: 2
+==21856== 
+==21856== HEAP SUMMARY:
+==21856==     in use at exit: 0 bytes in 0 blocks
+==21856==   total heap usage: 1 allocs, 1 frees, 1,024 bytes allocated
+==21856== 
+==21856== All heap blocks were freed -- no leaks are possible
+==21856== 
+==21856== For lists of detected and suppressed errors, rerun with: -s
+==21856== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+devdias93@penguin:~/ED/TP3$ 

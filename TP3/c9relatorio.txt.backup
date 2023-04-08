@@ -1,0 +1,138 @@
+1. 
+
+
+2.
+==9365== Memcheck, a memory error detector
+==9365== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==9365== Using Valgrind-3.16.1 and LibVEX; rerun with -h for copyright info
+==9365== Command: ./bin/c9errado.exe
+==9365== Parent PID: 9359
+==9365== 
+==9365== Invalid write of size 4
+==9365==    at 0x109153: f (c9.c:6)
+==9365==    by 0x109164: main (c9.c:11)
+==9365==  Address 0x4a28068 is 0 bytes after a block of size 40 alloc'd
+==9365==    at 0x483877F: malloc (vg_replace_malloc.c:307)
+==9365==    by 0x109146: f (c9.c:5)
+==9365==    by 0x109164: main (c9.c:11)
+==9365== 
+==9365== 
+==9365== HEAP SUMMARY:
+==9365==     in use at exit: 40 bytes in 1 blocks
+==9365==   total heap usage: 1 allocs, 0 frees, 40 bytes allocated
+==9365== 
+==9365== 40 bytes in 1 blocks are definitely lost in loss record 1 of 1
+==9365==    at 0x483877F: malloc (vg_replace_malloc.c:307)
+==9365==    by 0x109146: f (c9.c:5)
+==9365==    by 0x109164: main (c9.c:11)
+==9365== 
+==9365== LEAK SUMMARY:
+==9365==    definitely lost: 40 bytes in 1 blocks
+==9365==    indirectly lost: 0 bytes in 0 blocks
+==9365==      possibly lost: 0 bytes in 0 blocks
+==9365==    still reachable: 0 bytes in 0 blocks
+==9365==         suppressed: 0 bytes in 0 blocks
+==9365== 
+==9365== For lists of detected and suppressed errors, rerun with: -s
+==9365== ERROR SUMMARY: 2 errors from 2 contexts (suppressed: 0 from 0)
+
+
+4.
+==9496== Memcheck, a memory error detector
+==9496== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==9496== Using Valgrind-3.16.1 and LibVEX; rerun with -h for copyright info
+==9496== Command: ./bin/c9correto.exe
+==9496== Parent PID: 9490
+==9496== 
+==9496== Invalid write of size 4
+==9496==    at 0x10916C: f (c9correto.c:8)
+==9496==    by 0x10917D: main (c9correto.c:13)
+==9496==  Address 0x4a2803c is 4 bytes before a block of size 0 alloc'd
+==9496==    at 0x483877F: malloc (vg_replace_malloc.c:307)
+==9496==    by 0x109150: f (c9correto.c:7)
+==9496==    by 0x10917D: main (c9correto.c:13)
+==9496== 
+==9496== 
+==9496== HEAP SUMMARY:
+==9496==     in use at exit: 0 bytes in 1 blocks
+==9496==   total heap usage: 1 allocs, 0 frees, 0 bytes allocated
+==9496== 
+==9496== 0 bytes in 1 blocks are definitely lost in loss record 1 of 1
+==9496==    at 0x483877F: malloc (vg_replace_malloc.c:307)
+==9496==    by 0x109150: f (c9correto.c:7)
+==9496==    by 0x10917D: main (c9correto.c:13)
+==9496== 
+==9496== LEAK SUMMARY:
+==9496==    definitely lost: 0 bytes in 1 blocks
+==9496==    indirectly lost: 0 bytes in 0 blocks
+==9496==      possibly lost: 0 bytes in 0 blocks
+==9496==    still reachable: 0 bytes in 0 blocks
+==9496==         suppressed: 0 bytes in 0 blocks
+==9496== 
+==9496== For lists of detected and suppressed errors, rerun with: -s
+==9496== ERROR SUMMARY: 2 errors from 2 contexts (suppressed: 0 from 0)
+1. 
+
+
+2.
+==9712== Memcheck, a memory error detector
+==9712== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==9712== Using Valgrind-3.16.1 and LibVEX; rerun with -h for copyright info
+==9712== Command: ./bin/c9errado.exe
+==9712== Parent PID: 9668
+==9712== 
+==9712== Invalid write of size 4
+==9712==    at 0x109153: f (c9.c:6)
+==9712==    by 0x109164: main (c9.c:11)
+==9712==  Address 0x4a28068 is 0 bytes after a block of size 40 alloc'd
+==9712==    at 0x483877F: malloc (vg_replace_malloc.c:307)
+==9712==    by 0x109146: f (c9.c:5)
+==9712==    by 0x109164: main (c9.c:11)
+==9712== 
+==9712== 
+==9712== HEAP SUMMARY:
+==9712==     in use at exit: 40 bytes in 1 blocks
+==9712==   total heap usage: 1 allocs, 0 frees, 40 bytes allocated
+==9712== 
+==9712== 40 bytes in 1 blocks are definitely lost in loss record 1 of 1
+==9712==    at 0x483877F: malloc (vg_replace_malloc.c:307)
+==9712==    by 0x109146: f (c9.c:5)
+==9712==    by 0x109164: main (c9.c:11)
+==9712== 
+==9712== LEAK SUMMARY:
+==9712==    definitely lost: 40 bytes in 1 blocks
+==9712==    indirectly lost: 0 bytes in 0 blocks
+==9712==      possibly lost: 0 bytes in 0 blocks
+==9712==    still reachable: 0 bytes in 0 blocks
+==9712==         suppressed: 0 bytes in 0 blocks
+==9712== 
+==9712== For lists of detected and suppressed errors, rerun with: -s
+==9712== ERROR SUMMARY: 2 errors from 2 contexts (suppressed: 0 from 0)
+
+
+4.
+==9730== Memcheck, a memory error detector
+==9730== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==9730== Using Valgrind-3.16.1 and LibVEX; rerun with -h for copyright info
+==9730== Command: ./bin/c9correto.exe
+==9730== Parent PID: 9668
+==9730== 
+==9730== 
+==9730== HEAP SUMMARY:
+==9730==     in use at exit: 40 bytes in 1 blocks
+==9730==   total heap usage: 1 allocs, 0 frees, 40 bytes allocated
+==9730== 
+==9730== 40 bytes in 1 blocks are definitely lost in loss record 1 of 1
+==9730==    at 0x483877F: malloc (vg_replace_malloc.c:307)
+==9730==    by 0x109150: f (c9correto.c:7)
+==9730==    by 0x109187: main (c9correto.c:13)
+==9730== 
+==9730== LEAK SUMMARY:
+==9730==    definitely lost: 40 bytes in 1 blocks
+==9730==    indirectly lost: 0 bytes in 0 blocks
+==9730==      possibly lost: 0 bytes in 0 blocks
+==9730==    still reachable: 0 bytes in 0 blocks
+==9730==         suppressed: 0 bytes in 0 blocks
+==9730== 
+==9730== For lists of detected and suppressed errors, rerun with: -s
+==9730== ERROR SUMMARY: 1 errors from 1 contexts (suppressed: 0 from 0)

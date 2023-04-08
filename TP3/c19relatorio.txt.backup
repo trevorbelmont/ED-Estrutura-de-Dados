@@ -1,0 +1,395 @@
+1. 
+
+2. 
+
+4. 1. 
+
+
+2.
+==21975== Memcheck, a memory error detector
+==21975== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==21975== Using Valgrind-3.16.1 and LibVEX; rerun with -h for copyright info
+==21975== Command: ./bin/c19errado.exe
+==21975== Parent PID: 21945
+==21975== 
+==21975== Invalid write of size 1
+==21975==    at 0x48D12E1: _IO_str_overflow (strops.c:133)
+==21975==    by 0x48CFBA0: _IO_default_xsputn (genops.c:399)
+==21975==    by 0x48CFBA0: _IO_default_xsputn (genops.c:370)
+==21975==    by 0x48B6D7F: __vfprintf_internal (vfprintf-internal.c:1373)
+==21975==    by 0x48C40CF: __vsprintf_internal (iovsprintf.c:96)
+==21975==    by 0x48A3F13: sprintf (sprintf.c:30)
+==21975==    by 0x109211: printSum (c19.c:22)
+==21975==    by 0x109231: main (c19.c:28)
+==21975==  Address 0x0 is not stack'd, malloc'd or (recently) free'd
+==21975== 
+==21975== 
+==21975== Process terminating with default action of signal 11 (SIGSEGV)
+==21975==  Access not within mapped region at address 0x0
+==21975==    at 0x48D12E1: _IO_str_overflow (strops.c:133)
+==21975==    by 0x48CFBA0: _IO_default_xsputn (genops.c:399)
+==21975==    by 0x48CFBA0: _IO_default_xsputn (genops.c:370)
+==21975==    by 0x48B6D7F: __vfprintf_internal (vfprintf-internal.c:1373)
+==21975==    by 0x48C40CF: __vsprintf_internal (iovsprintf.c:96)
+==21975==    by 0x48A3F13: sprintf (sprintf.c:30)
+==21975==    by 0x109211: printSum (c19.c:22)
+==21975==    by 0x109231: main (c19.c:28)
+==21975==  If you believe this happened as a result of a stack
+==21975==  overflow in your program's main thread (unlikely but
+==21975==  possible), you can try to increase the size of the
+==21975==  main thread stack using the --main-stacksize= flag.
+==21975==  The main thread stack size used in this run was 8388608.
+==21975== 
+==21975== HEAP SUMMARY:
+==21975==     in use at exit: 0 bytes in 0 blocks
+==21975==   total heap usage: 2 allocs, 2 frees, 2,048 bytes allocated
+==21975== 
+==21975== All heap blocks were freed -- no leaks are possible
+==21975== 
+==21975== For lists of detected and suppressed errors, rerun with: -s
+==21975== ERROR SUMMARY: 1 errors from 1 contexts (suppressed: 0 from 0)
+
+
+4.
+==22000== Memcheck, a memory error detector
+==22000== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==22000== Using Valgrind-3.16.1 and LibVEX; rerun with -h for copyright info
+==22000== Command: ./bin/c19correto.exe
+==22000== Parent PID: 21945
+==22000== 
+==22000== 
+==22000== HEAP SUMMARY:
+==22000==     in use at exit: 10 bytes in 1 blocks
+==22000==   total heap usage: 3 allocs, 2 frees, 2,058 bytes allocated
+==22000== 
+==22000== LEAK SUMMARY:
+==22000==    definitely lost: 0 bytes in 0 blocks
+==22000==    indirectly lost: 0 bytes in 0 blocks
+==22000==      possibly lost: 0 bytes in 0 blocks
+==22000==    still reachable: 10 bytes in 1 blocks
+==22000==         suppressed: 0 bytes in 0 blocks
+==22000== Reachable blocks (those to which a pointer was found) are not shown.
+==22000== To see them, rerun with: --leak-check=full --show-leak-kinds=all
+==22000== 
+==22000== For lists of detected and suppressed errors, rerun with: -s
+==22000== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+1. 
+
+
+2.
+==22168== Memcheck, a memory error detector
+==22168== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==22168== Using Valgrind-3.16.1 and LibVEX; rerun with -h for copyright info
+==22168== Command: ./bin/c19errado.exe
+==22168== Parent PID: 22141
+==22168== 
+==22168== Invalid write of size 1
+==22168==    at 0x48D12E1: _IO_str_overflow (strops.c:133)
+==22168==    by 0x48CFBA0: _IO_default_xsputn (genops.c:399)
+==22168==    by 0x48CFBA0: _IO_default_xsputn (genops.c:370)
+==22168==    by 0x48B6D7F: __vfprintf_internal (vfprintf-internal.c:1373)
+==22168==    by 0x48C40CF: __vsprintf_internal (iovsprintf.c:96)
+==22168==    by 0x48A3F13: sprintf (sprintf.c:30)
+==22168==    by 0x109211: printSum (c19.c:22)
+==22168==    by 0x109231: main (c19.c:28)
+==22168==  Address 0x0 is not stack'd, malloc'd or (recently) free'd
+==22168== 
+==22168== 
+==22168== Process terminating with default action of signal 11 (SIGSEGV)
+==22168==  Access not within mapped region at address 0x0
+==22168==    at 0x48D12E1: _IO_str_overflow (strops.c:133)
+==22168==    by 0x48CFBA0: _IO_default_xsputn (genops.c:399)
+==22168==    by 0x48CFBA0: _IO_default_xsputn (genops.c:370)
+==22168==    by 0x48B6D7F: __vfprintf_internal (vfprintf-internal.c:1373)
+==22168==    by 0x48C40CF: __vsprintf_internal (iovsprintf.c:96)
+==22168==    by 0x48A3F13: sprintf (sprintf.c:30)
+==22168==    by 0x109211: printSum (c19.c:22)
+==22168==    by 0x109231: main (c19.c:28)
+==22168==  If you believe this happened as a result of a stack
+==22168==  overflow in your program's main thread (unlikely but
+==22168==  possible), you can try to increase the size of the
+==22168==  main thread stack using the --main-stacksize= flag.
+==22168==  The main thread stack size used in this run was 8388608.
+==22168== 
+==22168== HEAP SUMMARY:
+==22168==     in use at exit: 0 bytes in 0 blocks
+==22168==   total heap usage: 2 allocs, 2 frees, 2,048 bytes allocated
+==22168== 
+==22168== All heap blocks were freed -- no leaks are possible
+==22168== 
+==22168== For lists of detected and suppressed errors, rerun with: -s
+==22168== ERROR SUMMARY: 1 errors from 1 contexts (suppressed: 0 from 0)
+
+
+4.
+==22193== Memcheck, a memory error detector
+==22193== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==22193== Using Valgrind-3.16.1 and LibVEX; rerun with -h for copyright info
+==22193== Command: ./bin/c19correto.exe
+==22193== Parent PID: 22141
+==22193== 
+==22193== 
+==22193== HEAP SUMMARY:
+==22193==     in use at exit: 0 bytes in 0 blocks
+==22193==   total heap usage: 3 allocs, 3 frees, 2,058 bytes allocated
+==22193== 
+==22193== All heap blocks were freed -- no leaks are possible
+==22193== 
+==22193== For lists of detected and suppressed errors, rerun with: -s
+==22193== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+1. 
+
+
+2.
+==22384== Memcheck, a memory error detector
+==22384== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==22384== Using Valgrind-3.16.1 and LibVEX; rerun with -h for copyright info
+==22384== Command: ./bin/c19errado.exe
+==22384== Parent PID: 22339
+==22384== 
+==22384== Invalid write of size 1
+==22384==    at 0x48D12E1: _IO_str_overflow (strops.c:133)
+==22384==    by 0x48CFBA0: _IO_default_xsputn (genops.c:399)
+==22384==    by 0x48CFBA0: _IO_default_xsputn (genops.c:370)
+==22384==    by 0x48B6D7F: __vfprintf_internal (vfprintf-internal.c:1373)
+==22384==    by 0x48C40CF: __vsprintf_internal (iovsprintf.c:96)
+==22384==    by 0x48A3F13: sprintf (sprintf.c:30)
+==22384==    by 0x109211: printSum (c19.c:22)
+==22384==    by 0x109231: main (c19.c:28)
+==22384==  Address 0x0 is not stack'd, malloc'd or (recently) free'd
+==22384== 
+==22384== 
+==22384== Process terminating with default action of signal 11 (SIGSEGV)
+==22384==  Access not within mapped region at address 0x0
+==22384==    at 0x48D12E1: _IO_str_overflow (strops.c:133)
+==22384==    by 0x48CFBA0: _IO_default_xsputn (genops.c:399)
+==22384==    by 0x48CFBA0: _IO_default_xsputn (genops.c:370)
+==22384==    by 0x48B6D7F: __vfprintf_internal (vfprintf-internal.c:1373)
+==22384==    by 0x48C40CF: __vsprintf_internal (iovsprintf.c:96)
+==22384==    by 0x48A3F13: sprintf (sprintf.c:30)
+==22384==    by 0x109211: printSum (c19.c:22)
+==22384==    by 0x109231: main (c19.c:28)
+==22384==  If you believe this happened as a result of a stack
+==22384==  overflow in your program's main thread (unlikely but
+==22384==  possible), you can try to increase the size of the
+==22384==  main thread stack using the --main-stacksize= flag.
+==22384==  The main thread stack size used in this run was 8388608.
+==22384== 
+==22384== HEAP SUMMARY:
+==22384==     in use at exit: 0 bytes in 0 blocks
+==22384==   total heap usage: 2 allocs, 2 frees, 2,048 bytes allocated
+==22384== 
+==22384== All heap blocks were freed -- no leaks are possible
+==22384== 
+==22384== For lists of detected and suppressed errors, rerun with: -s
+==22384== ERROR SUMMARY: 1 errors from 1 contexts (suppressed: 0 from 0)
+
+
+4.
+==22409== Memcheck, a memory error detector
+==22409== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==22409== Using Valgrind-3.16.1 and LibVEX; rerun with -h for copyright info
+==22409== Command: ./bin/c19correto.exe
+==22409== Parent PID: 22339
+==22409== 
+==22409== 
+==22409== HEAP SUMMARY:
+==22409==     in use at exit: 0 bytes in 0 blocks
+==22409==   total heap usage: 3 allocs, 3 frees, 2,058 bytes allocated
+==22409== 
+==22409== All heap blocks were freed -- no leaks are possible
+==22409== 
+==22409== For lists of detected and suppressed errors, rerun with: -s
+==22409== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+1. 
+
+
+2.
+==22596== Memcheck, a memory error detector
+==22596== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==22596== Using Valgrind-3.16.1 and LibVEX; rerun with -h for copyright info
+==22596== Command: ./bin/c19errado.exe
+==22596== Parent PID: 22573
+==22596== 
+==22596== Invalid write of size 1
+==22596==    at 0x48D12E1: _IO_str_overflow (strops.c:133)
+==22596==    by 0x48CFBA0: _IO_default_xsputn (genops.c:399)
+==22596==    by 0x48CFBA0: _IO_default_xsputn (genops.c:370)
+==22596==    by 0x48B6D7F: __vfprintf_internal (vfprintf-internal.c:1373)
+==22596==    by 0x48C40CF: __vsprintf_internal (iovsprintf.c:96)
+==22596==    by 0x48A3F13: sprintf (sprintf.c:30)
+==22596==    by 0x109211: printSum (c19.c:22)
+==22596==    by 0x109231: main (c19.c:28)
+==22596==  Address 0x0 is not stack'd, malloc'd or (recently) free'd
+==22596== 
+==22596== 
+==22596== Process terminating with default action of signal 11 (SIGSEGV)
+==22596==  Access not within mapped region at address 0x0
+==22596==    at 0x48D12E1: _IO_str_overflow (strops.c:133)
+==22596==    by 0x48CFBA0: _IO_default_xsputn (genops.c:399)
+==22596==    by 0x48CFBA0: _IO_default_xsputn (genops.c:370)
+==22596==    by 0x48B6D7F: __vfprintf_internal (vfprintf-internal.c:1373)
+==22596==    by 0x48C40CF: __vsprintf_internal (iovsprintf.c:96)
+==22596==    by 0x48A3F13: sprintf (sprintf.c:30)
+==22596==    by 0x109211: printSum (c19.c:22)
+==22596==    by 0x109231: main (c19.c:28)
+==22596==  If you believe this happened as a result of a stack
+==22596==  overflow in your program's main thread (unlikely but
+==22596==  possible), you can try to increase the size of the
+==22596==  main thread stack using the --main-stacksize= flag.
+==22596==  The main thread stack size used in this run was 8388608.
+==22596== 
+==22596== HEAP SUMMARY:
+==22596==     in use at exit: 0 bytes in 0 blocks
+==22596==   total heap usage: 2 allocs, 2 frees, 2,048 bytes allocated
+==22596== 
+==22596== All heap blocks were freed -- no leaks are possible
+==22596== 
+==22596== For lists of detected and suppressed errors, rerun with: -s
+==22596== ERROR SUMMARY: 1 errors from 1 contexts (suppressed: 0 from 0)
+
+
+4.
+==22645== Memcheck, a memory error detector
+==22645== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==22645== Using Valgrind-3.16.1 and LibVEX; rerun with -h for copyright info
+==22645== Command: ./bin/c19correto.exe
+==22645== Parent PID: 22573
+==22645== 
+==22645== 
+==22645== HEAP SUMMARY:
+==22645==     in use at exit: 0 bytes in 0 blocks
+==22645==   total heap usage: 3 allocs, 3 frees, 2,058 bytes allocated
+==22645== 
+==22645== All heap blocks were freed -- no leaks are possible
+==22645== 
+==22645== For lists of detected and suppressed errors, rerun with: -s
+==22645== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+1. 
+
+
+2.
+==22803== Memcheck, a memory error detector
+==22803== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==22803== Using Valgrind-3.16.1 and LibVEX; rerun with -h for copyright info
+==22803== Command: ./bin/c19errado.exe
+==22803== Parent PID: 22775
+==22803== 
+==22803== Invalid write of size 1
+==22803==    at 0x48D12E1: _IO_str_overflow (strops.c:133)
+==22803==    by 0x48CFBA0: _IO_default_xsputn (genops.c:399)
+==22803==    by 0x48CFBA0: _IO_default_xsputn (genops.c:370)
+==22803==    by 0x48B6D7F: __vfprintf_internal (vfprintf-internal.c:1373)
+==22803==    by 0x48C40CF: __vsprintf_internal (iovsprintf.c:96)
+==22803==    by 0x48A3F13: sprintf (sprintf.c:30)
+==22803==    by 0x109211: printSum (c19.c:22)
+==22803==    by 0x109231: main (c19.c:28)
+==22803==  Address 0x0 is not stack'd, malloc'd or (recently) free'd
+==22803== 
+==22803== 
+==22803== Process terminating with default action of signal 11 (SIGSEGV)
+==22803==  Access not within mapped region at address 0x0
+==22803==    at 0x48D12E1: _IO_str_overflow (strops.c:133)
+==22803==    by 0x48CFBA0: _IO_default_xsputn (genops.c:399)
+==22803==    by 0x48CFBA0: _IO_default_xsputn (genops.c:370)
+==22803==    by 0x48B6D7F: __vfprintf_internal (vfprintf-internal.c:1373)
+==22803==    by 0x48C40CF: __vsprintf_internal (iovsprintf.c:96)
+==22803==    by 0x48A3F13: sprintf (sprintf.c:30)
+==22803==    by 0x109211: printSum (c19.c:22)
+==22803==    by 0x109231: main (c19.c:28)
+==22803==  If you believe this happened as a result of a stack
+==22803==  overflow in your program's main thread (unlikely but
+==22803==  possible), you can try to increase the size of the
+==22803==  main thread stack using the --main-stacksize= flag.
+==22803==  The main thread stack size used in this run was 8388608.
+==22803== 
+==22803== HEAP SUMMARY:
+==22803==     in use at exit: 0 bytes in 0 blocks
+==22803==   total heap usage: 2 allocs, 2 frees, 2,048 bytes allocated
+==22803== 
+==22803== All heap blocks were freed -- no leaks are possible
+==22803== 
+==22803== For lists of detected and suppressed errors, rerun with: -s
+==22803== ERROR SUMMARY: 1 errors from 1 contexts (suppressed: 0 from 0)
+
+
+4.
+==22866== Memcheck, a memory error detector
+==22866== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==22866== Using Valgrind-3.16.1 and LibVEX; rerun with -h for copyright info
+==22866== Command: ./bin/c19correto.exe
+==22866== Parent PID: 22775
+==22866== 
+==22866== 
+==22866== HEAP SUMMARY:
+==22866==     in use at exit: 0 bytes in 0 blocks
+==22866==   total heap usage: 3 allocs, 3 frees, 2,058 bytes allocated
+==22866== 
+==22866== All heap blocks were freed -- no leaks are possible
+==22866== 
+==22866== For lists of detected and suppressed errors, rerun with: -s
+==22866== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+1. O código implementava um somatório simples de incremento de um por um
+
+
+2.
+==23310== Memcheck, a memory error detector
+==23310== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==23310== Using Valgrind-3.16.1 and LibVEX; rerun with -h for copyright info
+==23310== Command: ./bin/c19errado.exe
+==23310== Parent PID: 23272
+==23310== 
+==23310== Invalid write of size 1
+==23310==    at 0x48D12E1: _IO_str_overflow (strops.c:133)
+==23310==    by 0x48CFBA0: _IO_default_xsputn (genops.c:399)
+==23310==    by 0x48CFBA0: _IO_default_xsputn (genops.c:370)
+==23310==    by 0x48B6D7F: __vfprintf_internal (vfprintf-internal.c:1373)
+==23310==    by 0x48C40CF: __vsprintf_internal (iovsprintf.c:96)
+==23310==    by 0x48A3F13: sprintf (sprintf.c:30)
+==23310==    by 0x109211: printSum (c19.c:22)
+==23310==    by 0x109231: main (c19.c:28)
+==23310==  Address 0x0 is not stack'd, malloc'd or (recently) free'd
+==23310== 
+==23310== 
+==23310== Process terminating with default action of signal 11 (SIGSEGV)
+==23310==  Access not within mapped region at address 0x0
+==23310==    at 0x48D12E1: _IO_str_overflow (strops.c:133)
+==23310==    by 0x48CFBA0: _IO_default_xsputn (genops.c:399)
+==23310==    by 0x48CFBA0: _IO_default_xsputn (genops.c:370)
+==23310==    by 0x48B6D7F: __vfprintf_internal (vfprintf-internal.c:1373)
+==23310==    by 0x48C40CF: __vsprintf_internal (iovsprintf.c:96)
+==23310==    by 0x48A3F13: sprintf (sprintf.c:30)
+==23310==    by 0x109211: printSum (c19.c:22)
+==23310==    by 0x109231: main (c19.c:28)
+==23310==  If you believe this happened as a result of a stack
+==23310==  overflow in your program's main thread (unlikely but
+==23310==  possible), you can try to increase the size of the
+==23310==  main thread stack using the --main-stacksize= flag.
+==23310==  The main thread stack size used in this run was 8388608.
+==23310== 
+==23310== HEAP SUMMARY:
+==23310==     in use at exit: 0 bytes in 0 blocks
+==23310==   total heap usage: 2 allocs, 2 frees, 2,048 bytes allocated
+==23310== 
+==23310== All heap blocks were freed -- no leaks are possible
+==23310== 
+==23310== For lists of detected and suppressed errors, rerun with: -s
+==23310== ERROR SUMMARY: 1 errors from 1 contexts (suppressed: 0 from 0)
+
+
+4.
+==23353== Memcheck, a memory error detector
+==23353== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==23353== Using Valgrind-3.16.1 and LibVEX; rerun with -h for copyright info
+==23353== Command: ./bin/c19correto.exe
+==23353== Parent PID: 23272
+==23353== 
+==23353== 
+==23353== HEAP SUMMARY:
+==23353==     in use at exit: 0 bytes in 0 blocks
+==23353==   total heap usage: 3 allocs, 3 frees, 2,058 bytes allocated
+==23353== 
+==23353== All heap blocks were freed -- no leaks are possible
+==23353== 
+==23353== For lists of detected and suppressed errors, rerun with: -s
+==23353== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
