@@ -23,10 +23,29 @@ int main() {
         // cout << x * 4;
         q.push((int)x);
         break;
-      case 'l':
-        for (int i = 0; i < q.getMaxSize(); i++)
-          cout << q.get(i) << " " << endl;
+
+      case 'p':
+        q.pop();
         break;
+
+      case 'l':
+        for (int i = 0; i < q.getMaxSize(); i++) {
+          if (q.first == i) cout << "f >> ";
+          if (q.pos() == i) cout << "e >> ";
+          cout << " >> " << q.get(i) << " [" << i << "]" << endl;
+        }
+        break;
+
+      case 'n':
+        cout << "Next index: " << q.pos();
+        break;
+
+      case 'g':
+        cout << "f >> " << q.front() << endl;
+      case 'e':
+        cout << q.empty() << "<- Empty //  Size -> " << q.getSize() << " / " << q.getMaxSize() << endl;
+        break;
+
       case 'q':
         exit(0);
         break;
