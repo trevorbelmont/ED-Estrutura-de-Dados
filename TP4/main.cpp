@@ -1,29 +1,41 @@
 #include <iostream>
 
+#include "fila_pilhada.hpp"
+
+// descomentar encapsulamento (private in hpp)!
+
 using namespace std;
 
 int main() {
-  int *pointer = new int[5];
+  rQeuee q(3);
 
-    cout << "pointer[3] é null : 0º" << endl;
-    cout << pointer[3] << endl;
+  char op;
 
-  for (int i = 0; i < 5; i++) {
-    pointer[i] = i * 2;
-  }
+  do {
+    cout << "Press  opperation <char> :  ";
+    cin >> op;
 
-  cout << " pointer[3] é null : 1º" << endl;
-  cout << pointer[3] << endl;
+    switch (op) {
+      case 'i':
+        cout << "Enter int to insert it in the last," << q.last << "ésima, position:" << endl;
+        int x;
+        cin >> x;
+        // cout << x * 4;
+        q.push((int)x);
+        break;
+      case 'l':
+        for (int i = 0; i < q.getMaxSize(); i++)
+          cout << q.get(i) << " " << endl;
+        break;
+      case 'q':
+        exit(0);
+        break;
 
-  delete[] pointer;
-
-  if (pointer[3] == (int)NULL) {
-    cout << " pointer[3] é null : 2º" << endl;
-    cout << pointer[3] << endl;
-  }
-  cout << " pointer[3] NÃO é null NÃO : 2º" << endl;
-    cout << pointer[3] << endl;
-  
+      default:
+        cout << "Opção não prevista. Use chars." << endl;
+        break;
+    }
+  } while (op != 'q');  // q = quit
 
   return 0;
 }

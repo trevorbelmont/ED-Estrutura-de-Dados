@@ -1,0 +1,25 @@
+{
+  "tasks": [
+      {
+          "type": "shell",
+          "label": "Compilar",
+          "command": "g++ fil*.cpp main.cpp -o tp4 -g",
+          "problemMatcher": [],
+          "group": {
+              "kind": "build",
+              "isDefault": true
+          }
+      },
+      {
+          "type": "shell",
+          "label": "Executar",
+          "command": "./tp4",
+          "problemMatcher": [],
+          "group": {
+              "kind": "test",
+              "isDefault": true
+          }
+      }
+  ],
+  "version": "2.0.0"
+}
