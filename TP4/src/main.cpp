@@ -29,7 +29,7 @@ int main(int argc, char *argv[]) {
 void test(int length) {
   rQeuee q(length);
 
-  cout << "Enfileira a Fila (FiFo): " << endl;
+  cout << "Enfileira, rQeuee.push(), a Fila (FiFo): " << endl;
   for (int i = 0; i < length; i++) {
     int rndm = rand() % 10;
     cout << rndm << " ";
@@ -38,11 +38,12 @@ void test(int length) {
   cout << endl;
   q.Fifo2Lifo();
 
-  cout << "Desempilha fila convertida em pilha (LiFo): " << endl;
-  for (int i = 0; i < length / 2; i++) {
-    q.list();
+  cout << "Desempilha ,rQeuee.pop(), fila convertida em pilha, rQeuee.Fifo2LiFo(): " << endl;
+  for (int i = 0; i < length; i++) {
+    // q.list();
     cout << q.pop() << " ";
   }
+  cout << endl;
 }
 
 void interface() {
@@ -59,7 +60,7 @@ void interface() {
 
     switch (op) {
       case 'i':
-        cout << "Enter int to insert it in the last," << q.last << "ésima, position:" << endl;
+        cout << "Enter int to insert it in the last, position:" << endl;
         int x;
         cin >> x;
         // cout << x * 4;
@@ -75,8 +76,8 @@ void interface() {
         break;
 
       case 'n':
-        cout << "Next index: " << q.pos() << endl;
-        ;
+          // cout << "Next index: " << q.pos() << endl;
+          ;
         break;
 
       case 'f':

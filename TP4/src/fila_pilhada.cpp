@@ -22,7 +22,7 @@ rQeuee::rQeuee(int n) : rQeuee() {
 
 rQeuee::~rQeuee() {
   delete[] qeuee;
-  delete[] temp;
+  // delete[] temp;
 }
 
 bool rQeuee::empty() {
@@ -36,7 +36,7 @@ bool rQeuee::empty() {
 }
 
 int rQeuee::get(int i) {
-  return qeuee[i];
+  return qeuee[first];
 }
 
 int rQeuee::getSize() {
