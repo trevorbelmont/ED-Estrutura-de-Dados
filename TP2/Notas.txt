@@ -1,0 +1,14 @@
+No terminal
+
+"time <comando>"  // mostra os tempos de execução de um programa
+top               // comando para ver tipo um task manager 
+man getrusage     // referência de uso de getrusage
+man clock_gettime // referência de uso de clock_gettime
+
+
+
+gprof    //programa para debug
+GNUPLOT  // ferramenta para gerar gráfico
+
+
+*"meça os tempos de utilização" : getrusage
