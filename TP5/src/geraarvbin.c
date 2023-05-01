@@ -90,7 +90,7 @@ void parse_args(int argc, char **argv, prm_t *prm)
 void dumpTree(TipoApontador *T, int level, prm_t *prm, int parent) {
   if ((*T) != NULL) {
     for (int i = 0; i < level; i++) fprintf(prm->saida, "    ");
-    fprintf(prm->saida, " %3ld (%d) ->%d\n", (*T)->Reg.Chave, level, parent);
+    fprintf(prm->saida, " %3ld (%d)\n", (*T)->Reg.Chave, level);
 
     // Imprime nós apontando o parent//fprintf(prm->saida, " %3ld (%d) ->%d\n", (*T)->Reg.Chave, level, parent);
 
@@ -172,9 +172,9 @@ char *ancestral(int i, int j) {
         jIPr = k;
       }
     }
-  }  // corrigir  exe -o file.txt -n 7 -s 4
-  printf("pos: i = %d, j = %d     pre: iPr = %d, jPr = %d  \n", iIPt, jIPt, iIPr, jIPr);
-  // checks if j comes before i in post-order && j comes after i in pre-order
+  }
+  // printf("pos: i = %d, j = %d     pre: iPr = %d, jPr = %d  \n", iIPt, jIPt, iIPr, jIPr);
+  //  checks if j comes before i in post-order && j comes after i in pre-order
   char *result = (char *)malloc(5 * sizeof(char));
   if ((iIPt >= jIPt) && (iIPr <= jIPr)) {
     result = "true";
@@ -238,7 +238,6 @@ int main(int argc, char *argv[]) {
     }
     char *result = ancestral(i, j);
     fprintf(prm.saida, "%3d testando ancestral(%2d,%2d) = %s\n", k, i, j, result);
-    // free(result);
   }
 
   fclose(prm.saida);
