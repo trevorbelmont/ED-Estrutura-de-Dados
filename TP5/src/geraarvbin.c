@@ -204,32 +204,43 @@ int main(int argc, char *argv[]) {
   /******< Imprime Pré-Ordem, In-Ordem e Pós-Ordem >********/
 
   nodeCount = index = pre_order(&root, pre_ordered, &index);
+  fprintf(prm.saida, "\n\n");
+  fprintf(prm.saida, "Pré-ordered [%d]:  ", index);
 
   printf("Pré-ordered [%d]:  ", index);
+
   for (int i = 0; i < nodeCount; i++) {
     printf(" %d", pre_ordered[i]);
+    fprintf(prm.saida, " %d", pre_ordered[i]);
   }
   printf("\n");
-  in_ordered = (int *)calloc(index + 1, sizeof(int));
+  fprintf(prm.saida, "\n");
 
+  in_ordered = (int *)calloc(index + 1, sizeof(int));
   index = 0;
   index = in_order(&root, in_ordered, &index);
+  fprintf(prm.saida, "in-ordered [%d]:  ", index);
   printf("in-ordered [%d]:  ", index);
   for (int i = 0; i < nodeCount; i++) {
     printf(" %d", in_ordered[i]);
+    fprintf(prm.saida, " %d", in_ordered[i]);
   }
   printf("\n");
-  post_ordered = (int *)calloc(index + 1, sizeof(int));
+  fprintf(prm.saida, "\n");
 
+  post_ordered = (int *)calloc(index + 1, sizeof(int));
   index = 0;
   index = post_order(&root, post_ordered, &index);
+  fprintf(prm.saida, "post-ordered [%d]:  ", index);
   printf("post-ordered [%d]:  ", index);
   for (int i = 0; i < nodeCount; i++) {
     printf(" %d", post_ordered[i]);
+    fprintf(prm.saida, " %d", post_ordered[i]);
   }
   printf("\n");
-
+  fprintf(prm.saida, "\n\n");
   /******</ Imprime Pré-Ordem, In-Ordem e Pós-Ordem />********/
+
   for (int k = 0; k < prm.treesize; k++) {
     i = j = 0;
     while (i == j) {
@@ -241,6 +252,7 @@ int main(int argc, char *argv[]) {
   }
 
   fclose(prm.saida);
+  printf("\nTest de ancestralidade no arquivo saida.txt. \n");
 
   return 0;
 }

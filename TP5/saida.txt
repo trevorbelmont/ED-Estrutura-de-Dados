@@ -1,0 +1,26 @@
+   0 (0)
+       1 (1)
+           2 (2)
+               3 (3)
+               4 (3)
+           5 (2)
+               6 (3)
+               7 (3)
+       8 (1)
+           9 (2)
+
+
+Pré-ordered [10]:   0 1 2 3 4 5 6 7 8 9
+in-ordered [10]:   1 2 3 4 5 6 7 0 8 9
+post-ordered [10]:   3 4 2 6 7 5 1 9 8 0
+
+  0 testando ancestral( 7, 9) = false
+  1 testando ancestral( 1, 5) = true
+  2 testando ancestral( 9, 4) = false
+  3 testando ancestral( 9, 4) = false
+  4 testando ancestral( 0, 3) = true
+  5 testando ancestral( 7, 2) = false
+  6 testando ancestral( 8, 9) = true
+  7 testando ancestral( 7, 8) = false
+  8 testando ancestral( 2, 0) = false
+  9 testando ancestral( 2, 7) = false
