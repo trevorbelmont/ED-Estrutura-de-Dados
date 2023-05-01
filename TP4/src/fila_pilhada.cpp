@@ -35,10 +35,6 @@ bool rQeuee::empty() {
   }
 }
 
-int rQeuee::get(int i) {
-  return qeuee[first];
-}
-
 int rQeuee::getSize() {
   return size;
 }
@@ -73,8 +69,9 @@ bool rQeuee::reallocate(int newSize) {  // poderia ser feita retornando o pontei
     cout << qeuee[0] << " " << qeuee[1];
 
     maxSize = newSize - 1;
-  } catch (bad_alloc b) {
-    cout << "Realocation tried and failed!" << endl;
+  } catch (bad_alloc &b) {
+    cout << "Realocation have been tried and failed!  LOG:" << endl;
+    cout << b.what() << endl;
   }
   //  se não houveram excessões de bad_alloc lançadas em nenhum dos new
   return true;
@@ -116,19 +113,28 @@ int rQeuee::pop() {
       // incrementa first e e retorna incrementado
     }
 
-  } catch (bad_alloc b) {
+  } catch (bad_alloc &b) {
     cout << "Can't pop from empty qeuee!" << endl;
     return 0;
   }
   return -404;
 }
 
-// output list horizontally (better for short lists)
+// displays the raw list intern structure
 void rQeuee::list() {
-  for (int i = first; i < (first + size); i++) {
-    cout << get(i % maxSize) << " ";
+  cout << "Intern structure state: " << endl;
+
+  for (int i = 0; i < maxSize; i++) {
+    char indicador = ' ';
+    indicador = (i == first && i != last) ? 'i' : indicador;
+    indicador = (i == last && i != first) ? 'f' : indicador;
+    indicador = ((i % maxSize) == last && i == first) ? '!' : indicador;
+
+    cout << qeuee[i] << " - " << indicador << endl;
   }
-  cout << endl;
+
+  cout << endl
+       << "i = initial (first), f = final, (last) and ! = both first and last " << endl;
   /* for (int i = 0; i < maxSize; i++) {
      if (first == i && !last == i) {
        cout << "^i";
@@ -159,46 +165,3 @@ void rQeuee::Fifo2Lifo() {
     // cout << temp[i] << " " << endl;
   }
 }
-
-// push dinâmico
-// int rQeuee::push(int x) {
-//   // Lista não vazia
-//   if (!empty() && last == maxSize) {
-//     // Se os índices iniciais já foram liberados:
-//     if (last == maxSize && size < maxSize && qeuee[last % size] == -1) {  // ! convencionando -1 = nulo. Mas melhor seria: " !(size <= maxsize) "      qeuee[last % size] = x;
-//       last = (last % size) + 1;
-//       qeuee[last] = x;
-//       last++;
-//       size++;
-//       return last;
-//     }
-//     // Assumindo que está cheia
-//     else if (last == maxSize && size == maxSize) {  // em tese a fila circular está lotada e size == maxSize
-//       reallocate(margin);
-//       qeuee[last] = x;
-//       last++;
-//       size++;
-//       return last;
-//     }
-//     // melhor caso, lista não vazia mas há espaço no próximo índice
-//     else {
-//       qeuee[last] = x;
-//       last++;
-//       size++;
-//       return last;
-//     }
-
-//   }  // Ou está vazia ou há espaço vago no próximo espaço do vetor (stricto sensus)
-//   else if (empty() || size < maxSize) {
-//     qeuee[last] = x;
-//     last++;
-//     size++;
-//     return last;
-//   }
-
-//   else {  // temporário !!!
-//     cout << "erro no push" << endl;
-//     exit(1);
-//   }
-//   return false;
-// }
