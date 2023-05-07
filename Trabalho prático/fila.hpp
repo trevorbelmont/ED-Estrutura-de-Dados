@@ -6,7 +6,7 @@ using namespace std;
 
 class Fila {
  private:
-  string c_[1000];  // vetor que comporta a fila de caracteres;
+  string c_[500];  // vetor que comporta a fila de caracteres;
                   // ¬ resolver questão do alocamento dinâmico
 
   int size_;      // o tamanho utilizado da fila.
