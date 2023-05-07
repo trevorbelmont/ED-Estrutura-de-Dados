@@ -1,6 +1,9 @@
+#ifndef PILHA_HPP
+#define PILha_HPP
+
 class Pilha {
  private:
-  char *c_;  // vetor que comporta pilha de caracteres;
+  char c_[1000];  // vetor que comporta pilha de caracteres;
   
   int size_; // o tamanho utilizado da pilha.
   int max_size_; // o tamanho máximo da pilha.
@@ -32,6 +35,9 @@ class Pilha {
   //Retorna o tamanho atual da lista
   int size();
 
+
   // Desaloca memória e Destrói a pilha.
   ~Pilha();
 };
+
+#endif

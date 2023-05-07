@@ -1,16 +1,15 @@
-#ifndef PILHA_HPP
-#define PILHA_HPP
+
 
 #include "pilha.hpp"
 
 Pilha::Pilha() {
-  c_ = new char[1000];
+  // c_ = new char[1000];
   size_ = 0;
-   max_size_ = 1000;;
+  max_size_ = 1000;
 }
 
 Pilha::Pilha(int tam) {
-  c_ = new char[tam];
+  // c_ = new char[tam];
   max_size_ = tam;
   size_ = 0;
 }
@@ -40,19 +39,17 @@ bool Pilha::full() {
   return size_ == max_size_;
 }
 
-int Pilha::size(){
+int Pilha::size() {
   return size_;
 }
 
-char Pilha::get(){
-  if(empty()){
-    return '!'; // Tratar exceção. ¬
+char Pilha::get() {
+  if (empty()) {
+    return '!';  // Tratar exceção. ¬
   }
-  return c_[size_-1];
+  return c_[size_ - 1];
 }
 
-Pilha::~Pilha(){
-  delete [] c_;
+Pilha::~Pilha() {
+  // delete[] c_;
 }
-
-#endif

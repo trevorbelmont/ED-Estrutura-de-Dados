@@ -1,7 +1,8 @@
-#ifndef FILA_HPP
-#define FILA_HPP
-
 #include "fila.hpp"
+
+#include <string>
+
+using namespace std;
 
 Fila::Fila() {
   // c_ = new char[1000];
@@ -53,8 +54,21 @@ char Fila::front() {
   return c_[cursor];
 }
 
-Fila::~Fila() {
-  // delete[] c_;
+Fila Fila::exp2qeuee(string s) {
+  Fila aux(s.length());
+
+  for (int i = 0; i < s.length(); i++) {
+    if (s[i] == ' ')
+      continue;
+    else {
+      char c = s[i];
+      aux.push(c);
+    }
+  }
+
+  return aux;
 }
 
-#endif
+  Fila::~Fila() {
+    // delete[] c_;
+  }
