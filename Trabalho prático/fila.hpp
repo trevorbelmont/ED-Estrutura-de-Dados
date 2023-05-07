@@ -38,8 +38,8 @@ class Fila {
   // Retorna o tamanho atual da fila.
   int size();
 
-  // Lẽ a expressão da s a carrega numa fila.
-  Fila exp2qeuee(string s);
+  // Lẽ um vetor de strings e os enfileira
+  Fila loadQeuee(string *s, int tam);
 
   // Desaloca memória e Destrói a fila.
   ~Fila();

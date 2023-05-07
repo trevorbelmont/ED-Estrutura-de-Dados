@@ -1,8 +1,7 @@
 #include "fila.hpp"
 
-#include <string>
 #include <sstream>
-
+#include <string>
 
 using namespace std;
 
@@ -56,22 +55,16 @@ string Fila::front() {
   return c_[cursor];
 }
 
-Fila Fila::exp2qeuee(string s) {
-  Fila aux(s.length());
+Fila Fila::loadQeuee(string *s, int tam) {
+  Fila aux(tam);
 
-  for (int i = 0; i < s.length(); i++) {
-    if (s[i] == ' ')
-      continue;
-    else {
-      string c = s[i];
-      aux.push(c);
-    }
+  for (int i = 0; i < tam; i++) {
+    aux.push(s[i]);
   }
 
   return aux;
 }
- 
 
-  Fila::~Fila() {
-    // delete[] c_;
-  }
+Fila::~Fila() {
+  // delete[] c_;
+}
