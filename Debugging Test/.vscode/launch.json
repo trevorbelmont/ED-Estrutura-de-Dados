@@ -8,7 +8,7 @@
             "name": "(gdb) Launch",
             "type": "cppdbg",
             "request": "launch",
-            "program": "${workspaceFolder}/bin/tp4",
+            "program": "${workspaceFolder}/exe",
             "cwd": "${workspaceRoot}",
             "MIMode": "gdb",
             "setupCommands": [

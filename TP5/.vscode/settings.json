@@ -1,0 +1,9 @@
+{
+  "makefile.launchConfigurations": [
+    {
+      "cwd": "/home/devdias93/ED/TP5/bin",
+      "binaryPath": "/home/devdias93/ED/TP5/bin/exe",
+      "binaryArgs": []
+    }
+  ]
+}

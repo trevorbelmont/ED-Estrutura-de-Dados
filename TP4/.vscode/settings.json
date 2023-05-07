@@ -8,5 +8,12 @@
     "streambuf": "cpp",
     "typeinfo": "cpp",
     "iostream": "cpp"
-  }
+  },
+  "makefile.launchConfigurations": [
+    {
+      "cwd": "/home/devdias93/ED/TP4/bin",
+      "binaryPath": "/home/devdias93/ED/TP4/bin/tp4",
+      "binaryArgs": []
+    }
+  ]
 }

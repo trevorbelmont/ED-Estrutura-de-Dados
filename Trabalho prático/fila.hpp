@@ -6,7 +6,7 @@ using namespace std;
 
 class Fila {
  private:
-  char c_[1000];  // vetor que comporta a fila de caracteres;
+  string c_[1000];  // vetor que comporta a fila de caracteres;
                   // ¬ resolver questão do alocamento dinâmico
 
   int size_;      // o tamanho utilizado da fila.
@@ -21,13 +21,13 @@ class Fila {
   Fila(int tam);
 
   // Retorna e remove o próximo caracter.
-  char pop();
+  string pop();
 
   // Enfileira um elemento. Retorna true se enfileirou com êxito
-  bool push(char x);
+  bool push(string x);
 
   // Retorna o próximo elemento sem removê-lo.
-  char front();
+  string front();
 
   // Retorna true se a fila estiver vazia.
   bool empty();

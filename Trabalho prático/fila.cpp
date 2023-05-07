@@ -1,6 +1,8 @@
 #include "fila.hpp"
 
 #include <string>
+#include <sstream>
+
 
 using namespace std;
 
@@ -18,7 +20,7 @@ Fila::Fila(int tam) {
   cursor = 0;
 }
 
-bool Fila::push(char k) {
+bool Fila::push(string k) {
   if (full()) {
     return false;
   }
@@ -27,9 +29,9 @@ bool Fila::push(char k) {
   return true;
 }
 
-char Fila::pop() {
+string Fila::pop() {
   if (empty()) {
-    return '!';  // Tratar a Exceção ¬
+    return "!";  // Tratar a Exceção ¬
   }
   size_--;
   return c_[cursor++];
@@ -47,9 +49,9 @@ int Fila::size() {
   return size_;
 }
 
-char Fila::front() {
+string Fila::front() {
   if (empty()) {
-    return '!';  // Tratar exceção. ¬
+    return "!";  // Tratar exceção. ¬
   }
   return c_[cursor];
 }
@@ -61,13 +63,14 @@ Fila Fila::exp2qeuee(string s) {
     if (s[i] == ' ')
       continue;
     else {
-      char c = s[i];
+      string c = s[i];
       aux.push(c);
     }
   }
 
   return aux;
 }
+ 
 
   Fila::~Fila() {
     // delete[] c_;
