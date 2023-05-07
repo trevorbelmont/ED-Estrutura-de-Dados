@@ -1,32 +1,32 @@
-
-
 #include "pilha.hpp"
 
+#include <string>
+
+using namespace std;
+
 Pilha::Pilha() {
-  // c_ = new char[1000];
   size_ = 0;
   max_size_ = 1000;
 }
 
 Pilha::Pilha(int tam) {
-  // c_ = new char[tam];
   max_size_ = tam;
   size_ = 0;
 }
 
-char Pilha::pop() {
+string Pilha::pop() {
   if (empty()) {
-    return '!';  // Tratar a Exceção ¬
+    return "!";  // Tratar a Exceção ¬
   }
   size_--;
-  return c_[size_];
+  return s_[size_];
 }
 
 bool Pilha::insert(char x) {
   if (full()) {
     return false;
   }
-  c_[size_] = x;
+  s_[size_] = x;
   size_++;
   return true;
 }
@@ -43,11 +43,11 @@ int Pilha::size() {
   return size_;
 }
 
-char Pilha::get() {
+string Pilha::get() {
   if (empty()) {
-    return '!';  // Tratar exceção. ¬
+    return "!";  // Tratar exceção. ¬
   }
-  return c_[size_ - 1];
+  return s_[size_ - 1];
 }
 
 Pilha::~Pilha() {
