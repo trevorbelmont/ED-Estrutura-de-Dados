@@ -22,11 +22,11 @@ string Pilha::pop() {
   return s_[size_];
 }
 
-bool Pilha::insert(char x) {
+bool Pilha::insert(string s) {
   if (full()) {
     return false;
   }
-  s_[size_] = x;
+  s_[size_] = s;
   size_++;
   return true;
 }

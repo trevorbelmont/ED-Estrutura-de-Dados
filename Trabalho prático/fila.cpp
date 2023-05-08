@@ -6,25 +6,28 @@
 using namespace std;
 
 Fila::Fila() {
-  // c_ = new char[1000];
+  // s_ = new char[1000];
   size_ = 0;
   max_size_ = 1000;
-  cursor = 0;
+  first_ = 0;
+  last_ = 0;
+  ;
 }
 
 Fila::Fila(int tam) {
-  // c_ = new char[tam];
+  // s_ = new char[tam];
   max_size_ = tam;
   size_ = 0;
-  cursor = 0;
+  first_ = last_ = 0;
 }
 
 bool Fila::push(string k) {
   if (full()) {
     return false;
   }
-  c_[size_] = k;
+  s_[size_] = k;
   size_++;
+  last_++;
   return true;
 }
 
@@ -33,7 +36,7 @@ string Fila::pop() {
     return "!";  // Tratar a Exceção ¬
   }
   size_--;
-  return c_[cursor++];
+  return s_[first_++];
 }
 
 bool Fila::empty() {
@@ -41,7 +44,7 @@ bool Fila::empty() {
 }
 
 bool Fila::full() {
-  return size_ == max_size_;
+  return last_ == max_size_;
 }
 
 int Fila::size() {
@@ -50,9 +53,16 @@ int Fila::size() {
 
 string Fila::front() {
   if (empty()) {
-    return "!";  // Tratar exceção. ¬
+    return "!error!";  // Tratar exceção. ¬
   }
-  return c_[cursor];
+  return s_[first_];
+}
+
+string Fila::at(int i) {
+  if (empty() || (first_ + i) > last_ - 1) {
+    return "!error!";
+  }
+  return s_[i];
 }
 
 Fila Fila::loadQeuee(string *s, int tam) {
@@ -65,6 +75,22 @@ Fila Fila::loadQeuee(string *s, int tam) {
   return aux;
 }
 
+string Fila::toString(string separator) {
+  string aux = "";
+  for (int i = first_; i < last_; i++) {
+    aux += s_[i];
+    if (i != last_ - 1) aux += separator;
+  }
+  return aux;
+}
+
+void Fila::clean() {
+  for (int i = 0; i < size_; i++) {
+    s_[i].clear();
+  }
+  first_ = size_ = 0;
+}
+
 Fila::~Fila() {
-  // delete[] c_;
+  // delete[] s_;
 }

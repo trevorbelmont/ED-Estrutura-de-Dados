@@ -22,7 +22,7 @@ class Pilha {
   string pop();
 
   // Insere caracter no topo da pilha. Retorna true se inseriu com sucesso.
-  bool insert(char x);
+  bool insert(string s);
 
   // Retorna o elemento no topo da pilha sem desempilhar.
   string get();

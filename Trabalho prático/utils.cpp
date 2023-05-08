@@ -1,5 +1,6 @@
 #include "utils.hpp"
 
+#include <iostream>
 #include <sstream>
 #include <string>
 using namespace std;
@@ -13,17 +14,46 @@ Fila string2qeuee(string exp) {
   return aux;
 }
 
-int split(string str, char delim, string *splitted) {
-  // construct a stream from the string
-  stringstream ss(str);
-
+int split(string mono, char delim, string *splitted) {
+  stringstream ss(mono);
   string s;
   int i = 0;
   while (getline(ss, s, delim)) {
-    splitted[i] = s;
-    i++;
+    if (s != " " && s != "") {
+      splitted[i] = s;
+      i++;
+    }
   }
   return i;
 }
 
+bool checkDigits(string s) {
+  int pointCount = 0;  // contador do número de pontos numa string
 
+  // Passa por todas os caractere da string
+  for (char c : s) {
+    int cint = int(c);  // cast c para int
+
+    // Se c algum carectere de s NÃO está entre '0' (48) e '9' (57) E tb não é '.' (46),
+    // retorna falso - pois s não está no formato numérico esparado
+    if (!(cint >= 48 && cint <= 57) && !(cint == 46)) {
+      return false;
+    }
+    if (cint == 46) pointCount++;
+  }
+  // se todos caracteres da string são dígitos ou pontos (e há no máximo um ponto) retorna true
+  return (pointCount <= 1);
+}
+
+int priority(string s) {
+  if (s == "x" || s == "*" || s == "/")
+    return 2;
+  else if (s == "+" || s == "-")
+    return 1;
+  else
+    return 0;
+}
+
+bool checkOperator(string s) {
+  return (s == "x" || s == "*" || s == "/" || s == "+" || s == "-");
+}

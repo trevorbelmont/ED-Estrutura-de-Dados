@@ -3,7 +3,7 @@
     {
       "type": "shell",
       "label": "Compilar",
-      "command": "g++ main.cpp fila.cpp -o exe -g",
+      "command": "g++ main.cpp fila.cpp utils.cpp -o exe -g",
       "problemMatcher": [],
       "group": "build"
     },

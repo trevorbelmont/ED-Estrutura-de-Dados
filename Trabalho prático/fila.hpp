@@ -6,21 +6,22 @@ using namespace std;
 
 class Fila {
  private:
-  string c_[500];  // vetor que comporta a fila de caracteres;
-                  // ¬ resolver questão do alocamento dinâmico
+  string s_[500];  // vetor que comporta a fila de strings;
+                   // ¬ resolver questão do alocamento dinâmico
 
-  int size_;      // o tamanho utilizado da fila.
+  int size_;      // o tamanho utilizado da fila. É também o próximo índice disponível - se a fila não estiver cheia.
   int max_size_;  // o tamanho máximo da fila.
-  int cursor;     // o índice para o primeiro elemento da fila;
+  int first_;     // o índice para o primeiro elemento da fila;
+  int last_;
 
  public:
-  // Cria fila padrão (máximo 1000 caracteres).
+  // Cria fila padrão (máximo 1000 strings).
   Fila();
 
-  // Cria fila com máximo de tam caracteres.
+  // Cria fila com máximo de tam strings.
   Fila(int tam);
 
-  // Retorna e remove o próximo caracter.
+  // Retorna e remove o primeiro string da fila.
   string pop();
 
   // Enfileira um elemento. Retorna true se enfileirou com êxito
@@ -28,6 +29,9 @@ class Fila {
 
   // Retorna o próximo elemento sem removê-lo.
   string front();
+
+  // Retorna a string na posição especificada sem destruí-la.
+  string at(int i);
 
   // Retorna true se a fila estiver vazia.
   bool empty();
@@ -38,8 +42,15 @@ class Fila {
   // Retorna o tamanho atual da fila.
   int size();
 
-  // Lẽ um vetor de strings e os enfileira
+  // Lê um array de strings e os enfileira
   Fila loadQeuee(string *s, int tam);
+
+  // Retorna uma string contendo todas as entradas da fila interpoladas pelo "separator".
+  // Caso nenhuma string separadora seja especificada, um espaço em branco será utilizado.
+  string toString(string separator = " ");
+
+  // Limpa e reinicia a fila.
+  void clean();
 
   // Desaloca memória e Destrói a fila.
   ~Fila();
