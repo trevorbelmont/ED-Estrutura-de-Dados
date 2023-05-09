@@ -43,14 +43,14 @@ class Fila {
   int size();
 
   // Lê um array de strings e os enfileira
-  Fila loadQeuee(string *s, int tam);
+  Fila loadQueue(string *s, int tam);
 
   // Retorna uma string contendo todas as entradas da fila interpoladas pelo "separator".
   // Caso nenhuma string separadora seja especificada, um espaço em branco será utilizado.
   string toString(string separator = " ");
 
   // Limpa e reinicia a fila.
-  void clean();
+  void clear();
 
   // Desaloca memória e Destrói a fila.
   ~Fila();

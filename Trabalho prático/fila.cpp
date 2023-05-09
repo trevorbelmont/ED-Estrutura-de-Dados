@@ -60,12 +60,12 @@ string Fila::front() {
 
 string Fila::at(int i) {
   if (empty() || (first_ + i) > last_ - 1) {
-    return "!error!";
+    return "!error!";  // /¬ resolver exceção
   }
   return s_[i];
 }
 
-Fila Fila::loadQeuee(string *s, int tam) {
+Fila Fila::loadQueue(string *s, int tam) {
   Fila aux(tam);
 
   for (int i = 0; i < tam; i++) {
@@ -84,7 +84,7 @@ string Fila::toString(string separator) {
   return aux;
 }
 
-void Fila::clean() {
+void Fila::clear() {
   for (int i = 0; i < size_; i++) {
     s_[i].clear();
   }

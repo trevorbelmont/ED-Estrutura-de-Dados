@@ -1,0 +1,78 @@
+
+#include <iostream>
+#include <string>
+
+#include "utils.hpp"
+
+using namespace std;
+
+// Função que recebe uma string contendo uma expressão INFIXA e retorna uma fila carregada com uma expressão PÓSFIXA.
+// Essa função também checa a validade dos operandos e operadores (previstos), bem como se o disposição de parênteses é válido.
+// Baseada no Shunting Yard Algorithm de Dijkstra.
+Fila infix2Postfix(string infix) {
+  Pilha<string> pOp;  // pilha que armazena operadores temporáriamente
+  Fila fPostfix;      // Fila que comporta a expressão PÓSFIXA resultante
+
+  Fila exp = string2qeuee(infix);
+  // guarda o número de parênteses. Será incrementado a cada "(" e decrementado a cada ")". Deve resultar zero ao fim do carregamento..
+  int par = 0;
+
+  while (!exp.empty()) {
+    string s = exp.pop();  // lê o próximo elemento da fila de string contendo a expressão
+
+    if (checkDigits(s)) {  // Se for um número INTEIRAMENTE válido, adiciona na fila
+      fPostfix.push(s);
+    } else if (checkOperator(s)) {  // Se for um operador, empilha ou adiciona na fila
+
+      // Dá flush na pilha de operadores enquanto eles tiverem maior prioridade que o próximo operador lido da expressão.
+      while (!pOp.empty() && priority(pOp.get()) >= priority(s)) {
+        fPostfix.push(pOp.pop());
+      }
+      pOp.push(s);
+    } else if (s == "(") {  // Incrementa par e empilha o "(" na fila de operadores
+      par++;
+      pOp.push(s);
+    } else if (s == ")") {  // Decrementa par e enfileira os operadores da fila de oP* até achar um "("
+      par--;
+      // Adiciona os operadores na fila pósfixa até que este operador seja um "("
+      while (!pOp.empty() && pOp.get() != "(") {
+        fPostfix.push(pOp.pop());
+      }
+      if (!pOp.empty()) pOp.pop();  // Se a pilha de operadores não estiver vazia, desempilha o abre parênteses.
+    }
+    // Se for um caso não previsto a expressão não é válida
+    else {
+      Fila e;
+      e.push("NAO VALIDA");  // ¬ resolver exceção
+      return e;
+    }
+  }
+
+  // Aqui todas as entradas da fila contendo a expressão já foram lidas.
+  // Caso o número de "(" seja diferente do número de ")", retorna NÂO VALIDO
+  if (par != 0) {
+    Fila e;
+    e.push("NAO VALIDA parentesis");  // ¬ resolver exceção
+    return e;
+  }
+
+  // Adiciona operadores restantes na pilha na fila
+  while (!pOp.empty()) {
+    fPostfix.push(pOp.pop());
+  }
+  return fPostfix;
+}
+//  5 / ( ( 1 + 2 ) * 4 ) - 3
+//  5 + ( ( 1 + 2 ) x 4 ) - 3
+// Função principal
+int main() {
+  string exp;
+  cout << "Digite a expressao em notacao infixa: ";
+  getline(cin, exp);
+
+  Fila postfix = infix2Postfix(exp);
+
+  cout << "Expressao em notacao posfixa: " << postfix.toString("  ") << endl;
+
+  return 0;
+}
