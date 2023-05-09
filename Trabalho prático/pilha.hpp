@@ -27,7 +27,7 @@ class Pilha {
   bool push(Tipo t);
 
   // Retorna o elemento no topo da pilha sem desempilhar.
-  Tipo get();
+  Tipo top();
 
   // Retorna true se a pilha estiver vazia.
   bool empty();
@@ -87,7 +87,7 @@ int Pilha<Tipo>::size() {
 }
 
 template <typename Tipo>
-Tipo Pilha<Tipo>::get() {
+Tipo Pilha<Tipo>::top() {
   if (empty()) {
     return NULL;  // Tratar exceção. ¬
   }

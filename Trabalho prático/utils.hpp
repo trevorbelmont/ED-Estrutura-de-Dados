@@ -32,7 +32,7 @@ bool checkOperator(string s);
 // Lança exceções se houver divisão por zero ou operador não previsto.
 double calculate(double a, char operador, double b);
 
-// Retorna o resulado da expressão pósfixa carregada na fila desinfileirando ela.
+// Retorna o resulado da expressão pósfixa carregada na fila sem desinfileirar ela.
 // Lança exceções caso a expressão seja inválida.
 double solvePostfix(Fila postFix);
 

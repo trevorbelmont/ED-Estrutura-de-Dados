@@ -14,6 +14,7 @@ Fila string2qeuee(string exp) {
   return aux;
 }
 
+
 int split(string mono, char delim, string *splitted) {
   stringstream ss(mono);
   string s;
@@ -64,8 +65,8 @@ double solvePostfix(Fila postFix) {
 
   // Desinfileira fila com expressão pósfixa.
   // Fila.at(i) poderia ser usado para evitar desinfileirar a lista, caso a avaliação não fosse a última chamada no trabalho.
-  while (!postFix.empty()) {
-    string s = postFix.pop();
+  for (int i = 0; i < postFix.size(); i++) {
+    string s = postFix.at(i);
 
     // Se a entrada for um número, empilha na pilha de floats
     if (checkDigits(s)) {
@@ -139,7 +140,7 @@ double calculate(double a, char op, double b) {
 }
 
 // Função que recebe uma string contendo uma expressão INFIXA e retorna uma fila carregada com uma expressão PÓSFIXA.
-// Essa função também checa a validade dos operandos e operadores (previstos), bem como se o disposição de parênteses é válido.
+// Essa função também checa a validade dos operandos e dos operadores previstos, bem como se o disposição de parênteses é válido.
 // Baseada no Shunting Yard Algorithm de Dijkstra.
 Fila infix2Postfix(string infix) {
   Pilha<string> pOp;  // pilha que armazena operadores temporáriamente
@@ -157,7 +158,7 @@ Fila infix2Postfix(string infix) {
     } else if (checkOperator(s)) {  // Se for um operador, empilha ou adiciona na fila
 
       // Dá flush na pilha de operadores enquanto eles tiverem maior prioridade que o próximo operador lido da expressão.
-      while (!pOp.empty() && priority(pOp.get()) >= priority(s)) {
+      while (!pOp.empty() && priority(pOp.top()) >= priority(s)) {
         fPostfix.push(pOp.pop());
       }
       pOp.push(s);
@@ -167,7 +168,7 @@ Fila infix2Postfix(string infix) {
     } else if (s == ")") {  // Decrementa par e enfileira os operadores da fila de oP* até achar um "("
       par--;
       // Adiciona os operadores na fila pósfixa até que este operador seja um "("
-      while (!pOp.empty() && pOp.get() != "(") {
+      while (!pOp.empty() && pOp.top() != "(") {
         fPostfix.push(pOp.pop());
       }
       if (!pOp.empty()) pOp.pop();  // Se a pilha de operadores não estiver vazia, desempilha o abre parênteses.
@@ -184,7 +185,7 @@ Fila infix2Postfix(string infix) {
   // Caso o número de "(" seja diferente do número de ")", retorna NÂO VALIDO
   if (par != 0) {
     Fila e;
-    e.push("NAO VALIDA parentesis");  // ¬ resolver exceção
+    e.push("NAO VALIDA");  // ¬ resolver exceção
     return e;
   }
 
