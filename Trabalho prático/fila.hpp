@@ -31,6 +31,7 @@ class Fila {
   string front();
 
   // Retorna a string na posição especificada sem destruí-la.
+  // Anlálogo ao método deque.at(i) (método "at" da double ended queue) da stl.
   string at(int i);
 
   // Retorna true se a fila estiver vazia.

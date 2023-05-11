@@ -7,24 +7,24 @@
 #include "utils.hpp"
 using namespace std;
 
-int testaCalculate() {
-  while (1 > 0) {
-    float a, b;
+// int testaCalculate() {
+//   while (1 > 0) {
+//     float a, b;
 
-    cout << "enter a and b" << endl;
-    cin >> a;
-    cin >> b;
-    cout << "enter operator" << endl;
-    char op;
-    cin >> op;
-    try {
-      cout << fixed << setprecision(6) << calculate(a, op, b) << endl;
-    } catch (error e) {
-      cout << e.message << endl;
-    }
-  }
-  return 0;
-}
+//     cout << "enter a and b" << endl;
+//     cin >> a;
+//     cin >> b;
+//     cout << "enter operator" << endl;
+//     char op;
+//     cin >> op;
+//     try {
+//       cout << fixed << setprecision(6) << calculate(a, op, b) << endl;
+//     } catch (error e) {
+//       cout << e.message << endl;
+//     }
+//   }
+//   return 0;
+// }
 
 int main() {
   cout << fixed << setprecision(6);  // Define precisão para o programa inteiro (até alteração)
@@ -34,11 +34,7 @@ int main() {
   try {
     Fila f = string2qeuee(expPostfix);
 
-    cout << "size before calculation " << f.size() << endl;
-
     cout << "Avaliação pósfixa 1 = " << solvePostfix(f) << endl;
-
-    cout << "size after calculation " << f.size() << endl;
     f.clear();
 
     f = infix2Postfix(" ( 8 / ( 4 * 2  + 8 ) ) + 1");

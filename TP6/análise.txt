@@ -1,0 +1,13 @@
+O programa utilizado será uma implementação de passeio do cavalo feita semestre passado.
+Importante ressaltar que o algorítmo implementado neste passeio é iterativo, e não recursivo.
+
+Explicando brevemente o o código recebe uma posição inicial no tabuleiro do usuário e imprime num arquivo um passeio válido.
+Para tanto, uma vez dada a posição inicial, antes do primeiro movimento o programa gera para cada casa não ocupada um array que categoriza cada movimento possível e classifica quão ótimo ele é.
+Sempre que um movimento é feito o array das casas que dão acesso a nova casa movida é atualizada.
+
+1. Este código certamente não terá uma boa localidade de referência espacial pq ele acessa múltiplos arrays por movimento:
+    ex: O próprio movimento do cavalo não favorece um acesso contínuo na matriz de casas.
+    ex: Para cada movimento do cavalo até 8 arrays das 8 possíveis casas são atualizadas.
+
+  Em termos de localidade de referência temporal a heurística utilizada faz com que haja poucas chances de haver modificação na matriz de casas.
+  
