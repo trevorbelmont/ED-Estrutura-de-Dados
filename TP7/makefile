@@ -56,9 +56,10 @@ ${obj}/%.o:  ${src}/%.cpp $(headers)
 run: ${target}
 	./$(target)
 
-# Apaga apenas os .o e executáveis previstos neste makefile
+# Apaga apenas os .o e executáveis previstos neste makefile 
+# (e também qualquer objeto nomeado por um header template)
 clean:
-	rm ${target}; rm -r ${objetcts}
+	rm ${target}; rm -r ${objetcts}; rm $(patsubst ${incld}/%.hpp, ${obj}/%.o,${headers});
 
 # No encadeamento de comandos em uma regra a separação por ; ou  && tende a ser essencial
 # Use ; para separar comandos com execuções independentes e && para encadear um comando que depende do sucesso do anterior
@@ -85,8 +86,15 @@ clean:
 %.c: ${src}/%.cpp $(headers)
 	${cxx} ${cflags} -c -I ${incld} $< -o $(obj)/${patsubst %.c,%.o,$@}
 
+# Atalho para compilar template headers via arquivo %.hpp isoladamente 
+.PHONY: %.hpp
+%.hpp: ${incld}/%.hpp $(headers)
+	${cxx} ${cflags} -c -I ${incld} $< -o $(obj)/${patsubst %.hpp,%.o,$@}
+
+
 # Lista estrutura e arquivos presentes no projeto.
 actual_objects = ${wildcard $(obj)/*.o}
 list:
+	echo ${especifical}
 	printf "|--Sources \n|     |-- ${sources} \n|--Headers: \n|     |-- ${headers} \n|--Objects: \n|     |-- ${actual_objects} \n|--Libraries: \n|     |-- ${libraries} \n|--Executable (bin): \n|     |--${target}\n"
 

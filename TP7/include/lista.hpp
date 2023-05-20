@@ -1,3 +1,6 @@
+#ifndef LISTA_HPP
+#define LISTA_HPP
+
 #include <iostream>
 #include <list>
 #include <string>
@@ -159,3 +162,5 @@ class Lista {
     return last->next;
   }
 };
+
+#endif
