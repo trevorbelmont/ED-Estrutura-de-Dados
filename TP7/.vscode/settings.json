@@ -1,0 +1,15 @@
+{
+  "files.associations": {
+    "deque": "cpp",
+    "istream": "cpp",
+    "array": "cpp",
+    "string_view": "cpp"
+  },
+  "makefile.launchConfigurations": [
+    {
+      "cwd": "/home/devdias93/ED/TP7/bin",
+      "binaryPath": "/home/devdias93/ED/TP7/bin/exe",
+      "binaryArgs": []
+    }
+  ]
+}

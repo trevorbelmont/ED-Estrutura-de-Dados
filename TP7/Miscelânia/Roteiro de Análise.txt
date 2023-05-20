@@ -1,0 +1,8 @@
+os testes serão efetuados procurando calcular o tempo estatístico de 5 amostra diferentes de vetores diferentes de mesmo tamanho n. Serão registrados o tempo de execução médio, mínimo e máximo das 5 execuções para cada valor de n.
+
+A lógica para seleção de h será sempre o ceil(log n) - log na base 2.
+
+os tamanhos de n escolhidos partirão de serão calculados como 2^i * 10 com i variando de 0 a 10.
+Os valores serão compilados e comparados.
+
+A lógica de escolha de atualização de H documentados podem ou não ser comparados também com os resultados das lógicas mais populares já documentos pela comunidade acadêmica.

@@ -1,0 +1,321 @@
+--------------------------------------------------------------------------------
+I1 cache:         32768 B, 64 B, 8-way associative
+D1 cache:         24576 B, 64 B, 6-way associative
+LL cache:         4194304 B, 64 B, 16-way associative
+Command:          ./a.out
+Data file:        cachegrind.out.1781
+Events recorded:  Ir I1mr ILmr Dr D1mr DLmr Dw D1mw DLmw
+Events shown:     Ir I1mr ILmr Dr D1mr DLmr Dw D1mw DLmw
+Event sort order: Ir I1mr ILmr Dr D1mr DLmr Dw D1mw DLmw
+Thresholds:       0.1 100 100 100 100 100 100 100 100
+Include dirs:     
+User annotated:   
+Auto-annotation:  on
+
+--------------------------------------------------------------------------------
+Ir                   I1mr           ILmr           Dr                   D1mr               DLmr           Dw                  D1mw             DLmw            
+--------------------------------------------------------------------------------
+889,236,644 (100.0%) 1,502 (100.0%) 1,360 (100.0%) 296,161,830 (100.0%) 1,289,259 (100.0%) 2,757 (100.0%) 33,838,733 (100.0%) 687,473 (100.0%) 13,152 (100.0%)  PROGRAM TOTALS
+
+--------------------------------------------------------------------------------
+Ir                   I1mr        ILmr        Dr                   D1mr               DLmr         Dw                  D1mw             DLmw            file:function
+--------------------------------------------------------------------------------
+853,946,618 (96.03%) 25 ( 1.66%) 17 ( 1.25%) 284,624,139 (96.10%) 1,255,513 (97.38%) 560 (20.31%) 31,027,917 (91.69%) 672,180 (97.78%) 2,420 (18.40%)  /home/devdias93/ED/TP6/passeio.h:updateKnightMoves(int, int, int)
+ 18,150,511 ( 2.04%) 20 ( 1.33%) 17 ( 1.25%)   7,842,643 ( 2.65%)    13,901 ( 1.08%)   0           1,656,841 ( 4.90%)      64 ( 0.01%)     0           /home/devdias93/ED/TP6/passeio.h:ride(int, int, int)
+  5,765,059 ( 0.65%) 21 ( 1.40%) 21 ( 1.54%)   1,401,886 ( 0.47%)     1,161 ( 0.09%)   0             281,699 ( 0.83%)   2,194 ( 0.32%) 1,840 (13.99%)  /home/devdias93/ED/TP6/passeio.h:bestMove(int, int)
+  4,497,294 ( 0.51%) 30 ( 2.00%) 20 ( 1.47%)     485,372 ( 0.16%)     9,364 ( 0.73%)   5 ( 0.18%)          0                0              0           ./math/../sysdeps/ieee754/dbl-64/e_pow.c:__ieee754_pow_sse2
+  2,954,023 ( 0.33%)  6 ( 0.40%)  4 ( 0.29%)     900,814 ( 0.30%)       964 ( 0.07%)   0             402,590 ( 1.19%)   1,920 ( 0.28%) 1,844 (14.02%)  /home/devdias93/ED/TP6/passeio.h:qualCasa(int, int, int)
+
+--------------------------------------------------------------------------------
+-- Auto-annotated source: /home/devdias93/ED/TP6/passeio.h
+--------------------------------------------------------------------------------
+Ir                   I1mr       ILmr       Dr                  D1mr               DLmr         Dw                 D1mw             DLmw           
+
+-- line 50 ----------------------------------------
+          .          .          .                   .                  .            .                  .                .              .           pos tile[DIMENSIONS][DIMENSIONS];  // declara matriz do tabuleiro n x n
+          .          .          .                   .                  .            .                  .                .              .           int dim;                           // declaa variável de dimensão do tabuleiro
+          .          .          .                   .                  .            .                  .                .              .           int passo;                         // declara variável do passo de cada casa no passeio
+          .          .          .                   .                  .            .                  .                .              .           int visitadas, regredidas;         // respectivamente contador de passos totais e de retornos das tentativas
+          .          .          .                   .                  .            .                  .                .              .           
+          .          .          .                   .                  .            .                  .                .              .           // Durante o desenvolvimento considerei mais intuitivo nomear as variáveis x e y como coordenadas cartesianas (não como entradas de matriz).
+          .          .          .                   .                  .            .                  .                .              .           // Dentro função passeio, portanto, o par ordenado (x,y) designa uma certa posição (horizontal, vertical). Ou seja, (coluna, linha).
+          .          .          .                   .                  .            .                  .                .              .           //  A sintaxe da chamada da função, no entanto, segue a ordem definida na especificação do TP: passeio (linha, coluna).
+         15 ( 0.00%) 0          0                   0                  0            0                  9 ( 0.00%)       0              0           void passeio(int y, int x) {
+          .          .          .                   .                  .            .                  .                .              .               FILE *saida;                      // ponteiro que aponta arquivo
+         12 ( 0.00%) 0          0                   0                  0            0                  6 ( 0.00%)       0              0               saida = fopen("saida.txt", "a");  // abre o arquivo no modo apend - cria o arquivo se necessário
+          .          .          .                   .                  .            .                  .                .              .           
+          .          .          .                   .                  .            .                  .                .              .               // adequa o valor da entrada x e y,[1,8], aos valores do código, [0,7]
+          3 ( 0.00%) 0          0                   3 ( 0.00%)         0            0                  0                0              0               x--;
+          3 ( 0.00%) 0          0                   3 ( 0.00%)         0            0                  0                0              0               y--;
+          .          .          .                   .                  .            .                  .                .              .           
+          .          .          .                   .                  .            .                  .                .              .               // prepara tabuleiro e inicializa as variáveis para seus valores iniciais devidos
+          3 ( 0.00%) 0          0                   0                  0            0                  3 ( 0.00%)       0              0               setup();
+          .          .          .                   .                  .            .                  .                .              .           
+          .          .          .                   .                  .            .                  .                .              .               // a casa inicial recebe o valor de passo 1
+         42 ( 0.00%) 1 ( 0.07%) 1 ( 0.07%)         12 ( 0.00%)         0            0                  9 ( 0.00%)       1 ( 0.00%)     0               tile[x][y].p = passo = visitadas = 1;
+          .          .          .                   .                  .            .                  .                .              .           
+         18 ( 0.00%) 1 ( 0.07%) 1 ( 0.07%)          6 ( 0.00%)         0            0                  3 ( 0.00%)       0              0               ride(x, y, 0);
+          9 ( 0.00%) 0          0                   3 ( 0.00%)         0            0                  3 ( 0.00%)       0              0               flushRide(saida);  // imprime passeio de acordo com as normas do TP
+          .          .          .                   .                  .            .                  .                .              .               // displayChessBoard(1); // imprime no terminal o passeio alinhado e visualmente organizado (mais fácil visualizar)
+          .          .          .                   .                  .            .                  .                .              .           
+          .          .          .                   .                  .            .                  .                .              .               // Dá flush no buffer e fechar o arquivo
+          9 ( 0.00%) 0          0                   3 ( 0.00%)         0            0                  3 ( 0.00%)       0              0               fclose(saida);
+          .          .          .                   .                  .            .                  .                .              .               // limpa o valor das variáveis preparando para próxima execuaçao da funação
+          3 ( 0.00%) 0          0                   0                  0            0                  3 ( 0.00%)       0              0               limpa();
+          9 ( 0.00%) 0          0                   6 ( 0.00%)         0            0                  0                0              0           }
+          .          .          .                   .                  .            .                  .                .              .           
+          .          .          .                   .                  .            .                  .                .              .           // void de cavalga percorrendo as casas
+     82,926 ( 0.01%) 0          0                   0                  0            0             55,284 ( 0.16%)       0              0           void ride(int x, int y, int ridingBack) {  // track = diminui acessibilidade da casa // ridingback = fazendo backTrack ou não
+     41,463 ( 0.00%) 1 ( 0.07%) 1 ( 0.07%)     13,821 ( 0.00%)         0            0                  0                0              0               if (passo <= 0 && visitadas > 8) {
+          .          .          .                   .                  .            .                  .                .              .                   return;
+          .          .          .                   .                  .            .                  .                .              .               }
+          .          .          .                   .                  .            .                  .                .              .           
+          .          .          .                   .                  .            .                  .                .              .               // Se está fazendo backtracking e há um movimento ainda não explorado naquela casa e NAQUELE PASSO
+    103,386 ( 0.01%) 2 ( 0.13%) 1 ( 0.07%)     32,757 ( 0.01%)        97 ( 0.01%)   0                  0                0              0               if (ridingBack && tile[x][y].a > 0) {
+          .          .          .                   .                  .            .                  .                .              .                   // for duplo que percorre a matriz do tabuleiro
+    353,496 ( 0.04%) 0          0             210,738 ( 0.07%)         0            0              3,399 ( 0.01%)       0              0                   for (int j = 0; j < dim; j++) {
+  7,069,920 ( 0.80%) 0          0           4,214,760 ( 1.42%)         0            0             67,980 ( 0.20%)       0              0                       for (int i = 0; i < dim; i++) {
+  8,157,600 ( 0.92%) 2 ( 0.13%) 1 ( 0.07%)  2,719,200 ( 0.92%)         0            0          1,359,600 ( 4.02%)       0              0                           updateKnightMoves(i, j, 1);  // atualiza as movimentações possíveis, mvmnt[], de todas as casas
+          .          .          .                   .                  .            .                  .                .              .                       }
+          .          .          .                   .                  .            .                  .                .              .                   }
+          .          .          .                   .                  .            .                  .                .              .           
+          .          .          .                   .                  .            .                  .                .              .                   // for que percorre o vetor persistent APENAS da casa atual
+    118,965 ( 0.01%) 1 ( 0.07%) 1 ( 0.07%)     57,783 ( 0.02%)         0            0              3,399 ( 0.01%)       0              0                   for (int i = 1; i < 9; i++) {
+    571,032 ( 0.06%) 2 ( 0.13%) 1 ( 0.07%)    135,960 ( 0.05%)        22 ( 0.00%)   0                  0                0              0                       if (tile[x][y].persistent[i] == passo) {  // checa, no vetor persistent[i], se o movimento i já foi tentado neste mesmo passo
+    112,846 ( 0.01%) 1 ( 0.07%) 1 ( 0.07%)     19,914 ( 0.01%)         0            0              6,638 ( 0.02%)       0              0                           tile[x][y].mvmnt[i] = 0;              // se o movimento i já foi tentado antes neste msm passo, o moviento i se torna indisponível
+    139,398 ( 0.02%) 1 ( 0.07%) 1 ( 0.07%)     33,190 ( 0.01%)         1 ( 0.00%)   0              6,638 ( 0.02%)       0              0                           tile[x][y].a--;                       // acessibilidade portanto diminui
+          .          .          .                   .                  .            .                  .                .              .                       }
+          .          .          .                   .                  .            .                  .                .              .                   }
+     71,379 ( 0.01%) 0          0              16,995 ( 0.01%)         0            0              3,399 ( 0.01%)       0              0                   tile[x][y].persistent[0]++;  // incrementa o número de tentativas mal-sucedidas na casa (essa variável não é usada)
+          .          .          .                   .                  .            .                  .                .              .               }
+          .          .          .                   .                  .            .                  .                .              .           
+     82,926 ( 0.01%) 1 ( 0.07%) 1 ( 0.07%)     27,642 ( 0.01%)         0            0             27,642 ( 0.08%)       0              0               int move = bestMove(x, y);  // calcula o melhor moviemnto. Caso não haja movimentos disponíveis retorna zero.
+          .          .          .                   .                  .            .                  .                .              .           
+     27,642 ( 0.00%) 0          0              13,821 ( 0.00%)         0            0                  0                0              0               if (move <= 0) {  // não achou saída
+          .          .          .                   .                  .            .                  .                .              .                   // retorna pra casa e passo anterior para tentar outra movimentação
+     18,936 ( 0.00%) 1 ( 0.07%) 1 ( 0.07%)      6,312 ( 0.00%)         0            0              6,312 ( 0.02%)       0              0                   passo--;
+     18,936 ( 0.00%) 0          0               6,312 ( 0.00%)         0            0              6,312 ( 0.02%)       0              0                   regredidas++;
+     63,120 ( 0.01%) 0          0              12,624 ( 0.00%)         0            0              6,312 ( 0.02%)       2 ( 0.00%)     0                   tile[x][y].p = 0;  // a casa sem saída atual tem o contador de passo zerado
+          .          .          .                   .                  .            .                  .                .              .           
+    151,488 ( 0.02%) 1 ( 0.07%) 1 ( 0.07%)     37,872 ( 0.01%)         6 ( 0.00%)   0              6,312 ( 0.02%)       0              0                   ride(tile[x][y].prevX, tile[x][y].prevY, 1);  // retrocede para casa anterior. (cavalga de volta)
+          .          .          .                   .                  .            .                  .                .              .                   // o último argumento do void ride = 1, sinaliza que se está retornando (fazendo backtrack)
+      6,312 ( 0.00%) 0          0                   0                  0            0                  0                0              0                   return;
+          .          .          .                   .                  .            .                  .                .              .               }
+          .          .          .                   .                  .            .                  .                .              .           
+    157,689 ( 0.02%) 2 ( 0.13%) 2 ( 0.15%)     37,545 ( 0.01%)         0            0              7,509 ( 0.02%)       0              0               tile[x][y].a--;  // a casa ocupada perde um de liberdade, pois o knight se moverá dali
+    127,653 ( 0.01%) 1 ( 0.07%) 1 ( 0.07%)     22,527 ( 0.01%)         0            0              7,509 ( 0.02%)       0              0               tile[x][y].mvmnt[move] = 0;
+    142,671 ( 0.02%) 1 ( 0.07%) 1 ( 0.07%)     30,036 ( 0.01%)         0            0              7,509 ( 0.02%)       0              0               tile[x][y].persistent[move] = passo;
+          .          .          .                   .                  .            .                  .                .              .           
+     22,527 ( 0.00%) 1 ( 0.07%) 1 ( 0.07%)      7,509 ( 0.00%)         0            0              7,509 ( 0.02%)       0              0               passo++;
+          .          .          .                   .                  .            .                  .                .              .           
+     52,563 ( 0.01%) 0          0              22,527 ( 0.01%)         0            0             15,018 ( 0.04%)       0              0               int nx = qualCasa(x, y, move).x;
+     60,072 ( 0.01%) 0          0              22,527 ( 0.01%)         0            0             15,018 ( 0.04%)       0              0               int ny = qualCasa(x, y, move).y;
+          .          .          .                   .                  .            .                  .                .              .           
+     82,599 ( 0.01%) 1 ( 0.07%) 1 ( 0.07%)     22,527 ( 0.01%)         0            0              7,509 ( 0.02%)       0              0               tile[nx][ny].p = passo;
+     82,599 ( 0.01%) 1 ( 0.07%) 1 ( 0.07%)     22,527 ( 0.01%)         0            0              7,509 ( 0.02%)      41 ( 0.01%)     0               tile[nx][ny].prevX = x;
+     82,599 ( 0.01%) 0          0              22,527 ( 0.01%)         0            0              7,509 ( 0.02%)      21 ( 0.00%)     0               tile[nx][ny].prevY = y;
+          .          .          .                   .                  .            .                  .                .              .           
+     22,527 ( 0.00%) 0          0               7,509 ( 0.00%)         0            0              7,509 ( 0.02%)       0              0               visitadas++;
+          .          .          .                   .                  .            .                  .                .              .           
+     45,054 ( 0.01%) 0          0              22,527 ( 0.01%)         0            0                  0                0              0               if (passo == dim * dim) {
+          3 ( 0.00%) 0          0                   0                  0            0                  0                0              0                   return;
+          .          .          .                   .                  .            .                  .                .              .               }
+     45,036 ( 0.01%) 0          0              15,012 ( 0.01%)         0            0              7,506 ( 0.02%)       0              0               ride(nx, ny, 0);  // cavalga para próxima casa
+      7,506 ( 0.00%) 0          0                   0                  0            0                  0                0              0               return;
+     27,642 ( 0.00%) 0          0              27,642 ( 0.01%)    13,775 ( 1.07%)   0                  0                0              0           }
+          .          .          .                   .                  .            .                  .                .              .           
+          .          .          .                   .                  .            .                  .                .              .           // dada uma certa casa, retorna o índice do melhor movimento usando a Regra de Warnsdorff como heurística.
+          .          .          .                   .                  .            .                  .                .              .           // Retorna zero se não houver movimento  disponível
+     82,926 ( 0.01%) 2 ( 0.13%) 2 ( 0.15%)          0                  0            0             55,284 ( 0.16%)   1,909 ( 0.28%) 1,840 (13.99%)  int bestMove(int x, int y) {
+    216,314 ( 0.02%) 1 ( 0.07%) 1 ( 0.07%)     48,309 ( 0.02%)        85 ( 0.01%)   0             13,821 ( 0.04%)       0              0               int menor = (tile[x][y].mvmnt[1] > 0) ? tile[x][y].mvmnt[1] : 9;  // inicialmente atribui a menor liberdade ao primeiro mvmnt ou uma liberdade invalida e alta
+    195,776 ( 0.02%) 1 ( 0.07%) 1 ( 0.07%)     41,463 ( 0.01%)         0            0             13,821 ( 0.04%)       0              0               int best = (tile[x][y].mvmnt[1] > 0) ? 1 : 0;                     // inicialmente atribui o índice de melhor movimento ao primeiro mvmnt se disponnível. Caso não disponível, atribui ao índice zero
+          .          .          .                   .                  .            .                  .                .              .           
+    165,852 ( 0.02%) 0          0              41,463 ( 0.01%)         1 ( 0.00%)   0                  0                0              0               if (tile[x][y].a <= 0) {  // caso não haja movimentos possíveis (ou não testados neste passo) retorna
+     12,624 ( 0.00%) 0          0                   0                  0            0                  0                0              0                   return 0;
+          .          .          .                   .                  .            .                  .                .              .               }
+          .          .          .                   .                  .            .                  .                .              .           
+    262,815 ( 0.03%) 1 ( 0.07%) 1 ( 0.07%)    127,653 ( 0.04%)         0            0              7,509 ( 0.02%)       0              0               for (int i = 1; i < 9; i++) {  // laço que testa os 8 movimentos do cavalo
+  1,081,296 ( 0.12%) 1 ( 0.07%) 1 ( 0.07%)    240,288 ( 0.08%)         0            0             60,072 ( 0.18%)       0              0                   int mvi = tile[x][y].mvmnt[i];
+          .          .          .                   .                  .            .                  .                .              .           
+  1,141,368 ( 0.13%) 1 ( 0.07%) 1 ( 0.07%)    240,288 ( 0.08%)         0            0                  0                0              0                   if (tile[x][y].mvmnt[i] <= 0) {  // movimento inválido ou leva para casa já vistiada
+     90,582 ( 0.01%) 1 ( 0.07%) 1 ( 0.07%)          0                  0            0                  0                0              0                       continue;
+          .          .          .                   .                  .            .                  .                .              .                   }
+    103,467 ( 0.01%) 0          0              44,343 ( 0.01%)         0            0             29,562 ( 0.09%)       0              0                   coordenadas candidata = qualCasa(x, y, i);  // a posição da casa que o movimento i leva (a possível casa analisada nesta iteração)
+     29,562 ( 0.00%) 0          0              14,781 ( 0.00%)         0            0             14,781 ( 0.04%)       0              0                   int xx = candidata.x;
+     29,562 ( 0.00%) 1 ( 0.07%) 1 ( 0.07%)     14,781 ( 0.00%)         0            0             14,781 ( 0.04%)       0              0                   int yy = candidata.y;
+          .          .          .                   .                  .            .                  .                .              .           
+    177,372 ( 0.02%) 0          0              44,343 ( 0.01%)         0            0                  0                0              0                   if (tile[xx][yy].p > 0) {  // não deveria ser necessário (checa se a casa já foi visitada)
+          .          .          .                   .                  .            .                  .                .              .                       continue;
+          .          .          .                   .                  .            .                  .                .              .                   }
+    280,839 ( 0.03%) 1 ( 0.07%) 1 ( 0.07%)     59,124 ( 0.02%)         0            0                  0                0              0                   if (tile[x][y].mvmnt[i] > 0) {      // a casa candidata já tem sua liberdade e movimento de retorno restringido
+    310,401 ( 0.03%) 2 ( 0.13%) 2 ( 0.15%)     73,905 ( 0.02%)     1,043 ( 0.08%)   0             14,781 ( 0.04%)       0              0                       tile[xx][yy].a--;               // toda casa válida testada perde 1 de acessibilidade, pois não se poderá voltar a casa ocupada
+    266,058 ( 0.03%) 1 ( 0.07%) 1 ( 0.07%)     44,343 ( 0.01%)         0            0             14,781 ( 0.04%)     285 ( 0.04%)     0                       tile[xx][yy].mvmnt[9 - i] = 0;  // invalida o movimento da possível casa de destino que leva a casa atual
+          .          .          .                   .                  .            .                  .                .              .                   }
+    561,678 ( 0.06%) 2 ( 0.13%) 2 ( 0.15%)    133,029 ( 0.04%)         0            0                  0                0              0                   if (tile[x][y].mvmnt[i] > 0 && tile[x][y].mvmnt[i] < menor) {  // testa qual movimento leva a uma casa com menor liberdade
+    129,906 ( 0.01%) 1 ( 0.07%) 1 ( 0.07%)     28,868 ( 0.01%)         0            0              7,217 ( 0.02%)       0              0                       menor = tile[x][y].mvmnt[i];
+     21,651 ( 0.00%) 0          0               7,217 ( 0.00%)         0            0              7,217 ( 0.02%)       0              0                       best = i;
+    287,432 ( 0.03%) 2 ( 0.13%) 2 ( 0.15%)     68,076 ( 0.02%)         0            0                  0                0              0                   } else if (tile[x][y].mvmnt[i] > 0 && tile[x][y].mvmnt[i] == menor) {  // caso as liberdades forem iguais, seleciona a de maior marginalidade
+    120,290 ( 0.01%) 2 ( 0.13%) 2 ( 0.15%)     36,610 ( 0.01%)        12 ( 0.00%)   0             15,690 ( 0.05%)       0              0                       int margBest = tile[qualCasa(x, y, best).x][qualCasa(x, y, best).y].m;
+     57,530 ( 0.01%) 0          0              15,690 ( 0.01%)        20 ( 0.00%)   0              5,230 ( 0.02%)       0              0                       int margMv = tile[xx][yy].m;
+          .          .          .                   .                  .            .                  .                .              .           
+     15,690 ( 0.00%) 0          0              10,460 ( 0.00%)         0            0                  0                0              0                       if (margMv >= margBest) {  // caso as marginalidades também forem iguais, seleciona a útlima checada
+     64,368 ( 0.01%) 1 ( 0.07%) 1 ( 0.07%)     14,304 ( 0.00%)         0            0              3,576 ( 0.01%)       0              0                           menor = tile[x][y].mvmnt[i];
+     10,728 ( 0.00%) 0          0               3,576 ( 0.00%)         0            0              3,576 ( 0.01%)       0              0                           best = i;
+          .          .          .                   .                  .            .                  .                .              .                       }
+          .          .          .                   .                  .            .                  .                .              .                   }
+          .          .          .                   .                  .            .                  .                .              .               }
+      7,509 ( 0.00%) 0          0               7,509 ( 0.00%)         0            0                  0                0              0               return best;
+     41,463 ( 0.00%) 0          0              41,463 ( 0.01%)         0            0                  0                0              0           }
+          .          .          .                   .                  .            .                  .                .              .           
+          .          .          .                   .                  .            .                  .                .              .           // Recebe as coordenadas de uma casa de origem e um movimento (mv) e retorna a casa de destino.
+    241,554 ( 0.03%) 0          0                   0                  0            0            161,036 ( 0.48%)   1,920 ( 0.28%) 1,844 (14.02%)  coordenadas qualCasa(int x, int y, int mv) {
+          .          .          .                   .                  .            .                  .                .              .               int ml, mc;
+          .          .          .                   .                  .            .                  .                .              .           
+          .          .          .                   .                  .            .                  .                .              .               // determina a variação de linha e coluna que o movimento indica
+          .          .          .                   .                  .            .                  .                .              .               // Movimentos pares são para cima, movimentos ímpares para baixo (olhar documentação)
+     80,518 ( 0.01%) 0          0              40,259 ( 0.01%)         0            0                  0                0              0               if (mv <= 4) {                             // movimentos da esquerda
+    201,144 ( 0.02%) 1 ( 0.07%) 1 ( 0.07%)     25,143 ( 0.01%)         0            0             25,143 ( 0.07%)       0              0                   mc = -2 + (mv - 1) / 2;                // calcula variação de coluna em função do movimento
+    477,717 ( 0.05%) 1 ( 0.07%) 1 ( 0.07%)    100,572 ( 0.03%)         0            0             75,429 ( 0.22%)       0              0                   ml = (3 - abs(mc)) * pow(-1, mv - 1);  // calcula a variação de linha de acordo com a coluna.
+     30,232 ( 0.00%) 0          0              15,116 ( 0.01%)         0            0                  0                0              0               } else if (mv >= 5) {                      // movimentos da direita
+    120,928 ( 0.01%) 0          0              15,116 ( 0.01%)         0            0             15,116 ( 0.04%)       0              0                   mc = -1 + (mv - 1) / 2;                // calcula variação de coluna em função do movimento
+    272,088 ( 0.03%) 0          0              60,464 ( 0.02%)         0            0             45,348 ( 0.13%)       0              0                   ml = (3 - abs(mc)) * pow(-1, mv - 1);  // calcula variação de linha em função da coluna
+          .          .          .                   .                  .            .                  .                .              .               }
+          .          .          .                   .                  .            .                  .                .              .           
+          .          .          .                   .                  .            .                  .                .              .               coordenadas p;  // posição determinada pelo movimento mv a partir daquela casa
+    161,036 ( 0.02%) 2 ( 0.13%) 1 ( 0.07%)     80,518 ( 0.03%)         0            0             40,259 ( 0.12%)       0              0               p.y = y + ml;
+    161,036 ( 0.02%) 0          0              80,518 ( 0.03%)         0            0             40,259 ( 0.12%)       0              0               p.x = x + mc;
+          .          .          .                   .                  .            .                  .                .              .           
+  1,046,734 ( 0.12%) 2 ( 0.13%) 1 ( 0.07%)    362,331 ( 0.12%)       964 ( 0.07%)   0                  0                0              0               if (p.x >= 0 && p.x < dim && p.y >= 0 && p.y < dim && tile[p.x][p.y].p <= 0) {  // se casa válida e não visitada
+     80,518 ( 0.01%) 0          0              40,259 ( 0.01%)         0            0                  0                0              0                   return p;                                                                   // retorna a nova posição
+          .          .          .                   .                  .            .                  .                .              .               } else {                                                                        // caso tenha havido algum erro, continua na mesma casa
+          .          .          .                   .                  .            .                  .                .              .                   coordenadas same;
+          .          .          .                   .                  .            .                  .                .              .                   same.x = x;
+          .          .          .                   .                  .            .                  .                .              .                   same.y = y;
+          .          .          .                   .                  .            .                  .                .              .                   return same;  // retorna a casa atual (a mesma que já se está)
+          .          .          .                   .                  .            .                  .                .              .               }
+     80,518 ( 0.01%) 0          0              80,518 ( 0.03%)         0            0                  0                0              0           }
+          .          .          .                   .                  .            .                  .                .              .           
+          .          .          .                   .                  .            .                  .                .              .           // atualiza os movimentos possíveis de uma casa [tile] específica. Retorna sua acessibilidade (a atual liberdae de movimentos daquela casa)
+  9,858,480 ( 1.11%) 3 ( 0.20%) 1 ( 0.07%)          0                  0            0          6,572,320 (19.42%)   2,489 ( 0.36%) 2,407 (18.30%)  int updateKnightMoves(int x, int y, int assign) {
+  1,643,080 ( 0.18%) 0          0                   0                  0            0          1,643,080 ( 4.86%)       0              0               int freedom = 0;
+  1,643,080 ( 0.18%) 0          0                   0                  0            0          1,643,080 ( 4.86%)       0              0               int mvmnt = 0;
+          .          .          .                   .                  .            .                  .                .              .           
+          .          .          .                   .                  .            .                  .                .              .               // for e condições que determinam os 8 movimentos do cavalo
+ 37,790,840 ( 4.25%) 5 ( 0.33%) 3 ( 0.22%) 18,073,880 ( 6.10%)         0            0          1,643,080 ( 4.86%)       0              0               for (int c = -2; c <= 2; c++) {
+ 18,073,880 ( 2.03%) 0          0           8,215,400 ( 2.77%)         0            0                  0                0              0                   if (c == 0) continue;
+ 85,440,160 ( 9.61%) 0          0          13,144,640 ( 4.44%)         0            0          6,572,320 (19.42%)       0              0                   int l = (((abs(c) + 2) % 2) + 1);
+          .          .          .                   .                  .            .                  .                .              .           
+  6,572,320 ( 0.74%) 0          0           6,572,320 ( 2.22%)         0            0                  0                0              0                   mvmnt++;
+          .          .          .                   .                  .            .                  .                .              .                   // todas as variações a direita -já que c é sempre positivo
+138,854,008 (15.61%) 4 ( 0.27%) 2 ( 0.15%) 63,059,578 (21.29%)         0            0                  0                0              0                   if (x + c >= 0 && x + c < dim && y + l >= 0 && y + l < dim) {  // se o movimento é válido
+ 92,480,320 (10.40%) 0          0          28,900,100 ( 9.76%) 1,251,216 (97.05%) 357 (12.95%)         0                0              0                       if (tile[x + c][y + l].p <= 0) {                           // tile não visitado                          // se a casa não foi previamente visitada
+    433,344 ( 0.05%) 1 ( 0.07%) 1 ( 0.07%)    433,344 ( 0.15%)         0            0                  0                0              0                           freedom++;
+  4,818,608 ( 0.54%) 0          0           1,421,324 ( 0.48%)         0            0            282,280 ( 0.83%)   9,491 ( 1.38%)     6 ( 0.05%)                  if (assign != 0) tile[x][y].mvmnt[mvmnt] = updateKnightMoves(x + c, y + l, 0);
+  8,709,672 ( 0.98%) 5 ( 0.33%) 3 ( 0.22%)  1,812,732 ( 0.61%)     2,372 ( 0.18%)  97 ( 3.52%)    26,452 ( 0.08%)       0              0                           if (tile[x][y].mvmnt[mvmnt] == 0) tile[x][y].mvmnt[mvmnt] = 1;  // só para garantir que movimento válido não seja 0;
+          .          .          .                   .                  .            .                  .                .              .                       } else {
+ 90,893,492 (10.22%) 0          0          16,040,028 ( 5.42%)         0            0          5,346,676 (15.80%) 355,718 (51.74%)     0                           tile[x][y].mvmnt[mvmnt] = 0;
+          .          .          .                   .                  .            .                  .                .              .                       }
+          .          .          .                   .                  .            .                  .                .              .                   }
+          .          .          .                   .                  .            .                  .                .              .           
+  6,572,320 ( 0.74%) 1 ( 0.07%) 1 ( 0.07%)  6,572,320 ( 2.22%)         0            0                  0                0              0                   mvmnt++;
+          .          .          .                   .                  .            .                  .                .              .                   // todas avariações a esquerda, já que c é sempre positivo
+130,396,404 (14.66%) 2 ( 0.13%) 2 ( 0.15%) 61,912,042 (20.90%)         0            0                  0                0              0                   if (x + c >= 0 && x + c < dim && y - l >= 0 && y - l < dim) {
+ 86,700,300 ( 9.75%) 0          0          28,900,100 ( 9.76%)        87 ( 0.01%)  35 ( 1.27%)         0                0              0                       if (tile[x + c][y - l].p <= 0) {  // tile não visitado
+    433,344 ( 0.05%) 1 ( 0.07%) 1 ( 0.07%)    433,344 ( 0.15%)         0            0                  0                0              0                           freedom++;
+  4,677,468 ( 0.53%) 0          0           1,421,324 ( 0.48%)         0            0            282,280 ( 0.83%)   7,596 ( 1.10%)     0                           if (assign != 0) tile[x][y].mvmnt[mvmnt] = updateKnightMoves(x + c, y - l, 0);
+  8,712,210 ( 0.98%) 3 ( 0.20%) 3 ( 0.22%)  1,813,155 ( 0.61%)     1,838 ( 0.14%)  71 ( 2.58%)    26,593 ( 0.08%)       0              0                           if (tile[x][y].mvmnt[mvmnt] == 0) tile[x][y].mvmnt[mvmnt] = 1;  // só para garantir que movimento válido não seja 0;
+          .          .          .                   .                  .            .                  .                .              .                       } else {
+ 96,240,168 (10.82%) 0          0          16,040,028 ( 5.42%)         0            0          5,346,676 (15.80%) 227,966 (33.16%)     0                           tile[x][y].mvmnt[mvmnt] = 0;
+          .          .          .                   .                  .            .                  .                .              .                       }
+          .          .          .                   .                  .            .                  .                .              .                   }
+          .          .          .                   .                  .            .                  .                .              .               }
+ 18,073,880 ( 2.03%) 0          0           4,929,240 ( 1.66%)         0            0          1,643,080 ( 4.86%)  68,920 (10.03%)     7 ( 0.05%)      tile[x][y].a = freedom;
+  1,643,080 ( 0.18%) 0          0           1,643,080 ( 0.55%)         0            0                  0                0              0               return freedom;
+  3,286,160 ( 0.37%) 0          0           3,286,160 ( 1.11%)         0            0                  0                0              0           }
+          .          .          .                   .                  .            .                  .                .              .           // reinicializa as variaveis com valor 0, para a próxima execução
+          6 ( 0.00%) 0          0                   0                  0            0                  3 ( 0.00%)       0              0           void limpa() {
+        312 ( 0.00%) 1 ( 0.07%) 1 ( 0.07%)        186 ( 0.00%)         1 ( 0.00%)   0                  3 ( 0.00%)       0              0               for (int y = 0; y < dim; y++) {
+      6,240 ( 0.00%) 0          0               3,720 ( 0.00%)         0            0                 60 ( 0.00%)       0              0                   for (int x = 0; x < dim; x++) {
+     12,000 ( 0.00%) 1 ( 0.07%) 1 ( 0.07%)      2,400 ( 0.00%)         0            0              1,200 ( 0.00%)     388 ( 0.06%)     0                       tile[x][y].p = 0;  // atribui -1 inicialmente a todos os tiles (output concerns)
+      1,200 ( 0.00%) 0          0                   0                  0            0              1,200 ( 0.00%)       0              0                       int i = 0;
+     34,800 ( 0.00%) 0          0              12,000 ( 0.00%)         0            0                  0                0              0                       while (i < 9) {  // loop que percorre os 8 mvmnt e persistent de cada title[dim][dim]
+    561,600 ( 0.06%) 3 ( 0.20%) 3 ( 0.22%)    108,000 ( 0.04%)         0            0             21,600 ( 0.06%)   1,292 ( 0.19%)     0                           tile[x][y].persistent[i] = tile[x][y].mvmnt[i] = 0;
+     10,800 ( 0.00%) 0          0              10,800 ( 0.00%)         0            0                  0                0              0                           i++;
+          .          .          .                   .                  .            .                  .                .              .                       }
+          .          .          .                   .                  .            .                  .                .              .                   }
+          .          .          .                   .                  .            .                  .                .              .               }
+          9 ( 0.00%) 0          0                   6 ( 0.00%)         3 ( 0.00%)   0                  0                0              0           }
+          .          .          .                   .                  .            .                  .                .              .           // reseta as variáveis para seus valores iniciais de acessibilidade, movimentos e persistencia)
+          9 ( 0.00%) 1 ( 0.07%) 1 ( 0.07%)          0                  0            0                  3 ( 0.00%)       0              0           void setup() {
+         15 ( 0.00%) 0          0                   6 ( 0.00%)         0            0                  9 ( 0.00%)       1 ( 0.00%)     1 ( 0.01%)      visitadas = regredidas = passo = 0;
+          3 ( 0.00%) 0          0                   0                  0            0                  3 ( 0.00%)       0              0               dim = DIMENSIONS;
+          .          .          .                   .                  .            .                  .                .              .           
+        312 ( 0.00%) 2 ( 0.13%) 1 ( 0.07%)        186 ( 0.00%)         0            0                  3 ( 0.00%)       0              0               for (int y = 0; y < dim; y++) {  // for duplo for que percorre a matriz (tabuleiro)
+      6,240 ( 0.00%) 1 ( 0.07%) 1 ( 0.07%)      3,720 ( 0.00%)         0            0                 60 ( 0.00%)       0              0                   for (int x = 0; x < dim; x++) {
+     12,000 ( 0.00%) 2 ( 0.13%) 1 ( 0.07%)      2,400 ( 0.00%)         0            0              1,200 ( 0.00%)       6 ( 0.00%)     2 ( 0.02%)              tile[x][y].p = 0;            // atribui 0 inicialmente a todas as casas (tiles)
+      7,200 ( 0.00%) 0          0               2,400 ( 0.00%)         0            0              1,200 ( 0.00%)       0              0                       updateKnightMoves(x, y, 1);  // seta os valores iniciais de acessibilidade e dos movimentos inicialmente possíveis
+      1,200 ( 0.00%) 0          0                   0                  0            0              1,200 ( 0.00%)       0              0                       int i = 0;
+     34,800 ( 0.00%) 0          0              12,000 ( 0.00%)         0            0                  0                0              0                       while (i < 9) {  // laço que inicializa com zero a persistencia de todas as casas
+    194,400 ( 0.02%) 2 ( 0.13%) 1 ( 0.07%)     32,400 ( 0.01%)         0            0             10,800 ( 0.03%)       0              0                           tile[x][y].persistent[i] = 0;
+     10,800 ( 0.00%) 0          0              10,800 ( 0.00%)         0            0                  0                0              0                           i++;
+          .          .          .                   .                  .            .                  .                .              .                       }
+          .          .          .                   .                  .            .                  .                .              .                   }
+          .          .          .                   .                  .            .                  .                .              .               }
+          6 ( 0.00%) 0          0                   0                  0            0                  3 ( 0.00%)       0              0               setMarginalidade(0);  // atribui a marginalidade de cada casa de acordo com as dimensões do tabuleiro
+          9 ( 0.00%) 0          0                   6 ( 0.00%)         3 ( 0.00%)   0                  0                0              0           }
+          .          .          .                   .                  .            .                  .                .              .           // retorna a marginalidade em função da posição da casa. Quanto maior, mais periférica é a casa.
+      6,000 ( 0.00%) 0          0                   0                  0            0              3,600 ( 0.01%)       0              0           int marginalidade(int x, int y) {
+      9,600 ( 0.00%) 1 ( 0.07%) 1 ( 0.07%)      2,400 ( 0.00%)         3 ( 0.00%)   0              1,200 ( 0.00%)       0              0               float r = (dim + 1) / 2.0;
+     50,400 ( 0.01%) 1 ( 0.07%) 1 ( 0.07%)     10,800 ( 0.00%)         0            0              6,000 ( 0.02%)       0              0               float c = round(round((float)(r - (x + 1)) * (float)(r - (x + 1))) + round((float)(r - (y + 1)) * (float)(r - (y + 1))));
+      2,400 ( 0.00%) 0          0               1,200 ( 0.00%)         0            0                  0                0              0               return c;
+      2,400 ( 0.00%) 0          0               2,400 ( 0.00%)         0            0                  0                0              0           }
+          .          .          .                   .                  .            .                  .                .              .           
+          .          .          .                   .                  .            .                  .                .              .           // atribui a marginalidade de cada casa de acordo com as dimensões do tabuleiro.
+         12 ( 0.00%) 2 ( 0.13%) 2 ( 0.15%)          0                  0            0                  6 ( 0.00%)       0              0           void setMarginalidade(int display) {
+          6 ( 0.00%) 0          0                   3 ( 0.00%)         0            0                  0                0              0               if (display) printf("\n //////     MARGINALIDADE     //////// \n");
+        312 ( 0.00%) 0          0                 186 ( 0.00%)         0            0                  3 ( 0.00%)       0              0               for (int y = 0; y < dim; y++) {
+      6,240 ( 0.00%) 2 ( 0.13%) 2 ( 0.15%)      3,720 ( 0.00%)         0            0                 60 ( 0.00%)       0              0                   for (int x = 0; x < dim; x++) {
+     18,000 ( 0.00%) 0          0               4,800 ( 0.00%)         0            0              2,400 ( 0.01%)   1,029 ( 0.15%)     0                       tile[x][y].m = marginalidade(x, y);
+      2,400 ( 0.00%) 0          0               1,200 ( 0.00%)         0            0                  0                0              0                       if (display != 0) printf(" %d ", tile[x][y].m);
+          .          .          .                   .                  .            .                  .                .              .                   }
+        120 ( 0.00%) 1 ( 0.07%) 1 ( 0.07%)         60 ( 0.00%)         0            0                  0                0              0                   if (display) printf("\n");
+          .          .          .                   .                  .            .                  .                .              .               }
+          9 ( 0.00%) 0          0                   6 ( 0.00%)         0            0                  0                0              0           }
+          .          .          .                   .                  .            .                  .                .              .           
+          .          .          .                   .                  .            .                  .                .              .           // desenha a matriz (tabuleiro) em função dos passos de maneira visualmente organizada
+          .          .          .                   .                  .            .                  .                .              .           void displayChessBoard(int simple) {
+          .          .          .                   .                  .            .                  .                .              .               // simple != 0 : imprimie apenas os passos do passeio
+          .          .          .                   .                  .            .                  .                .              .               // simple == 0 : imprime passos do passeio e a atual acessibilidade daquela casa
+          .          .          .                   .                  .            .                  .                .              .               // printf("\n //////     TABULEIRO     //////// \n");
+          .          .          .                   .                  .            .                  .                .              .               for (int y = 0; y < dim; y++) {
+          .          .          .                   .                  .            .                  .                .              .                   for (int x = 0; x < dim; x++) {
+-- line 306 ----------------------------------------
+-- line 331 ----------------------------------------
+          .          .          .                   .                  .            .                  .                .              .                       }
+          .          .          .                   .                  .            .                  .                .              .                       printf("| ");
+          .          .          .                   .                  .            .                  .                .              .                   }
+          .          .          .                   .                  .            .                  .                .              .                   printf("\n");
+          .          .          .                   .                  .            .                  .                .              .               }
+          .          .          .                   .                  .            .                  .                .              .           }
+          .          .          .                   .                  .            .                  .                .              .           
+          .          .          .                   .                  .            .                  .                .              .           // Imprime tabuleiro e passeio conforme especificações do TP.
+         12 ( 0.00%) 1 ( 0.07%) 1 ( 0.07%)          0                  0            0                  6 ( 0.00%)       0              0           void flushRide(FILE *arq) {
+        312 ( 0.00%) 1 ( 0.07%) 1 ( 0.07%)        186 ( 0.00%)         3 ( 0.00%)   0                  3 ( 0.00%)       0              0               for (int y = 0; y < dim; y++) {
+      6,240 ( 0.00%) 0          0               3,720 ( 0.00%)         0            0                 60 ( 0.00%)       0              0                   for (int x = 0; x < dim; x++) {
+     18,000 ( 0.00%) 1 ( 0.07%) 1 ( 0.07%)      4,800 ( 0.00%)     1,200 ( 0.09%)   0              1,200 ( 0.00%)       0              0                       fprintf(arq, "%d ", tile[x][y].p);
+          .          .          .                   .                  .            .                  .                .              .                   }
+        240 ( 0.00%) 0          0                  60 ( 0.00%)         0            0                 60 ( 0.00%)       0              0                   fprintf(arq, "\n");
+          .          .          .                   .                  .            .                  .                .              .               }
+         21 ( 0.00%) 1 ( 0.07%) 0                   9 ( 0.00%)         0            0                  3 ( 0.00%)       0              0               fprintf(arq, "%d %d\n", visitadas, regredidas);
+          9 ( 0.00%) 0          0                   6 ( 0.00%)         0            0                  0                0              0           }
+
+--------------------------------------------------------------------------------
+The following files chosen for auto-annotation could not be found:
+--------------------------------------------------------------------------------
+  ./math/../sysdeps/ieee754/dbl-64/e_pow.c
+
+--------------------------------------------------------------------------------
+Ir                   I1mr        ILmr        Dr                   D1mr               DLmr         Dw                  D1mw             DLmw           
+--------------------------------------------------------------------------------
+881,833,031 (99.17%) 98 ( 6.52%) 81 ( 5.96%) 295,006,104 (99.61%) 1,272,752 (98.72%) 560 (20.31%) 33,422,234 (98.77%) 679,075 (98.78%) 6,107 (46.43%)  events annotated
+
