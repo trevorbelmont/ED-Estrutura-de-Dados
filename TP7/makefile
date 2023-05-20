@@ -1,13 +1,5 @@
-cxx=g++
-cflags=-w
-# No encadeamento de comandos em uma regra a separação por ; ou  && tende a ser essencial
-# Use ; para separar comandos com execuções independentes e && para encadear um comando que depende do sucesso do anterior
-# Quebra de linha simples (sem ponto e vírgula) é entendida como &&
-
-#.PHONE: nome_da_regra   (logo acima da definição da regra). 
-# Faz com que a regra seja executada sempre que invocada, não checando ou considerando modificações de dependencias
-# Também é útil para diferenciar regras que não possuem associação com arquivos - neste caso o makefile não procurará pelo arquivo.
-# Especialmente útil quando temos arquivos com o mesmo nome de uma regra. No geral é pouco usado. 
+cxx=g++ -std=c++17
+cflags= -Wall
 
 # := ou = ? Atribuição simples ourecursiva e porque:
 
@@ -33,7 +25,7 @@ target := ${bin}/${programa} # Endereço do executável do programa compilado
 # ------------- WILDCARDS e SUBSTITUIÇÃO DE STRINGS E SUFIXOS ---------------------------------------------
 # uma variável com wildcard É UMA LISTA DE ARQUIVOS que seguem o padrão estabelecido. Alguns comandos funcionam melhor com listas (wildcards).
 # Wildcard é ligeiramente diferente de usar " *.sufixo ". Uma vez que o asterisco não é uma lista. E também é diferente de %.
-
+# % é um wildcard para substituição por padrão. Depois de usado para substituir uma string na passa a represtar a string que substituiu (durante a linha?)
 # Susbstituição de sufixos	":"
 # ex: NOVA_VARIAVEL := $(SRCS:.cpp=.o)   Aqui se está criando uma nova variável 
 # ao qual se está atribuido toda lista de variáveis SRCS porem com o sufixo ".cpp" trocado por ".o"
@@ -61,18 +53,40 @@ ${target}: $(objetcts) $(headers)
 ${obj}/%.o:  ${src}/%.cpp $(headers)
 	${cxx} ${cflags} -c -I ${incld} $< -o $@
 
-
-
 run: ${target}
 	./$(target)
 
 # Apaga apenas os .o e executáveis previstos neste makefile
-
 clean:
 	rm ${target}; rm -r ${objetcts}
 
+# No encadeamento de comandos em uma regra a separação por ; ou  && tende a ser essencial
+# Use ; para separar comandos com execuções independentes e && para encadear um comando que depende do sucesso do anterior
+# Quebra de linha simples (sem ponto e vírgula) é entendida como &&
 
+
+###---------------------------------------------------------------------##
+###------------------ COMANDOS ADICIONAIS E ATALHOS---------------------##
+
+
+#.PHONE: nome_da_regra   (logo acima da definição da regra). 
+# Faz com que a regra seja executada sempre que invocada, não checando ou considerando modificações de dependencias
+# Também é útil para diferenciar regras que não possuem associação com arquivos - neste caso o makefile não procurará pelo arquivo.
+# Especialmente útil quando temos arquivos com o mesmo nome de uma regra. No geral é pouco usado. 
+
+
+# Atalho para compilação do arquivo %.cpp isoladamente 
+.PHONY: %.cpp
+%.cpp: ${src}/%.cpp $(headers)
+	${cxx} ${cflags} -c -I ${incld} $< -o $(obj)/${patsubst %.cpp,%.o,$@}
+
+# Atalho para compilação do arquivo %.cpp isoladamente 
+.PHONY: %.c
+%.c: ${src}/%.cpp $(headers)
+	${cxx} ${cflags} -c -I ${incld} $< -o $(obj)/${patsubst %.c,%.o,$@}
+
+# Lista estrutura e arquivos presentes no projeto.
 actual_objects = ${wildcard $(obj)/*.o}
 list:
 	printf "|--Sources \n|     |-- ${sources} \n|--Headers: \n|     |-- ${headers} \n|--Objects: \n|     |-- ${actual_objects} \n|--Libraries: \n|     |-- ${libraries} \n|--Executable (bin): \n|     |--${target}\n"
-	
+
