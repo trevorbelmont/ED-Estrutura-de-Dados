@@ -84,6 +84,8 @@ class Lista {
       last_ = aux;
     }
     size_++;
+    aux = nullptr;
+    delete aux;
   }
 
   // Insere no início.
@@ -97,6 +99,8 @@ class Lista {
       first_->prev = aux;
       first_ = aux;
     }
+    aux = nullptr;
+    delete aux;
     size_++;
   }
   // Insere antes da posição especificada pelo ponteiro do segundo argumento. Retorna false, caso falhe.
@@ -113,7 +117,8 @@ class Lista {
 
     pos->prev->next = nuevo;  // Endereça o antigo vizinho anterior de pós.
     pos->prev = nuevo;        // Atualiza o ponteiro pro vizinho prévio (de pós).
-
+    nuevo == nullptr;
+    delete nuevo;
     return true;
   }
 
@@ -125,7 +130,8 @@ class Lista {
       Node<Tipo> *del = get(pos);   // O Node<Tipo> a ser deletado.
       del->prev->next = del->next;  // Emenda o ponteiro next do anterior com o do próximo
       del->next->prev = del->prev;  // Emenda o ponteiro prev do próximo com o do anterior
-      delete get(pos);
+      delete del;
+      size_--;
       return true;
     }
   }
@@ -137,6 +143,8 @@ class Lista {
     } else {
       del->prev->next = del->next;  // Emenda o ponteiro next do anterior com o do próximo
       del->next->prev = del->prev;  // Emenda o ponteiro prev do próximo com o do anterior
+      delete del;
+      size_--;
       return true;
     }
   }
@@ -164,31 +172,44 @@ class Lista {
       return nulinho;  // ¬Devolve lixo se falhar
     }
     Node<Tipo> popped = *last_;  // O node a ser retirado recebe uma cópia do nodo apontado por last_
-    last_ = last_->prev;
-    last_->next = nullptr;  // O ponteiro privado last_ passa ser o penúltimo (que ainda aponta o antigo último)
-    delete last_->next;     // Desaloca o antigo último da lista
-    size_--;                // ¬ não desalocou memória.
+                                 // O ponteiro privado last_ passa ser o penúltimo (que ainda aponta o antigo último)
+    if (size_ > 1) {             // Se não é o último da lista (portanto, se last-prev é válido)
+      last_ = last_->prev;
+      delete last_->next;     // Desaloca o antigo último da lista
+      last_->next = nullptr;  // Atualiza para nullptr o pointer next da nova última posição da lista
+
+    } else if (size_ == 1) {
+      delete last_;
+      last_ = first_ = nullptr;
+    }
+    size_--;  // ¬ não desalocou memória.
     return popped.key;
   }
 
-  // Retira e retorna o primeiro elemento.
+  // Retira e retorna o primeiro elemento. Retorna lixo se estiver vazio.
   Tipo pop_front() {
-    if (size_ <= 0) {
+    if (size_ <= 0) {  // Se estiver vazio retorna lixo.
       Tipo t;
-      return t;  // ¬Devolve lixo se falhar
-    }
+      cout << "!! Pop em lista vazia. Lixo de memória não inicializado será retornado!" << endl;
+      return t;                     // ¬Devolve lixo se falhar
+    }                               // se não for o último
     Node<Tipo> popped = *(first_);  // Faz cópia de first_.
     delete first_;                  // Desaloca o atual first_ (na front da lista)
-    first_ = (popped.next);         // Atualiza o novo first_.
-    first_->prev = nullptr;         // Atualiza o ponteiro do first para nullptr;
+
+    if (size_ > 1) {
+      first_ = (popped.next);  // Atualiza o novo first_ para a próxima entrada.
+      first_->prev = nullptr;  // Atualiza o ponteiro do first para nullptr;
+    } else if (size_ == 1) {   // Se for a única entrada na lista
+      first_ = last_ = nullptr;
+    }
     size_--;
-    // ¬¬ Acho que é porque node poppoed está alocado estáticamente
 
     return popped.key;
   }
 
   // Retorna e remove o elemento da posição pos;
-  Tipo pop(int pos) {
+  Tipo
+  pop(int pos) {
   }
 
   // Retorna o tamanho atual da lista;
@@ -237,7 +258,17 @@ class Lista {
   }
   // Ponteiro para o fim da lista, que é a próxima posição livre da lista. (Corresponde a last_->next)
   Node<Tipo> *end() {
-    return last_->next;
+    if (empty()) {  // Se vazio retorna apenas last;
+      return last_;
+    } else {
+      return last_->next;
+    }
+  }
+
+  ~Lista() {
+    clean();
+    delete first_;
+    delete last_;
   }
 };
 

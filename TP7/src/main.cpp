@@ -6,10 +6,23 @@
 using namespace std;
 
 int main() {
-  Lista<int> l;
+  Lista<string> ls;
 
+  //implementar os iteradores básicos faltantes.
+
+  ls.push_front("o");
+  ls.push_front("ã");
+  ls.push_front("c");
+  ls.push_back("!");
+  ls.list();
+  ls.erase(ls.end());
+  ls.list();
+
+  exit(0);
+  Lista<int> l;
+  // testar erase e insert com iteradores padrão (front, end, begin, last);
   cout << "vazia:" << l.empty() << endl;
-  l.push_back(1);
+  l.push_front(1);
   l.push_back(2);
   l.push_back(3);
   l.push_back(4);
@@ -42,9 +55,5 @@ int main() {
   l.list();
   l.clean();
   cout << "vazia:" << l.empty() << endl;
-  l.list(); 
+  l.list();
 }
-/* l
- 00034
-f 233
-t 0010233 */
