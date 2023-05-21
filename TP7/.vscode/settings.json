@@ -3,7 +3,9 @@
     "deque": "cpp",
     "istream": "cpp",
     "array": "cpp",
-    "string_view": "cpp"
+    "string_view": "cpp",
+    "iostream": "cpp",
+    "ostream": "cpp"
   },
   "makefile.launchConfigurations": [
     {

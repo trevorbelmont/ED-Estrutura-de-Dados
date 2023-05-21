@@ -3,7 +3,7 @@
         {
             "type": "shell",
             "label": "Compilar",
-            "command": "g++ shellSort.cpp -o exe -g",
+            "command": "make",
             "problemMatcher": [],
             "group": {
                 "kind": "build",
@@ -13,7 +13,7 @@
         {
             "type": "shell",
             "label": "Executar",
-            "command": "./exe",
+            "command": "make run",
             "problemMatcher": [],
             "group": {
                 "kind": "test",
