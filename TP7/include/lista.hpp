@@ -16,30 +16,46 @@ struct Node {
   Node<Tipo> *prev = nullptr;
   Node<Tipo> *next = nullptr;
 
-  // !! Sobrecarrega o operador = para Nodos A chave é atribuida e ponteiros do Nodo não são tocados.
-  // Usa os casts padrões para tentar atribuir. Não altera a variável se falhar. ¬ Fora do padrão ISO C++.
+  Node() {
+    prev = next = nullptr;
+  }
+  Node(Tipo t) {
+    key = t;
+    prev = next = nullptr;
+  }
+
+  template <typename ConversionType>
+  Node(Node<ConversionType> nodeC) {
+    key = static_cast<Tipo>(nodeC.key);
+    prev = next = nullptr;
+  }
+
+  // Sobrecarrega o operador = para nodes de tipos diferentes (desde que o cast Node<tipo>(Node<TipoRight>)) tenha sido implementada.
+  // !! Os ponteiros do Nodo não são tocados.
+  // Usa os casts padrões para tentar atribuir. Se falhar, retorna a variável sem alteração. ¬ Fora do padrão ISO C++.
   template <typename TipoRight>
   Node<Tipo> operator=(Node<TipoRight> right) const {
-    Node<Tipo> converted = *this;
+    Node<Tipo> converted;
     try {
       converted.key = Tipo(right.key);
       return converted;
-    } catch (...) {
+    } catch (...) {  // ¬ Caso a conversão falhe, devolve nodo<Tipo> original intacto, não derruba aplicação. (Rever) ¬
       cout << " !! Cast não definido! A Variável não foi alterada." << endl;
+      // Caso a conversão não esteja definida ou falhe, retorna a variável sem qualquer alteração e ponteiros intactos, this.
+      return *this;
     }
-    return *this;
   }
 
   // Retorna uma versão do nodo atual , nodo<Tipo>, convertido para o nodo do tipo requisitado , Nodo<ConversionType>.
   // !Atenção: o Nodo<ConversionTipe> retornado não possui qualquer ponteiro inicializado.
   // Pela natureza diferente (e a não implementação de hierarquia) nodos de tipos diferentes não podem compartilhar ponteiros para nodos.
-  template <typename ConversionType>
+/*   template <typename ConversionType>
   operator Node<ConversionType>() const {
     Node<ConversionType> conversion;
-    conversion.key = TipoRight(this->key);
+    conversion.key = ConversionType(this->key);
     return conversion;
   }
-};
+ */};
 
 // Lista encadeada de tipo genérico
 template <typename Tipo>
@@ -50,14 +66,6 @@ class Lista {
   int size_;           // Variável privada que designa o tamanho do lista;
 
  public:
-  // Sobrecarrega o operador = para nodes de tipos diferentes (desde que o cast Node<tipo>(Node<TipoRight>)) tenha sido implementada.
-  template <typename TipoRight>
-  Node<Tipo> operator=(Node<TipoRight> right) {  // queria saber se rodava
-    Node<Tipo> converted;
-    converted.key = Tipo(right.key);
-    return converted;  // chega a rodar
-  }
-
   Lista() {
     first_ = last_ = new Node<Tipo>;
     size_ = 0;
@@ -130,6 +138,16 @@ class Lista {
       del->prev->next = del->next;  // Emenda o ponteiro next do anterior com o do próximo
       del->next->prev = del->prev;  // Emenda o ponteiro prev do próximo com o do anterior
       return true;
+    }
+  }
+
+  bool empty() {
+    return (size_ == 0);  // ¬ last == first é só test. é perigoso e não preciso
+  }
+
+  void clean() {
+    while (!empty()) {
+      pop_front();
     }
   }
 

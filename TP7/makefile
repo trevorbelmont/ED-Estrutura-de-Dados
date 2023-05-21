@@ -1,5 +1,5 @@
 cxx=g++ -std=c++17
-cflags= -Wall
+cflags= -w
 
 # := ou = ? Atribuição simples ourecursiva e porque:
 
