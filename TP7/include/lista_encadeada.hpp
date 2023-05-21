@@ -9,6 +9,16 @@
 
 using namespace std;
 
+template <typename Tipo>
+struct BaseNode{
+  Tipo key;
+};
+
+/* template <typename Tipo>
+struct EndNode : BaseNode<Tipo>{
+  Node<Tipo>* prev;
+};
+ */
 // Define um nodo carregando a chave do tipo <Tipo> que possui ponteiros para um próximo nodo do mesmo tipo e um anterior.
 template <typename Tipo>
 struct Node {
@@ -18,14 +28,17 @@ struct Node {
   Node<Tipo> *next = nullptr;
 
   Node() {
-    key = initialize(key);
+    // key = initialize(key);
     prev = next = nullptr;
   }
   Node(Tipo t) {
     key = t;
     prev = next = nullptr;
   }
-
+  /* ~Node() { quebra o código
+    delete prev;
+    delete next;
+  } */
   // Inicializa valores que precisam ser inicializados e não vem com lixo de memória.
   // !Tipos básicos não são alterados pois já possuem conteúdo, ainda que não determinado (lixo de memória).
   Tipo initialize(Tipo t) {
@@ -73,13 +86,16 @@ struct Node {
   }
  */};
 
-// Lista encadeada de tipo genérico
+// Lista encadeada de tipo genérico com no mínimo um nodo (first).
 template <typename Tipo>
 class Lista {
  private:
   Node<Tipo> *first_;  // Ponteiro Node<Tipo> para oo início da lista (primiera posição);
   Node<Tipo> *last_;   // Ponteiro Node<Tipo> para a próxima posição OCUPADA da lista.
-  int size_;           // Variável privada que designa o tamanho do lista;
+  // Os pointers lista.begin() e lista.end() são calculados em tempo de execução e são dinâmicos.
+  // o Ponteiro lista.end() é sempre um criado na invocação que é destruído caso não usado.
+
+  int size_;  // Variável privada que designa o tamanho do lista;
 
  public:
   // Cria lista vazia com pointer no estdo original (para listas vazias):
@@ -130,7 +146,7 @@ class Lista {
     //  -------------------- Checagens de Tipo:  ---------------------- //
     //(Compromisso: maior fortitude porém maior complexidade (overhead))//
 
-    // Checagem do tipo do ponteiro *pos;
+    // Checagem do tipo do Nodo<Tipo usado como ponteiro em ponteiro *pos; // Talvez o compilador avise e isso seja excesso de zelo
     try {
       Node<Tipo> *expendable = pos;  // Tenta atribuição entre ponteiros para checar se *pos é do mesmo tipo dos ponteiros da lista. Se falhar lançará exceção.
     } catch (...) {
@@ -150,9 +166,14 @@ class Lista {
     else if (size_ == 0) {
       push_front(t);  // tipo void que já cresce a lista.
       return true;
+    } else if (pos == first_) {  // Se for inserir no início
+      push_front(t);
+    } else if (pos == last_) {  // Se for inserir no fim
+      push_back(t);
     }
-    // Caso o pontiero seja realmente válido (e a fila não vazia): aloca memória para novo nodo, posiciona, cresce e retorna true;
-    else {  // ¬checar
+    // Se for inserir no meio. !! a inserção abaixo NÃO SUPORTA INSERÇÃO NO COMEÇO
+    else {  // aloca memória para novo nodo, posiciona, cresce e retorna true; (para posições genéricas)
+
       // Aloca  mais memória para o novo nodo a ser inserido.
       Node<Tipo> *nuevo = new Node<Tipo>;
       // Insere e posiciona o nuevo nuedo endereçando seus ponteiros (e valores).
@@ -160,9 +181,11 @@ class Lista {
       nuevo->prev = pos->prev;
       nuevo->next = pos;  // Como está inserindo antes, pos passa a ser o proximo (no "índice" metafórico pos+1).
 
-      pos->prev->next = nuevo;  // Endereça o antigo vizinho anterior de pós.
-      pos->prev = nuevo;        // Atualiza o ponteiro pro vizinho prévio (de pós).
-      nuevo == nullptr;
+      if (pos->prev != nullptr) {   // Se havia algo antes de pós, este algo agora aponta o nuevo
+        (pos->prev)->next = nuevo;  // o que vinha antes de pós, passa a apontar pra nuevo.
+      }
+      pos->prev = nuevo;  // a posição pós, agora movida, passa a apontar pra nuevo - que tomou seu lugar e vem antes dela
+      nuevo == nullptr;   // Desaloca e libera nuevo
       delete nuevo;
       return true;
     }
@@ -189,7 +212,7 @@ class Lista {
   bool erase(Node<Tipo> *del) {
     if (del == end() || size_ == 0) {
       return false;
-      // não pode apagar ponteiros nulos, end() (quando end() é uma posição não alocada).
+      // Não há tratamento de excção para tentar apagar ponteiros nulos
       //  Também não paga end() ou begin() quando a lista está vazia - uma vez que, neste caso, end() == last_ == first__.
     }
     // Se for apagar o primeiro, chama o push_front
@@ -232,9 +255,11 @@ class Lista {
 
   // Retira e retorna o último elemento.
   Tipo pop_back() {
-    if (size_ <= 0) {
-      Tipo nulinho;
-      return nulinho;  // ¬Devolve lixo se falhar
+    if (size_ == 0) {
+      Tipo nullinho;
+      cout << "!! Pop _front em lista vazia. Lixo de memória não inicializada será retornado!  " << nullinho << endl;
+
+      return nullinho;  // ¬Devolve lixo se falhar
     }
     Node<Tipo> popped = *last_;  // O node a ser retirado recebe uma cópia do nodo apontado por last_
                                  // O ponteiro privado last_ passa ser o penúltimo (que ainda aponta o antigo último)
@@ -253,10 +278,10 @@ class Lista {
 
   // Retira e retorna o primeiro elemento. Retorna lixo se estiver vazio.
   Tipo pop_front() {
-    if (size_ <= 0) {  // Se estiver vazio retorna lixo.
-      Tipo t;
-      cout << "!! Pop em lista vazia. Lixo de memória não inicializado será retornado!" << endl;
-      return t;                     // ¬Devolve lixo se falhar
+    if (size_ == 0) {  // Se estiver vazio retorna lixo.
+      Tipo nullinho;
+      cout << "!! Pop _front em lista vazia. Lixo de memória não inicializada será retornado!  " << nullinho << endl;
+      return nullinho;              // ¬Devolve lixo se falhar
     }                               // se não for o último
     Node<Tipo> popped = *(first_);  // Faz cópia de first_.
     delete first_;                  // Desaloca o atual first_ (na front da lista)
@@ -356,20 +381,11 @@ class Lista {
     return last_;
   }
 
-  // Ponteiro para o fim da lista, que é a próxima posição livre da lista. (Corresponde a last_->next)
-  //
+  // Ponteiro para o fim da lista, que é a próxima posição livre da lista. (Não corresponde a Corresponde a last_->next)
   Node<Tipo> *end() {
-    if (size_ == 0) {  // Se vazio retorna apenas last com os ponteiros no estado inicial: last.prev = frist e last.next = last (itself)
-      // last_= first_ // testar se uma lista esvaziada tem last = first;
-      last_ = nullptr;
-      last_->prev = first_;
-      last_->next = nullptr;
-      return last_;
-
-    } else {
-      last_->next->prev = last_;
-      return last_->next;
-    }
+    Node<Tipo> *temp_end = new Node<Tipo>();  // é liberado automaticamente sem um destrutor explícito? ¬¬
+    temp_end->prev = last_;                   // o last em si por enquanto não aponta end;
+    return temp_end;
   }
 
   ~Lista() {
