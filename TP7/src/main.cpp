@@ -50,21 +50,21 @@ int main() {
   cin >> press;
   cout << endl
        << "Erasing Check:" << endl;
-  cout << (ls.end()) << " [" << ls.end()->key << "] "
+  cout << "ls.end():" << (ls.end()) << " [" << ls.end()->key << "] "
        << " -> prev: " << ls.end()->prev << " [" << ls.end()->prev->key << "] "
        << "Size: " << ls.size() << endl;
   cout << "erase [end().prev]: " << ls.erase(ls.end()->prev) << endl;
-  cout << (ls.end()) << " [" << ls.end()->key << "] "
+  cout << "ls.end():" << (ls.end()) << " [" << ls.end()->key << "] "
        << " -> prev: " << ls.end()->prev << " [" << ls.end()->prev->key << "] "
        << "Size: " << ls.size() << endl;
   cout << "erase [int 1]: " << ls.erase(1) << endl;
-  cout << (ls.end()) << " [" << ls.end()->key << "] "
+  cout << "ls.end():" << (ls.end()) << " [" << ls.end()->key << "] "
        << " -> prev: " << ls.end()->prev << " [" << ls.end()->prev->key << "] "
        << "Size: " << ls.size() << endl;
   cout << "erase [int 1]: " << ls.erase(1) << endl;
 
   ls.list();
-  ls.erase(ls.end());
+  cout << "erase [end().prev]: " << ls.erase(ls.end()->prev) << endl;
   ls.list();
 
   exit(0);

@@ -10,15 +10,10 @@
 using namespace std;
 
 template <typename Tipo>
-struct BaseNode{
+struct BaseNode {
   Tipo key;
 };
 
-/* template <typename Tipo>
-struct EndNode : BaseNode<Tipo>{
-  Node<Tipo>* prev;
-};
- */
 // Define um nodo carregando a chave do tipo <Tipo> que possui ponteiros para um próximo nodo do mesmo tipo e um anterior.
 template <typename Tipo>
 struct Node {
@@ -35,10 +30,12 @@ struct Node {
     key = t;
     prev = next = nullptr;
   }
-  /* ~Node() { quebra o código
-    delete prev;
+  ~Node() {
+    // quebra o código delete prev;
+    next = prev = nullptr;
     delete next;
-  } */
+    delete prev;
+  }
   // Inicializa valores que precisam ser inicializados e não vem com lixo de memória.
   // !Tipos básicos não são alterados pois já possuem conteúdo, ainda que não determinado (lixo de memória).
   Tipo initialize(Tipo t) {
@@ -194,15 +191,14 @@ class Lista {
   // Meramente apaga o elemento de índice especifico, pos, porém sem retorná-lo. Retorna falso caso falhar em remover;
   bool erase(int pos) {
     if (pos >= size_ || pos < 0) {
+      cout << "!! Trying to erase invalid Node<Tipo> index at lista<Tipo>.erase(int pos)! Index pos used:: " << pos << endl;
+      cout << "List<node>.size_ = " << size_ << endl;
       return false;
       // Não pode apagar posições não alocadas ou inválidas.
     } else {
-      Node<Tipo> *del = get(pos);   // O Node<Tipo> a ser deletado.
-      del->prev->next = del->next;  // Emenda o ponteiro next do anterior com o do próximo
-      del->next->prev = del->prev;  // Emenda o ponteiro prev do próximo com o do anterior
-      delete del;
-      size_--;
-      return true;
+      return erase(get(pos));  // Cicla até o índice pos, agara o ponteiro para o nodo e apaga na função homõnima
+      // A implementação de erase(Node<Tipo> *ponteiro) é mais segura e completa.
+      // Estamos começando a centralizar as operações no código, para melhor manutenção e legibilidade.
     }
   }
 
@@ -219,16 +215,20 @@ class Lista {
     else if (del == first_) {
       pop_front();
       return true;
-    } else {
+    }  // Terceiriza se for apagar o último
+    else if (del == last_) {
+      pop_back();
+      return true;
+    }  // Apaga APENAS NODES QUE NÃO ESTÃO NAS extremidades
+    else {
       // ¬ pode-se usar um try aqui para manter a fortitude. porém é necessário testar a corretitude do código neste caso.
-      del->prev->next = del->next;  // Emenda o ponteiro next do anterior com o do próximo
-      del->next->prev = del->prev;  // Emenda o ponteiro prev do próximo com o do anterior
+      if (del->prev != nullptr) del->prev->next = del->next;  // Emenda o ponteiro next do anterior com o do próximo
+      if (del->next != nullptr) del->next->prev = del->prev;  // Emenda o ponteiro prev do próximo com o do anterior
       delete del;
       size_--;
       return true;
     }
   }
-
   bool empty() {
     return (size_ == 0);  // ¬ last == first é só test. é perigoso e não preciso
   }
