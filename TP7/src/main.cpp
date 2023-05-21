@@ -1,19 +1,47 @@
 #include <iomanip>
 #include <iostream>
 
-#include "lista.hpp"
+#include "lista_encadeada.hpp"
 
 using namespace std;
 
 int main() {
+
   Lista<string> ls;
 
-  //implementar os iteradores básicos faltantes.
+  // implementar os iteradores básicos faltantes.
+
+cout << (ls.end()) << " Size: " << ls.size() << endl;
+cout << (ls.end()) << " [" << ls.end()->key <<"] "<< " -> prev: " << ls.end()->prev <<" [" << ls.end()->prev->key <<"] " <<  "Size: " << ls.size() << endl;
+ls.pop_back();
+cout << (ls.end()) << " [" << ls.end()->key <<"] "<< " -> prev: " << ls.end()->prev <<" [" << ls.end()->prev->key <<"] " <<  "Size: " << ls.size() << endl;
+ls.pop_front();
+cout << (ls.end()) << " [" << ls.end()->key <<"] "<< " -> prev: " << ls.end()->prev <<" [" << ls.end()->prev->key <<"] " <<  "Size: " << ls.size() << endl;
 
   ls.push_front("o");
+  cout << (ls.end()) << " [" << ls.end()->key <<"] "<< " -> prev: " << ls.end()->prev <<" [" << ls.end()->prev->key <<"] " <<  "Size: " << ls.size() << endl;
+
   ls.push_front("ã");
-  ls.push_front("c");
-  ls.push_back("!");
+cout << (ls.end()) << " [" << ls.end()->key <<"] "<< " -> prev: " << ls.end()->prev <<" [" << ls.end()->prev->key <<"] " <<  "Size: " << ls.size() << endl;
+
+  ls.insert("c",ls.begin());
+cout << (ls.end()) << " [" << ls.end()->key <<"] "<< " -> prev: " << ls.end()->prev <<" [" << ls.end()->prev->key <<"] " <<  "Size: " << ls.size() << endl;
+ cout << "Insert [!,end()] : " << ls.insert("!",ls.end());
+cout << (ls.end()) << " [" << ls.end()->key <<"] "<< " -> prev: " << ls.end()->prev <<" [" << ls.end()->prev->key <<"] " <<  "Size: " << ls.size() << endl;
+  cout << "push_back [?] : ";
+  ls.push_back("?");
+//---------------- POPPING OUT --------------------//
+cout << "Press any key to start popping out: ";
+char press;
+cin >>  press;
+cout << endl << "Erasing Check:" << endl;
+cout << (ls.end()) << " [" << ls.end()->key <<"] "<< " -> prev: " << ls.end()->prev <<" [" << ls.end()->prev->key <<"] " <<  "Size: " << ls.size() << endl;
+cout << "erase [end().prev]: " << ls.erase(ls.end()->prev) << endl;
+cout << (ls.end()) << " [" << ls.end()->key <<"] "<< " -> prev: " << ls.end()->prev <<" [" << ls.end()->prev->key <<"] " <<  "Size: " << ls.size() << endl;
+cout << "erase [int 1]: " << ls.erase(1) << endl;
+cout << (ls.end()) << " [" << ls.end()->key <<"] "<< " -> prev: " << ls.end()->prev <<" [" << ls.end()->prev->key <<"] " <<  "Size: " << ls.size() << endl;
+cout << "erase [int 1]: " << ls.erase(1) << endl;
+
   ls.list();
   ls.erase(ls.end());
   ls.list();
