@@ -6,35 +6,20 @@
 using namespace std;
 
 int main() {
-  if (0 > -2) {
-    Node<float> n;
-    BaseNode<float> b;
-    float notInit;
-    // string str = stringNode.initialize(str);
-    // cout << "Null string: >>" << str << "<<" << endl;
-    EndNode<float> end;
-    BeginNode<string> begin;
-
-    // BaseNode<string> i = begin;
-  }
-  exit(0);
   Lista<string> ls;
 
   ls.push_back("back");
 
-  // cout << ls.end();
-
   // Implementando  os iteradores básicos faltantes.
   cout << (ls.end());
-  Node<string> *shitEnd = ls.end();
   cout << " Size: " << ls.size() << endl;
   cout << (ls.end()) << " [" << ls.end()->key << "] "
        << " -> prev: " << ls.end()->prev << " [" << ls.end()->prev->key << "] "
        << "Size: " << ls.size() << endl;
   ls.pop_back();
-  cout << (ls.end()) << " [" << ls.end()->key << "] "
-       << " -> prev: " << ls.end()->prev << " [" << ls.end()->prev->key << "] "
-       << "Size: " << ls.size() << endl;
+  cout << (ls.end()) << " [" << ls.end()->key << "] ";
+  cout << " -> prev: " << ls.end()->prev << " [" << ls.end()->prev->key << "] ";
+  cout << "Size: " << ls.size() << endl;
   ls.pop_front();
   cout << (ls.end()) << " [" << ls.end()->key << "] "
        << " -> prev: " << ls.end()->prev << " [" << ls.end()->prev->key << "] "
@@ -121,4 +106,7 @@ int main() {
   l.clean();
   cout << "vazia:" << l.empty() << endl;
   l.list();
+  cout << endl;
+  cout << endl;
+  cout << "End tests." << endl;
 }

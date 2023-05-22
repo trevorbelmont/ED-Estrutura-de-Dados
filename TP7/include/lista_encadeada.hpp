@@ -10,58 +10,9 @@
 // não está ultilizando underline ("variable_" ) para identificar variáveis privadas.
 
 using namespace std;
-
-template <typename Tipo>
-struct BaseNode {
- public:
-  BaseNode() {  // Constructors can't be virtual
-    cout << endl;
-    cout << "---- A BaseNode has been created. ----" << endl;
-  }
-  // garante que o destrutor pai seja chamado na destruição do struct filho
-  virtual ~BaseNode() {
-    cout << endl;
-    cout << "---- A blank BaseNode  has been destructed. ----" << endl;
-  }
-};
-
-template <typename Tipo>
-struct EndNode : public virtual BaseNode<Tipo> {
-  BaseNode<Tipo> *prev;
-  EndNode() {
-    prev == nullptr;
-    cout << endl;
-    cout << "E E E---- An EndNode has been created. ----E E E" << endl;
-  }
-  virtual ~EndNode() override {
-    cout << endl;
-    cout << "E E E---- An EndNode has been destructed. Memory address held:" << &prev << " ----E E E" << endl;
-
-    prev == nullptr;
-    // não entendo pq, mas crash: delete prev;
-  }
-};
-
-template <typename Tipo>
-struct BeginNode : public virtual BaseNode<Tipo> {
-  BaseNode<Tipo> *next;
-  BeginNode() {
-    next == nullptr;
-    cout << endl;
-    cout << "B B B---- An EndNode has been created. ----B B B" << endl;
-  }
-  virtual ~BeginNode() override {
-    cout << endl;
-    cout << "B B B ---- An EndNode has been destructed. Memory address held:" << &next << " ---- B B B" << endl;
-
-    next == nullptr;
-    // Não entendo pq, mas crasha: delete next;
-  }
-};
-
 // Define um nodo carregando a chave do tipo <Tipo> que possui ponteiros para um próximo nodo do mesmo tipo e um anterior.
 template <typename Tipo>
-struct Node : public virtual BaseNode<Tipo> {
+struct Node {
  public:  // O as váriáveis e móetodos dos tipos nodos em si são públicas. O encapsulamento dessas cabe à classe ou função que às usa.
   Tipo key;
 
@@ -77,65 +28,53 @@ struct Node : public virtual BaseNode<Tipo> {
     prev = next = nullptr;
   }
 
-  virtual ~Node() override {  // Chama tb o destrutor pai, Base Node.
+  // Constructor que tenta cria Nodo<Tipo> inicializando com outros um tipo alheio.
+  // Só funciona se o cast Tipo(Tipo_para_conversão) estiver definida.
+  template <typename TipoConversion>
+  Node(TipoConversion tc) {
+    Tipo t;
+    try {
+      t = Tipo(tc);
+    } catch (...) {
+      cout << "!! Não há cast definido para variáveis do tipo de : " << tc << endl;
+      cout << "!! O construtor cast falhou e uma Nodo<Tipo> não inicializado será criado ou retornado.." << endl;
+    }
+    key = t;
+    prev = next = nullptr;
+  }
+
+  virtual ~Node() {
     cout << "An actual Node<Tipo> has been destructed. prev: " << &prev << " next: " << &next << endl;
     next = prev = nullptr;
     delete next;
     delete prev;
   }
 
-  // Inicializa valores que precisam ser inicializados e não vem com lixo de memória.
-  // !Tipos básicos não são alterados pois já possuem conteúdo, ainda que não determinado (lixo de memória).
+  // o Tipo Initialize que inicializava os tipos foi retirado.
   /*
-   Tipo initialize(Tipo t) {
-     // Caso não seja necessária inicialização;
-     Tipo expendable;
-     try {
-       expendable = Tipo(t);
-       if (expendable == t) {
-         cout << t << " Is Equals Tipo(t) : " << expendable << " ! It'll be casted and returned!" << endl;
-         return t;
-       }
-     } catch (...) {  // caso alguma exceção for lançada o tipo precisa de inicialização.
-
-       cout << t << " Is DIFFERENTfrom Tipo(: " << expendable << ") ! It'll be casted and returned!" << endl;
-       return t;  // por enquanto faz nada
-     }
-     return t;
-   }
-   */
-
-  // Sobrecarrega o operador = para nodes de tipos diferentes (desde que o cast Node<tipo>(Node<TipoRight>)) tenha sido implementada.
-  // !! Os ponteiros do Nodo não são tocados.
-  // Usa os casts padrões para tentar atribuir. Se falhar, retorna a variável sem alteração. ¬ Fora do padrão ISO C++.
-  template <typename TipoRight>
-  Node<Tipo> operator=(Node<TipoRight> right) const {
-    Node<Tipo> converted;
-    try {
-      converted.key = Tipo(right.key);
-      return converted;
-    } catch (...) {  // ¬ Caso a conversão falhe, devolve nodo<Tipo> original intacto, não derruba aplicação. (Rever) ¬
-      cout << " !! Cast não definido! A Variável não foi alterada." << endl;
-      // Caso a conversão não esteja definida ou falhe, retorna a variável sem qualquer alteração e ponteiros intactos, this.
-      return *this;
+    // Sobrecarrega o operador = para nodes de tipos diferentes (desde que o cast Node<tipo>(Node<TipoRight>)) tenha sido implementada.
+    // !! Os ponteiros do Nodo retornado são sempre nulos.
+    // Usa os casts padrões para tentar atribuir. Se falhar, retorna a variável sem alteração. ¬ Fora do padrão ISO C++.
+    template <typename TipoRight>
+    Node<Tipo> operator=(Node<TipoRight> right) const {
+      Node<Tipo> converted;
+      try {
+        converted.key = Tipo(right.key);
+        return converted;
+      } catch (...) {  // ¬ Caso a conversão falhe, devolve nodo<Tipo> original intacto, não derruba aplicação. (Rever) ¬
+        cout << " !! Cast não definido! A Variável não foi alterada." << endl;
+        // Caso a conversão não esteja definida ou falhe, retorna a variável sem qualquer alteração e ponteiros intactos, this.
+        return *this;
+      }
     }
-  }
+     */
+  // Cast de node. Procura fazer cast da chave. Define ponteiros para nullptr
   template <typename ConversionType>
   Node(Node<ConversionType> nodeConversion) {
     key = static_cast<Tipo>(nodeConversion.key);
     prev = next = nullptr;
   }
-
-  // Retorna uma versão do nodo atual , nodo<Tipo>, convertido para o nodo do tipo requisitado , Nodo<ConversionType>.
-  // !Atenção: o Nodo<ConversionTipe> retornado não possui qualquer ponteiro inicializado.
-  // Pela natureza diferente (e a não implementação de hierarquia) nodos de tipos diferentes não podem compartilhar ponteiros para nodos.
-/*   template <typename ConversionType>
-  operator Node<ConversionType>() const {
-    Node<ConversionType> conversion;
-    conversion.key = ConversionType(this->key);
-    return conversion;
-  }
- */};
+};
 
 // Lista encadeada de tipo genérico com no mínimo um nodo (first).
 template <typename Tipo>
@@ -143,17 +82,22 @@ class Lista {
  private:
   Node<Tipo> *first_;  // Ponteiro Node<Tipo> para oo início da lista (primiera posição);
   Node<Tipo> *last_;   // Ponteiro Node<Tipo> para a próxima posição OCUPADA da lista.
-  // Os pointers lista.begin() e lista.end() são calculados em tempo de execução e são dinâmicos.
-  // o Ponteiro lista.end() é sempre um criado na invocação que é destruído caso não usado.
-
+  Node<Tipo> *end_;
   int size_;  // Variável privada que designa o tamanho do lista;
 
  public:
   // Cria lista vazia com pointer no estdo original (para listas vazias):
   // last_ = first_ = new nodo_único; (ou seja, este nodo está realmente alocado e existe).
-  // nodo_único->prev = nodo_único_nest = nullptr;
+  // nodo_único->prev = nodo_único_->next = end_;
+  // nodo end_ é um nodo que aponta o prev para last_ e last_-> next para end_
   Lista() {
     first_ = last_ = new Node<Tipo>();  // ponteiros apontam nullptr naturalmente
+    end_ = new Node<Tipo>();
+    end_->prev = last_;
+    end_ = new Node<Tipo>();
+    last_->next = end_;
+    end_->prev = last_;
+
     size_ = 0;
   }
 
@@ -167,7 +111,8 @@ class Lista {
       aux->prev = last_;
       last_->next = aux;
       last_ = aux;
-      last_->next = nullptr;
+      last_->next = end_;
+      end_->prev = last_;
       aux = nullptr;
       delete aux;
     }
@@ -178,8 +123,9 @@ class Lista {
   // Insere no início.
   void push_front(Tipo t) {
     if (size_ == 0) {
-      first_->key = last_->key = t;  // atribuição pedagógica (first == last, neste caso)
-    } else {                         // Aloca memória na frente para a nova entrada
+      first_->key = t;
+      last_ = first_;  // atribuição pedagógica (first == last, neste caso)
+    } else {           // Aloca memória na frente para a nova entrada
       Node<Tipo> *aux = new Node<Tipo>(t);
       aux->next = first_;
       first_->prev = aux;
@@ -219,11 +165,14 @@ class Lista {
       return true;
     } else if (pos == first_) {  // Se for inserir no início
       push_front(t);
-    } else if (pos == last_) {  // Se for inserir no fim
+      return true;
+    } else if (pos == end_) {  // Se for inserir no fim
       push_back(t);
+      return true;
     }
     // Se for inserir no meio. !! a inserção abaixo NÃO SUPORTA INSERÇÃO NO COMEÇO
     else {  // aloca memória para novo nodo, posiciona, cresce e retorna true; (para posições genéricas)
+      // Se houver apenas um elemento na lista, automaticamente entrará nos casos acima?
 
       // Aloca  mais memória para o novo nodo a ser inserido.
       Node<Tipo> *nuevo = new Node<Tipo>;
@@ -232,21 +181,21 @@ class Lista {
       nuevo->prev = pos->prev;
       nuevo->next = pos;  // Como está inserindo antes, pos passa a ser o proximo (no "índice" metafórico pos+1).
 
-      if (pos->prev != nullptr) {   // Se havia algo antes de pós, este algo agora aponta o nuevo
-        (pos->prev)->next = nuevo;  // o que vinha antes de pós, passa a apontar pra nuevo.
-      }
-      pos->prev = nuevo;  // a posição pós, agora movida, passa a apontar pra nuevo - que tomou seu lugar e vem antes dela
-      nuevo == nullptr;   // Desaloca e libera nuevo
+      // Se havia algo antes de pós, este algo agora aponta o nuevo
+      if (pos->prev != nullptr) (pos->prev)->next = nuevo;  // o que vinha antes de pós, passa a apontar pra nuevo.
+      if (pos->prev != nullptr) pos->prev = nuevo;          // a posição pós, agora movida, passa a apontar pra nuevo - que tomou seu lugar e vem antes dela
+      nuevo == nullptr;                                     // Desaloca e libera nuevo
       delete nuevo;
       return true;
     }
+    return false;  // se chegou aqui, não entrou em nenhum dos casos
   }
 
   // Meramente apaga o elemento de índice especifico, pos, porém sem retorná-lo. Retorna falso caso falhar em remover;
   bool erase(int pos) {
     if (pos >= size_ || pos < 0) {
-      cout << "!! Trying to erase invalid Node<Tipo> index at lista<Tipo>.erase(int pos)! Index pos used:: " << pos << endl;
-      cout << "List<node>.size_ = " << size_ << endl;
+      cout << "!! Trying to erase invalid Node<Tipo> index at lista<Tipo>.erase(int pos)!" << endl;
+      cout << "Index pos used:: " << pos << "List<node>.size_ = " << size_ << endl;
       return false;
       // Não pode apagar posições não alocadas ou inválidas.
     } else {
@@ -288,6 +237,7 @@ class Lista {
         return false;
       }
     }
+    return false;  // se chegou aqui não entrou em nenhum dos if anterirores
   }
   bool empty() {
     return (size_ == 0);  // ¬ last == first é só test. é perigoso e não preciso
@@ -325,12 +275,17 @@ class Lista {
                                  // O ponteiro privado last_ passa ser o penúltimo (que ainda aponta o antigo último)
     if (size_ > 1) {             // Se não é o último da lista (portanto, se last-prev é válido)
       last_ = last_->prev;
-      delete last_->next;     // Desaloca o antigo último da lista
-      last_->next = nullptr;  // Atualiza para nullptr o pointer next da nova última posição da lista
-
+      delete last_->next;  // Desaloca o antigo último da lista
+      last_->next = end_;  // Atualiza para nullptr o pointer next da nova última posição da lista
+      end_->prev = last_;  // end_ aponta para last, e last para end_
     } else if (size_ == 1) {
-      delete last_;
-      last_ = first_ = nullptr;
+      Tipo t;
+      last_->key = t;
+      first_ = last_;
+      last_->next = end_;
+                        end_->prev = last_;
+      // Volta ao estado original sem desaloca first_ / last_
+      // a maior parte dessas operações são desnecessárias.
     }
     size_--;  // ¬ não desalocou memória.
     return popped.key;
@@ -346,10 +301,13 @@ class Lista {
     Node<Tipo> popped = *(first_);  // Faz cópia de first_.
     delete first_;                  // Desaloca o atual first_ (na front da lista)
 
+    // comandos para casa só haja um nodo na fial
     if (size_ > 1) {
       first_ = (popped.next);  // Atualiza o novo first_ para a próxima entrada.
       first_->prev = nullptr;  // Atualiza o ponteiro do first para nullptr;
-    } else if (size_ == 1) {   // Se for a única entrada na lista
+    }
+    // Se for a única entrada na lista
+    else if (size_ == 1) {
       first_ = last_ = nullptr;
     }
     size_--;
@@ -376,7 +334,7 @@ class Lista {
     do {
       cout << it->key << sep;
       it = it->next;
-    } while (it != nullptr);
+    } while (it != nullptr);  // ¬
     cout << endl;
   }
 
@@ -387,7 +345,7 @@ class Lista {
     if ((pos > size_) || (pos < 0)) {
       return nullptr;
     } else if (pos == size_) {
-      return end();
+      return end_;
       // retorna lista<Tipo>.end(), caso o índice pos seja igual ao tamanho da lista
       // O método list<Tipo>.end() semrpe ajeita o ponteiro<Tipo> end().prev para apontar para list<Tipo>.back(), ou seja last_)
     }
@@ -424,15 +382,7 @@ class Lista {
   // Ponteiro para o início da lista. Muito similar a lista.front() pois aponta a private ls.first_;
   // Não garante a validade do ponteiro - caso a lista esteja vazia por exemplo.
   Node<Tipo> *begin() {
-    if (size_ == 0) {  // Retorna first_ com os ponteiros de first no estado original: first.next = last e first.prev = first;
-      // first_ = last_; // checar se o estado empty original é matido após esvaziar
-      first_ = nullptr;
-      first_->next = last_;
-      first_->prev = nullptr;
-      return first_;
-    } else {
-      return first_;
-    }
+    return first_;
   }
 
   // Retorna o ponteiro para última posição OCUPADA da lista, ou o ponteiro last nullo, se alista estiver vazia.
@@ -441,11 +391,9 @@ class Lista {
     return last_;
   }
 
-  // Ponteiro para o fim da lista, que é a próxima posição livre da lista. (Não corresponde a Corresponde a last_->next)
+  // Ponteiro para o fim da lista, que é a próxima posição livre da lista. Tem valor sempre nulo
   Node<Tipo> *end() {
-    Node<Tipo> *temp_end = new Node<Tipo>();  // é liberado automaticamente sem um destrutor explícito? ¬¬
-    temp_end->prev = last_;                   // o last em si por enquanto não aponta end;
-    return temp_end;
+    return end_;
   }
 
   ~Lista() {
