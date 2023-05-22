@@ -91,12 +91,11 @@ class Lista {
   // nodo_único->prev = nodo_único_->next = end_;
   // nodo end_ é um nodo que aponta o prev para last_ e last_-> next para end_
   Lista() {
-    first_ = last_ = new Node<Tipo>();  // ponteiros apontam nullptr naturalmente
+    last_ = new Node<Tipo>();  // ponteiros apontam nullptr naturalmente
     end_ = new Node<Tipo>();
     end_->prev = last_;
-    end_ = new Node<Tipo>();
     last_->next = end_;
-    end_->prev = last_;
+    first_ = last_;
 
     size_ = 0;
   }
@@ -283,7 +282,7 @@ class Lista {
       last_->key = t;
       first_ = last_;
       last_->next = end_;
-                        end_->prev = last_;
+      end_->prev = last_;
       // Volta ao estado original sem desaloca first_ / last_
       // a maior parte dessas operações são desnecessárias.
     }
@@ -400,6 +399,7 @@ class Lista {
     clean();
     delete first_;
     delete last_;
+    delete end_;
   }
 };
 
