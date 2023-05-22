@@ -44,6 +44,9 @@ int main() {
        << "Size: " << ls.size() << endl;
   cout << "push_back [?] : ";
   ls.push_back("?");
+  Node<float> n;
+  BaseNode<float> b;
+  n.initialize(3.8);
   //---------------- POPPING OUT --------------------//
   cout << "Press any key to start popping out: ";
   char press;

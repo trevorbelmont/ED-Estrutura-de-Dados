@@ -11,31 +11,42 @@ using namespace std;
 
 template <typename Tipo>
 struct BaseNode {
-  Tipo key;
+ public:
+  BaseNode() {  // Constructors can't be virtual
+    cout << endl
+         << "---- A BaseNode has been created. ----" << endl;
+  }
+  // garante que o destrutor pai seja chamado na destruição do struct filho
+  virtual ~BaseNode() {
+    cout << endl
+         << "---- A blank BaseNode  has been destructed. ----" << endl;
+  }
 };
 
 // Define um nodo carregando a chave do tipo <Tipo> que possui ponteiros para um próximo nodo do mesmo tipo e um anterior.
 template <typename Tipo>
-struct Node {
+struct Node : public virtual BaseNode<Tipo> {
  public:  // O as váriáveis e móetodos dos tipos nodos em si são públicas. O encapsulamento dessas cabe à classe ou função que às usa.
   Tipo key;
+
   Node<Tipo> *prev = nullptr;
   Node<Tipo> *next = nullptr;
 
   Node() {
-    // key = initialize(key);
+    key = initialize(key);
     prev = next = nullptr;
   }
   Node(Tipo t) {
     key = t;
     prev = next = nullptr;
   }
-  ~Node() {
-    // quebra o código delete prev;
+
+  ~Node() {  // Chama tb o destrutor pai, Base Node.
     next = prev = nullptr;
     delete next;
     delete prev;
   }
+
   // Inicializa valores que precisam ser inicializados e não vem com lixo de memória.
   // !Tipos básicos não são alterados pois já possuem conteúdo, ainda que não determinado (lixo de memória).
   Tipo initialize(Tipo t) {
@@ -67,8 +78,8 @@ struct Node {
     }
   }
   template <typename ConversionType>
-  Node(Node<ConversionType> nodeC) {
-    key = static_cast<Tipo>(nodeC.key);
+  Node(Node<ConversionType> nodeConversion) {
+    key = static_cast<Tipo>(nodeConversion.key);
     prev = next = nullptr;
   }
 
