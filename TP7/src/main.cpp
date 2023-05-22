@@ -6,9 +6,25 @@
 using namespace std;
 
 int main() {
+  if (0 > -2) {
+    Node<float> n;
+    BaseNode<float> b;
+    float notInit;
+    // string str = stringNode.initialize(str);
+    // cout << "Null string: >>" << str << "<<" << endl;
+    EndNode<float> end;
+    BeginNode<string> begin;
+
+    // BaseNode<string> i = begin;
+  }
+  exit(0);
   Lista<string> ls;
 
-  // implementar os iteradores básicos faltantes.
+  ls.push_back("back");
+
+  // cout << ls.end();
+
+  // Implementando  os iteradores básicos faltantes.
   cout << (ls.end());
   Node<string> *shitEnd = ls.end();
   cout << " Size: " << ls.size() << endl;
@@ -44,9 +60,6 @@ int main() {
        << "Size: " << ls.size() << endl;
   cout << "push_back [?] : ";
   ls.push_back("?");
-  Node<float> n;
-  BaseNode<float> b;
-  n.initialize(3.8);
   //---------------- POPPING OUT --------------------//
   cout << "Press any key to start popping out: ";
   char press;

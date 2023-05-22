@@ -1,6 +1,8 @@
 #ifndef LISTA_HPP
 #define LISTA_HPP
 
+#include <assert.h>
+
 #include <iostream>
 #include <list>
 #include <string>
@@ -13,13 +15,47 @@ template <typename Tipo>
 struct BaseNode {
  public:
   BaseNode() {  // Constructors can't be virtual
-    cout << endl
-         << "---- A BaseNode has been created. ----" << endl;
+    cout << endl;
+    cout << "---- A BaseNode has been created. ----" << endl;
   }
   // garante que o destrutor pai seja chamado na destruição do struct filho
   virtual ~BaseNode() {
-    cout << endl
-         << "---- A blank BaseNode  has been destructed. ----" << endl;
+    cout << endl;
+    cout << "---- A blank BaseNode  has been destructed. ----" << endl;
+  }
+};
+
+template <typename Tipo>
+struct EndNode : public virtual BaseNode<Tipo> {
+  BaseNode<Tipo> *prev;
+  EndNode() {
+    prev == nullptr;
+    cout << endl;
+    cout << "E E E---- An EndNode has been created. ----E E E" << endl;
+  }
+  virtual ~EndNode() override {
+    cout << endl;
+    cout << "E E E---- An EndNode has been destructed. Memory address held:" << &prev << " ----E E E" << endl;
+
+    prev == nullptr;
+    // não entendo pq, mas crash: delete prev;
+  }
+};
+
+template <typename Tipo>
+struct BeginNode : public virtual BaseNode<Tipo> {
+  BaseNode<Tipo> *next;
+  BeginNode() {
+    next == nullptr;
+    cout << endl;
+    cout << "B B B---- An EndNode has been created. ----B B B" << endl;
+  }
+  virtual ~BeginNode() override {
+    cout << endl;
+    cout << "B B B ---- An EndNode has been destructed. Memory address held:" << &next << " ---- B B B" << endl;
+
+    next == nullptr;
+    // Não entendo pq, mas crasha: delete next;
   }
 };
 
@@ -33,7 +69,7 @@ struct Node : public virtual BaseNode<Tipo> {
   Node<Tipo> *next = nullptr;
 
   Node() {
-    key = initialize(key);
+    // key = initialize(key);
     prev = next = nullptr;
   }
   Node(Tipo t) {
@@ -41,7 +77,8 @@ struct Node : public virtual BaseNode<Tipo> {
     prev = next = nullptr;
   }
 
-  ~Node() {  // Chama tb o destrutor pai, Base Node.
+  virtual ~Node() override {  // Chama tb o destrutor pai, Base Node.
+    cout << "An actual Node<Tipo> has been destructed. prev: " << &prev << " next: " << &next << endl;
     next = prev = nullptr;
     delete next;
     delete prev;
@@ -49,18 +86,24 @@ struct Node : public virtual BaseNode<Tipo> {
 
   // Inicializa valores que precisam ser inicializados e não vem com lixo de memória.
   // !Tipos básicos não são alterados pois já possuem conteúdo, ainda que não determinado (lixo de memória).
-  Tipo initialize(Tipo t) {
-    // Caso não seja necessária inicialização;
-    try {
-      Tipo expendable;
-      expendable = Tipo(t);
-      if (expendable == t) {
-        return t;
-      }
-    } catch (...) {  // caso alguma exceção for lançada o tipo precisa de inicialização.
-      return t;      // por enquanto faz nada
-    }
-  }
+  /*
+   Tipo initialize(Tipo t) {
+     // Caso não seja necessária inicialização;
+     Tipo expendable;
+     try {
+       expendable = Tipo(t);
+       if (expendable == t) {
+         cout << t << " Is Equals Tipo(t) : " << expendable << " ! It'll be casted and returned!" << endl;
+         return t;
+       }
+     } catch (...) {  // caso alguma exceção for lançada o tipo precisa de inicialização.
+
+       cout << t << " Is DIFFERENTfrom Tipo(: " << expendable << ") ! It'll be casted and returned!" << endl;
+       return t;  // por enquanto faz nada
+     }
+     return t;
+   }
+   */
 
   // Sobrecarrega o operador = para nodes de tipos diferentes (desde que o cast Node<tipo>(Node<TipoRight>)) tenha sido implementada.
   // !! Os ponteiros do Nodo não são tocados.
@@ -232,12 +275,18 @@ class Lista {
       return true;
     }  // Apaga APENAS NODES QUE NÃO ESTÃO NAS extremidades
     else {
-      // ¬ pode-se usar um try aqui para manter a fortitude. porém é necessário testar a corretitude do código neste caso.
-      if (del->prev != nullptr) del->prev->next = del->next;  // Emenda o ponteiro next do anterior com o do próximo
-      if (del->next != nullptr) del->next->prev = del->prev;  // Emenda o ponteiro prev do próximo com o do anterior
-      delete del;
-      size_--;
-      return true;
+      try {                                                     // try que impede o programa de quebrar se um ponteiro inǘalido for passado. checar se meia transaction não é feita.
+        if (del->prev != nullptr) del->prev->next = del->next;  // Emenda o ponteiro next do anterior com o do próximo
+        if (del->next != nullptr) del->next->prev = del->prev;  // Emenda o ponteiro prev do próximo com o do anterior
+        delete del;
+        size_--;
+        return true;
+      } catch (...) {
+        cout << "invalid pointer in erase. press keys to continue." << endl;
+        string s;
+        cin >> s;
+        return false;
+      }
     }
   }
   bool empty() {
