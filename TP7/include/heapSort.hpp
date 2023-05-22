@@ -18,8 +18,8 @@ void randomArray(int array[], int tam, int max) {
     array[i] = rand() % (max + 1);
   }
 }
-void list(int array[], int tam) {
-  srand(unsigned(time(NULL)));
+template <typename Tipo>
+void list(Tipo array[], int tam) {
   for (int i = 0; i < tam; i++) {
     cout << array[i] << " ";
   }
