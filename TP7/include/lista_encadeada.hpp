@@ -76,7 +76,8 @@ struct Node {
   }
 };
 
-// Lista encadeada de tipo genérico com no mínimo um nodo (first).
+// Lista encadeada de tipo genérico com dois nodos mínimos first_/last_ e end_.
+// Desaloca completamente quando o programa sai do escopo em que a lista foi criada.
 template <typename Tipo>
 class Lista {
  private:

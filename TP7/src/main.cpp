@@ -6,51 +6,48 @@
 using namespace std;
 
 int main() {
-  if (1 > 0) {
-    Lista<string> ls;
-
-    ls.push_back("back");
-
-    // Implementando  os iteradores básicos faltantes.
-    cout << (ls.end());
-    cout << " Size: " << ls.size() << endl;
-    cout << (ls.end()) << " [" << ls.end()->key << "] "
-         << " -> prev: " << ls.end()->prev << " [" << ls.end()->prev->key << "] "
-         << "Size: " << ls.size() << endl;
-    ls.pop_back();
-    cout << (ls.end()) << " [" << ls.end()->key << "] ";
-    cout << " -> prev: " << ls.end()->prev << " [" << ls.end()->prev->key << "] ";
-    cout << "Size: " << ls.size() << endl;
-    ls.pop_front();
-    cout << (ls.end()) << " [" << ls.end()->key << "] "
-         << " -> prev: " << ls.end()->prev << " [" << ls.end()->prev->key << "] "
-         << "Size: " << ls.size() << endl;
-
-    ls.push_front("o");
-    cout << (ls.end()) << " [" << ls.end()->key << "] "
-         << " -> prev: " << ls.end()->prev << " [" << ls.end()->prev->key << "] "
-         << "Size: " << ls.size() << endl;
-
-    ls.push_front("ã");
-    cout << (ls.end()) << " [" << ls.end()->key << "] "
-         << " -> prev: " << ls.end()->prev << " [" << ls.end()->prev->key << "] "
-         << "Size: " << ls.size() << endl;
-
-    ls.insert("c", ls.begin());
-    cout << (ls.end()) << " [" << ls.end()->key << "] "
-         << " -> prev: " << ls.end()->prev << " [" << ls.end()->prev->key << "] "
-         << "Size: " << ls.size() << endl;
-    cout << "Insert [!,end()] : " << ls.insert("!", ls.end());
-    cout << (ls.end()) << " [" << ls.end()->key << "] "
-         << " -> prev: " << ls.end()->prev << " [" << ls.end()->prev->key << "] "
-         << "Size: " << ls.size() << endl;
-    cout << "push_back [?] : ";
-    ls.push_back("?");
-
-    ls.list();
-  }
-  exit(0);
   Lista<string> ls;
+
+  ls.push_back("back");
+
+  // Implementando  os iteradores básicos faltantes.
+  cout << (ls.end());
+  cout << " Size: " << ls.size() << endl;
+  cout << (ls.end()) << " [" << ls.end()->key << "] "
+       << " -> prev: " << ls.end()->prev << " [" << ls.end()->prev->key << "] "
+       << "Size: " << ls.size() << endl;
+  ls.pop_back();
+  cout << (ls.end()) << " [" << ls.end()->key << "] ";
+  cout << " -> prev: " << ls.end()->prev << " [" << ls.end()->prev->key << "] ";
+  cout << "Size: " << ls.size() << endl;
+  ls.pop_front();
+  cout << (ls.end()) << " [" << ls.end()->key << "] "
+       << " -> prev: " << ls.end()->prev << " [" << ls.end()->prev->key << "] "
+       << "Size: " << ls.size() << endl;
+
+  ls.push_front("o");
+  cout << (ls.end()) << " [" << ls.end()->key << "] "
+       << " -> prev: " << ls.end()->prev << " [" << ls.end()->prev->key << "] "
+       << "Size: " << ls.size() << endl;
+
+  ls.push_front("ã");
+  cout << (ls.end()) << " [" << ls.end()->key << "] "
+       << " -> prev: " << ls.end()->prev << " [" << ls.end()->prev->key << "] "
+       << "Size: " << ls.size() << endl;
+
+  ls.insert("c", ls.begin());
+  cout << (ls.end()) << " [" << ls.end()->key << "] "
+       << " -> prev: " << ls.end()->prev << " [" << ls.end()->prev->key << "] "
+       << "Size: " << ls.size() << endl;
+  cout << "Insert [!,end()] : " << ls.insert("!", ls.end());
+  cout << (ls.end()) << " [" << ls.end()->key << "] "
+       << " -> prev: " << ls.end()->prev << " [" << ls.end()->prev->key << "] "
+       << "Size: " << ls.size() << endl;
+  cout << "push_back [?] : ";
+  ls.push_back("?");
+
+  ls.list();
+
   //---------------- POPPING OUT --------------------//
 
   cout << "Press any key to start popping out: ";
