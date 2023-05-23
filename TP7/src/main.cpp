@@ -2,6 +2,7 @@
 
 #include <iomanip>
 #include <iostream>
+#include <string>
 
 #include "heapSort.hpp"
 
@@ -10,16 +11,19 @@ using namespace std;
 int main() {
   int size = 10;
 
-  int array[size];
-  int array2[size];
-  randomize(array, size, 20, -5);
-  list(array, size);
-  randomize(array2, size, 20, -5);
-  list(array2, size);
+  /*
+    int array[size];
+    int array2[size];
+    randomize(array, size, 20, -5);
+    list(array, size);
+    randomize(array2, size, 20, -5);
+    list(array2, size);
 
-  // char array[size] = {"ordenas"};
-  // char array2[size] = {"ordenas"};
-  size = 7;
+   */
+  size = 8;
+  char array[size] = {"!ordenas"};
+  char array2[size] = {"!ordenas"};
+
   cout << "Heapficando ambos: " << endl;
 
   // Meu buildHeap
@@ -29,6 +33,6 @@ int main() {
   ConstroiHeap(array2, size);
 
   list(array, size);
-  cout << "Constŕoi Heap pelo Slide (errado?!)" << endl;
+  cout << "Constŕoi Heap pelo Slide (ignora primeira entrada?!)" << endl;
   list(array2, size);
 }
