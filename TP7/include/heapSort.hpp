@@ -15,15 +15,11 @@ Tipo* buildHeap(Tipo source[], int tam);
 
 // Constrói uma heap a partir do array source[] - na implementação da disciplina -  com ordenação maior pro menor.
 template <typename Tipo>
-Tipo* ConstroiHeap(Tipo source[], int tam);
+Tipo* constroiHeap(Tipo source[], int tam);
 
 // garante a condição heap da subárvore (ou subrelação?) indexada na subraíz root
 template <typename Tipo>
 void reHeapfica(Tipo source[], int root, int tam);
-
-// Ordena o array via heapsort: constrói heap, re-heapfica e ordena o array.
-void heapSort(int* array, int tam);
-
 //--------------------------- Aleatórios ---------------------------//
 
 // Randomiza o array<Tipo> no intervalo [-max,max], i.e: positivos e negativos
@@ -88,6 +84,43 @@ Tipo* buildHeap(Tipo source[], int tam) {
 
   return source;
 }
+template <typename Tipo>
+void heapfy(Tipo heaping[], int tam, int root) {
+  int biggest = root;
+  int l = root * 2 + 1;  // índice do nodo da esquerda
+  int r = root * 2 + 2;  // indice do nodo da diretia
+
+  if (l < tam && heaping[l] > heaping[root]) {
+    biggest = l;
+  }
+  if (r < tam && heaping[r] > heaping[root])
+    biggest = r;
+
+  // Se o menor não é mais o root (checado ascondicionais acima);
+  if (biggest != root) {
+    Tipo swaper = heaping[root];  // swaper é um aux
+    heaping[root] = heaping[biggest];
+    heaping[biggest] = swaper;
+
+    // Faz chamada recursiva para heapificar dali em diante
+    heapfy(heaping, tam, biggest);
+  }
+}
+
+// Constrói uma heap a partir do array source[] - na implementação da disciplina (porém limpada) -  com ordenação maior pro menor.
+template <typename Tipo>
+Tipo* constroiHeap(Tipo source[], int tam) {
+  int lastHeapIndex = (tam / 2) + 1;
+
+  while (lastHeapIndex > 1) {
+    lastHeapIndex--;
+    reHeapfica(source, lastHeapIndex, tam);
+    // Refaz(lastHeapIndex, tam, source);
+  }
+
+  return source;
+}
+
 // Refaz do Slide
 template <typename Tipo>
 void Refaz(int Esq, int Dir, Tipo* A) {
@@ -106,20 +139,7 @@ void Refaz(int Esq, int Dir, Tipo* A) {
   }
   A[i] = x;
 }
-template <typename Tipo>
-Tipo* ConstroiHeap(Tipo source[], int tam) {
-  int lastHeapIndex = (tam / 2) + 1;
 
-  while (lastHeapIndex > 1) {
-    lastHeapIndex--;
-    if (lastHeapIndex == 1) {
-      cout << "come here" << endl;
-    }
-    // reHeapfica(source, lastHeapIndex, tam);
-    Refaz(lastHeapIndex, tam, source);
-  }
-  return source;
-}
 template <typename Tipo>
 void reHeapfica(Tipo source[], int root, int tam) {
   int i = root;        // Raiz da sub-árvore
@@ -146,32 +166,28 @@ void reHeapfica(Tipo source[], int root, int tam) {
 
   source[i] = x;  // Pode ou não colocar a chave pai na posição do descendente
 }
+
+/* // Ordena o array via heapsort (da disciplina): constrói heap, re-heapfica e ordena o array.
 template <typename Tipo>
+void HeapSort(Tipo* A, int n);
+ */
 
-void heapfy(Tipo heaping[], int tam, int root) {
-  int biggest = root;
-  int l = root * 2 + 1;  // índice do nodo da esquerda
-  int r = root * 2 + 2;  // indice do nodo da diretia
-
-  if (l < tam && heaping[l] > heaping[root]) {
-    biggest = l;
+// Implementação de HeapSorte segundo a disciplina (com todo o seu compromisso):
+//exemplo: ignora o primeiro index do array, mas evita o pior caso do selectSort;
+template <typename Tipo>
+void HeapSort(Tipo* array, int tam) {
+  int Esq, Dir;
+  Tipo aux;
+  constroiHeap(array, tam); /* constroi o heap */
+  Esq = 1;
+  Dir = n;
+  while (Dir > 1) { /* ordena o vetor */
+    x =arrayA[1];
+    array[1] = array[Dir];
+    array[Dir] = x;
+    Dir--;
+    reHeapfica(array, Esq, Dir);
   }
-  if (r < tam && heaping[r] > heaping[root])
-    biggest = r;
-
-  // Se o menor não é mais o root (checado ascondicionais acima);
-  if (biggest != root) {
-    Tipo swaper = heaping[root];  // swaper é um aux
-    heaping[root] = heaping[biggest];
-    heaping[biggest] = swaper;
-
-    // Faz chamada recursiva para heapificar dali em diante
-    heapfy(heaping, tam, biggest);
-  }
-}
-
-void heapSort(int* array, int tam) {
-  array = buildHeap(array, tam);
 }
 
 #endif

@@ -30,9 +30,11 @@ int main() {
   buildHeap(array, size);
 
   // Constrói heap segundo o slide
-  ConstroiHeap(array2, size);
+  constroiHeap(array2, size);
 
   list(array, size);
   cout << "Constŕoi Heap pelo Slide (ignora primeira entrada?!)" << endl;
+  list(array2, size);
+  HeapSort(array2, size - 1);  //(array2, size);
   list(array2, size);
 }
