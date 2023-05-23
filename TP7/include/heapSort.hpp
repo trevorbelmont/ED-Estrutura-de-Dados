@@ -1,6 +1,7 @@
 #ifndef HEAPSORT
 #define HEAPSORT
 
+#include <iomanip>
 #include <iostream>
 using namespace std;
 
@@ -8,21 +9,23 @@ using namespace std;
 void printHeapedSort(int *array, int count);
 
 // retorna um vetor de tamanho tam, randomizado no intervalo [0,max]
-void randomArray(int arrray[], int tam, int max);
+template <typename Tipo>
+void randomArray(Tipo arrray[], int tam, int max);
 
 // ------------ Definições --------------//
-
-void randomArray(int array[], int tam, int max) {
+template <typename Tipo>
+void randomArray(Tipo array[], int tam, int max) {
   srand(unsigned(time(NULL)));
   for (int i = 0; i < tam; i++) {
-    array[i] = rand() % (max + 1);
+    array[i] = Tipo(rand() % (max + 1));
   }
 }
 template <typename Tipo>
 void list(Tipo array[], int tam) {
   for (int i = 0; i < tam; i++) {
-    cout << array[i] << " ";
+    cout << fixed << setprecision(2) << array[i] << " ";
   }
+  cout << endl;
 }
 
 #endif
