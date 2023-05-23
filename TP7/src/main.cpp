@@ -8,12 +8,13 @@
 using namespace std;
 
 int main() {
-  int array[100];
-
-  randomize(array, 100, 256);
-  list(array, 100);
+  int size = 10;
+  int array[size];
 
   int* ptrArray;
-  ptrArray = randomArray(100, 20);
-  list(ptrArray, 8);
+  ptrArray = randomArray(10, size);
+
+  list(ptrArray, size);
+  ptrArray = buildHeap(ptrArray, size);
+  list(ptrArray, size);
 }
