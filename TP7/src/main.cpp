@@ -5,36 +5,35 @@
 #include <string>
 
 #include "heapSort.hpp"
-
+#include "shellSort.hpp"
 using namespace std;
 
-int main() {
-  int size = 10;
+// testa as implementações de shellSort e heapsort ( h= log2 (size))
+// implementadas de forma geneŕica para os tipos básicos
+// Testa com arrays de tamanho 100, 100 vezes
 
-  /*
-    int array[size];
-    int array2[size];
-    randomize(array, size, 20, -5);
-    list(array, size);
-    randomize(array2, size, 20, -5);
-    list(array2, size);
+// sintaxe do bin/exe: string_sortType int_array_tam int_repetições
+int main(int argc, char* argv[]) {
+  int size = 100;
+  string function = "shell";
+  int repeat = 1;
+  int array[size];
+  unsigned int timed = unsigned(time(NULL));
+  randomize(array, size, 20, timed);
 
-   */
-  size = 8;
-  char array[size] = {"!ordenas"};
-  char array2[size] = {"!ordenas"};
-
-  cout << "Heapficando ambos: " << endl;
-
-  // Meu buildHeap
-  buildHeap(array, size);
-
-  // Constrói heap segundo o slide
-  constroiHeap(array2, size);
-
+  cout << "random array: " << endl;
   list(array, size);
-  cout << "Constŕoi Heap pelo Slide (ignora primeira entrada?!)" << endl;
-  list(array2, size);
-  HeapSort(array2, size - 1);  //(array2, size);
-  list(array2, size);
+
+  cout << "array ordenado por HeapSort:" << endl;
+
+  for (int i = 0; i < repeat; i++) {
+    HeapSort(array, size - 1);  //(array2, size);
+  }
+  list(array, size);
+
+  cout << "array ordenado por shelSort (log2 de size):" << endl;
+  for (int i = 0; i < repeat; i++) {
+    shellSort(array, size);  //(array2, size);
+  }
+  list(array, size);
 }

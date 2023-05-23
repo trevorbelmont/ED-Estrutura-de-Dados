@@ -47,7 +47,7 @@ libraries= $(wildcard $(lib)/*)									# Uma lista com todos os arquivos na pas
 
 # Compila o executável com todos os pré-requisitos ($^) e nomeando com o nome da regra ($target) usando $@
 ${target}: $(objetcts) $(headers)
-	${cxx} ${cflags} $^ -o $@ -g
+	${cxx} ${cflags} $^ -o $@ -g -pg
 
 # Compila o objeto qualqeur objeto, %. Dependências: seu próprio cpp e TODAS os headers
 ${obj}/%.o:  ${src}/%.cpp $(headers)

@@ -173,18 +173,18 @@ void HeapSort(Tipo* A, int n);
  */
 
 // Implementação de HeapSorte segundo a disciplina (com todo o seu compromisso):
-//exemplo: ignora o primeiro index do array, mas evita o pior caso do selectSort;
+// exemplo: ignora o primeiro index do array, mas evita o pior caso do selectSort;
 template <typename Tipo>
 void HeapSort(Tipo* array, int tam) {
   int Esq, Dir;
   Tipo aux;
   constroiHeap(array, tam); /* constroi o heap */
   Esq = 1;
-  Dir = n;
+  Dir = tam;
   while (Dir > 1) { /* ordena o vetor */
-    x =arrayA[1];
+    aux = array[1];
     array[1] = array[Dir];
-    array[Dir] = x;
+    array[Dir] = aux;
     Dir--;
     reHeapfica(array, Esq, Dir);
   }
