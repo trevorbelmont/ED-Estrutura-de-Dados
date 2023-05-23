@@ -10,7 +10,10 @@ using namespace std;
 int main() {
   int array[100];
 
-  randomArray(array, 100, 256);
-  setprecision(2);
+  randomize(array, 100, 256);
   list(array, 100);
+
+  int* ptrArray;
+  ptrArray = randomArray(100, 20);
+  list(ptrArray, 8);
 }
