@@ -5,7 +5,10 @@
     "array": "cpp",
     "string_view": "cpp",
     "iostream": "cpp",
-    "ostream": "cpp"
+    "ostream": "cpp",
+    "*.tcc": "cpp",
+    "compare": "cpp",
+    "type_traits": "cpp"
   },
   "makefile.launchConfigurations": [
     {
