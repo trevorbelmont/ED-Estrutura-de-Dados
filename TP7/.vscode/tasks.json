@@ -13,7 +13,8 @@
         {
             "type": "shell",
             "label": "Executar",
-            "command": "make run",
+            "command": "./bin/exe",
+            "args": [ "compare", "12", "13", "14"], 
             "problemMatcher": [],
             "group": {
                 "kind": "test",

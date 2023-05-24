@@ -10,6 +10,7 @@
             "type": "cppdbg",
             "request": "launch",
             "program": "${workspaceFolder}/bin/exe",
+            "args": ["compare", "11", "12", "13, 14"],
             "cwd": "${workspaceRoot}",
             "MIMode": "gdb",
             "setupCommands": [

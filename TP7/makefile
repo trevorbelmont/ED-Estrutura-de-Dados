@@ -51,10 +51,11 @@ ${target}: $(objetcts) $(headers)
 
 # Compila o objeto qualqeur objeto, %. Dependências: seu próprio cpp e TODAS os headers
 ${obj}/%.o:  ${src}/%.cpp $(headers)
-	${cxx} ${cflags} -c -I ${incld} $< -o $@ -g
+	${cxx} ${cflags} -c -I ${incld} $< -o $@ -g -pg
 
 run: ${target}
-	./$(target)
+	echo "compare/heap/shell size repeat seed max"; ./$(target) compare 5000 60 700 800
+
 
 # Apaga apenas os .o e executáveis previstos neste makefile 
 # (e também qualquer objeto nomeado por um header template)

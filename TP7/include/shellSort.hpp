@@ -33,12 +33,10 @@ void shellSort(Tipo *array, int size) {
       array[j] = value;
     }
     // checa se precisa atualizar h (h = 1 é vetor ordenado)
-    if (h > 2) {
-      h = haga(int(size / h));
-    //  cout << "h: " << h << " " << endl;
-    } else if (h == 2) {
-      h = 1;
-    } else if (h <= 1) {
+    if (h > 1) {
+      h = haga(h);
+      //  cout << "h: " << h << " " << endl;
+    } else {
       h = 0;
       return;
     }
